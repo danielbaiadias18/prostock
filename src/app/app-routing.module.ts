@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './pages/login/login.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 
 const routerOptions: ExtraOptions = {
@@ -11,8 +12,8 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'produto' , component: ProdutoComponent}
-  // { path: 'login', component: LoginComponent },
+  { path: 'produto' , component: ProdutoComponent},
+  { path: 'login', component: LoginComponent },
   // { path: 'erro', component: Erro500Component },
   // { path: '**', component: NotfoundComponent }
 
