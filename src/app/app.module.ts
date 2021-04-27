@@ -8,7 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-// import { ProdutoComponent } from './pages/produto/produto.component';
+import { ProdutoComponent } from './pages/produto/produto.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,11 +19,12 @@ import { LoginComponent } from './pages/login/login.component';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    // ProdutoComponent
+    ProdutoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
