@@ -1,14 +1,14 @@
 <div class="wrapper">
   <!-- Navbar -->
-  <app-header></app-header>
+  <app-header *ngIf="canSee"></app-header>
   <!-- /.navbar -->
   <!-- Main Sidebar Container -->
-  <app-menu></app-menu>
+  <app-menu *ngIf="canSee"></app-menu>
   <!-- Content Wrapper. Contains page content -->
   <div #wrapper class="content-wrapper">
     <router-outlet></router-outlet>
   </div>
   <!-- /.content-wrapper -->
-  <app-footer></app-footer>
+  <app-footer *ngIf="canSee"></app-footer>
 
 </div>

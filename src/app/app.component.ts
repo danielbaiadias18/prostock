@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BarsService } from './services/bars.service';
 
-// declare var $: JQueryStatic;
+declare var $: JQueryStatic;
 
 @Component({
   selector: 'app-root',
@@ -13,16 +13,16 @@ export class AppComponent {
 
   canSee = true;
   
-  // @ViewChild('wrapper') wrapper: ElementRef;
+  @ViewChild('wrapper') wrapper!: ElementRef;
   
  constructor(private bars: BarsService) {
 
   this.bars.getCanSeeBarsEmitter().subscribe(
     canSee => {
       if (!canSee) {
-        // $(this.wrapper.nativeElement).css('margin-left', '0');
+        $(this.wrapper.nativeElement).css('margin-left', '0');
       } else {
-        // $(this.wrapper.nativeElement).removeAttr('style');
+        $(this.wrapper.nativeElement).removeAttr('style');
       }
 
       this.canSee = canSee
