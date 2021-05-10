@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BarsService } from 'src/app/services/bars.service';
+import { Uteis } from 'src/app/models/Uteis';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
   }
 
-  
+
 
   ngOnInit(): void {
   }
@@ -30,13 +31,22 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }, 0);
   }
 
-  logar(){
+  logar() {
 
     console.log("Usuário Inválido");
-    if(this.loginForm.controls['login'].value == "Daniel" && this.loginForm.controls['senha'].value == "123"){
-      //add sweetalert2 ------ npm i sweetalert2
-      location.href = './';
-    }else{
+    //add sweetalert2 ------ npm i sweetalert2
+    if (true) {//retorno do swal
+      if (this.loginForm.controls['login'].value == "Daniel" && this.loginForm.controls['senha'].value == "123")//retorno da api
+      {
+        console.log(this.loginForm, "this.loginForm");
+
+
+        // Uteis.markFormGroupTouched(this.loginForm);
+        location.href = './';
+      } else {
+
+      }
+    } else {
 
     }
   }

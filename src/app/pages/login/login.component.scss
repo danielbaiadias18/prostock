@@ -94,7 +94,6 @@
 .wrap-input100 {
     width: 100%;
     position: relative;
-    border-bottom: 2px solid rgba(255,255,255,0.24);
     margin-bottom: 30px;
 }
 
@@ -241,6 +240,7 @@ label {
     -moz-transition: all 0.4s;
     transition: all 0.4s;
     background: #fff;
+    border-bottom: 2px solid rgba(255,255,255,0.24);
 }
 
 .focus-input100::after {
@@ -967,5 +967,9 @@ body, html {
     opacity: 30%;
     background: #ffffff;
     color: #9152f8;
+  }
+
+  .ng-invalid.ng-touched:not(form)  {
+    border-bottom: 2px solid #a94442; /* red */
   }
   
