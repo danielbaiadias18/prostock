@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       {
         console.log(this.loginForm, "this.loginForm");
 
-
         // Uteis.markFormGroupTouched(this.loginForm);
         location.href = './';
       } else {

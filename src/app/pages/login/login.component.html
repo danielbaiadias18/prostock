@@ -12,9 +12,9 @@
 
 				<div class="wrap-input100 validate-input" [ngClass]="{
 					'alert-validate':
-					loginForm.get('login').touched &&
-					loginForm.get('login').dirty &&
-					loginForm.get('login').invalid
+					loginForm.get('login')!.touched &&
+					loginForm.get('login')!.dirty &&
+					loginForm.get('login')!.invalid
 				  }" data-validate="O login é obrigatório">
 					<input class="input100 form-control" type="text" formControlName="login" name="login"
 						placeholder="Usuário">
@@ -23,9 +23,9 @@
 
 				<div class="wrap-input100 validate-input" data-validate="A senha é obrigatória" [ngClass]="{
 					'alert-validate':
-					loginForm.get('senha').touched &&
-					loginForm.get('senha').dirty &&
-					loginForm.get('senha').invalid
+					loginForm.get('senha')!.touched &&
+					loginForm.get('senha')!.dirty &&
+					loginForm.get('senha')!.invalid
 				  }">
 					<input class="input100 form-control" type="password" formControlName="senha" name="senha"
 						placeholder="Senha">
