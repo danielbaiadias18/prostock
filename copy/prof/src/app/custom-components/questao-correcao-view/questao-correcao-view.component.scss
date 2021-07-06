@@ -1,0 +1,66 @@
+.itemMultiplaEscolha .lined {
+    border-bottom: 1px solid #dad2d2;
+}
+.text-primary {
+    opacity: 0.6;
+}
+a {
+    cursor: pointer;
+}
+
+.titulo{
+    font-family: Calibri ;
+    color: #8c8c8c;
+    font-size: 21px;
+}
+.verde{
+text-align: right !important;
+    border: 3px solid #79ce79 !important;
+    border-radius: 100% !important;
+    background-color: #79ce79 !important;
+    opacity: 100 !important;
+    color: white !important;
+    font-weight: normal !important;
+}
+
+.vermelho{
+    text-align: right !important;
+        border: 3px solid #ff5656 !important;
+        border-radius: 100% !important;
+        background-color: #ff5656 !important;
+        opacity: 100 !important;
+        color: white !important;
+        font-weight: normal !important;
+}
+
+.lblfeedback{
+    font-size:16px;
+    float: right;
+    padding-top: 10px; 
+    padding-right: 26px;
+    font-weight: normal !important;
+} 
+
+.btn btn-secondary:checked, .btn btn-secondary:active{
+    background: #007bff !important;
+}
+
+input::placeholder {
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  textarea::placeholder {
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  .azulOpaco{
+    background-color: #628fbf;
+    opacity: 100;
+    border-color: #628fbf;
+  }
+
+  .invalid{
+    border-color: #ff3030;
+  }

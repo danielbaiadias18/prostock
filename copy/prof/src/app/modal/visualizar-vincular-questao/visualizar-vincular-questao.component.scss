@@ -1,0 +1,73 @@
+#avaliacao fieldset {
+    margin-bottom: 30px;
+    border: 2px solid #000;
+}
+
+fieldset {
+    display: block;
+    margin-inline-start: 2px;
+    margin-inline-end: 2px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 0.75em;
+    padding-inline-end: 0.75em;
+    padding-block-end: 0.625em;
+    min-inline-size: min-content;
+    border-width: 2px;
+    border-style: groove;
+    border-color: threedface;
+    border-image: initial;
+}
+legend {
+    display: block;
+    padding-inline-start: 2px;
+    padding-inline-end: 2px;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+}
+
+.cabecalhoAvaliacao {
+    font-family: Franklin Gothic Demi Cond;
+}
+
+#avaliacao {
+    background-color: #fff;
+    color: #000;
+    font-size: 14px;
+}
+
+html,
+body {
+    font-weight: normal;
+}
+
+#conteudoInterno {
+    width: 100%;
+    margin-right: 0%;
+    padding: 0 15px;
+    max-height: 81vh !important;
+    overflow-y: scroll !important;
+}
+
+h1 {
+    font-size: 32px;
+    font-family: Franklin Gothic Demi Cond !important;
+    color: #0073bf;
+    display: block;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.dropdown-item{
+    cursor: pointer;
+}
+
+@media (max-width: 992px) {
+    div h5 {
+        font-size: 100% !important;
+    }
+}

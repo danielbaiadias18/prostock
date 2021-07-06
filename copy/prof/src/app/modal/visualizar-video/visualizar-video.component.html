@@ -1,0 +1,18 @@
+<div *ngIf="isLoading" class="overlay d-flex justify-content-center align-items-center">
+    <i class="fas fa-2x fa-sync fa-spin"></i>
+</div>
+<div class="modal-header row" style="width: 100%; margin: 0;">
+    <h2>Vídeo</h2>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="col-12">
+        <h3 class="text-center">
+            <i class="fas fa-play-circle"></i> {{ video?.titulo }}
+        </h3>
+        <iframe [src]="linkVideo | safeUrl" class="ifram col-8 offset-2" width="640" height="360" frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+a {
+    cursor: pointer;
+}
+
+.btn-primary{
+    color: white!important;
+}
+
+.bg-primary{
+    background-color: #ff8b43 !important;
+}
+
+.btn-outline-primary {
+    color: #42af70;
+    background-color: #ffffff;
+    border-color: #42af70;
+}
+
+.btn-outline-primary:hover {
+    color: #ffffff;
+    background-color: #42af70;
+    border-color: #42af70;
+}
+
+.card.card-daniel {
+    .card-header {
+        background-color: #ff8b43;
+        color: white;
+    }    
+}
+.card.card-correcao{
+    .card-header{
+        background-color:#ff8b43;
+        color: white;
+        
+    }
+.card.card-correcao{
+    .card-body{
+        padding-bottom: 0px !important;
+    
+    }
+}
+}
+.col-form-label{
+    font-weight:normal !important;
+    font-size:small;
+}
+ul,li{
+    
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+}
+.stylebtn{
+    text-align: right !important;
+}
+
+.tableHeader{
+    background-color:#42af70;
+    color: white;
+    font-weight: normal !important;
+}
+
+.corrigida{
+    color: #42af70;
+}
+
+.naoCorrigida{
+    color: #dc3545;
+}
+
+.form-control{
+    padding-bottom: 2px !important;
+     border-radius: 4px !important;
+      border-color: #ff8b43;   
+     background-color: #ff8b43;
+      color: white
+}
+.btn-outline-primary{
+    app-loading-bar{
+        color:#42af70 !important;
+    }
+}
+.btn-outline-primary:hover{
+    i.fas.text-success{
+        color: white !important;
+    }
+    i.fas.text-primary{
+        color: white !important;
+    }
+    app-loading-bar{
+        color:white !important;
+    }
+}

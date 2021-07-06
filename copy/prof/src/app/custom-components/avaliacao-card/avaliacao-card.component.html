@@ -1,0 +1,106 @@
+<div class="col-12">
+  <div class="card card-correcao" style="margin:10px !important">
+    <div class="card-header" style="padding-bottom: 7px !important;margin-top: 1px !important;">
+      <div clas="row">
+        <div class="col-12">
+          <div class="input-group col-12">
+            <button type="button" style="pointer-events: none !important;"
+              class="btn btn-primary">#{{a.cdAvaliacao}}</button>
+            <div class="form-control col">
+              {{a.nmAvaliacao | uppercase}}
+            </div>
+            <div class="col text-right">
+              <button class="btn btn-primary" (click)="visualizarAvaliacao()">Visualizar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-5">
+          <div class="form-group">
+            <table class="table table-bordered" style="text-align: center;">
+              <thead class="tableHeader">
+                <tr>
+                  <th style="font-weight: normal;">Sobre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{a.nmAvaliacaoTipo}}</td>
+                </tr>
+                <tr>
+                  <td>{{a.nmEtapa}} - {{a.nmAreaConhecimento}}</td>
+                </tr>
+                <tr>
+                  <td>{{a.nmSegmento}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <table class="table table-bordered" style="text-align: center;">
+              <thead class="tableHeader">
+                <tr>
+                  <th style="width: 10px;font-weight: normal;">Disciplina</th>
+                  <th style="width: 10px;font-weight: normal;">Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let x of a.disciplinas">
+                  <td>{{x.nmDisciplina}}</td>
+                  <td>{{x.valor}}</td>
+                </tr>
+                <tr *ngIf="a.disciplinas.length == 1">
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr *ngIf="a.disciplinas.length == 1">
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                <tr *ngIf="a.disciplinas.length == 2">
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="form-group">
+            <table class="table table-bordered" style="text-align: center;">
+              <thead>
+                <tr>
+                  <th colspan="2" class="tableHeader"> Dados Complementares</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-size: 15px;
+                                font-weight: bold;">Tipo da Prova</td>
+                  <td>{{a.modoAplicacao == 1 ? 'Web' : 'Impressa'}}</td>
+                </tr>
+                <tr>
+                  <td style="font-size: 15px;
+                                font-weight: bold;">Tempo de duração <span style="color: dimgray;"
+                      class="fas fa-hourglass-half"></span></td>
+                  <td>{{a.tempoAvaliacao}} min</td>
+                </tr>
+                <tr>
+                  <td style="font-size: 15px;
+                                font-weight: bold;">Valor da Prova</td>
+                  <td>{{a.valor}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

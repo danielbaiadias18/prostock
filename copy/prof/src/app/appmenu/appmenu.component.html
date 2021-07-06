@@ -1,0 +1,98 @@
+<!-- Main Sidebar Container -->
+<aside #sideBar class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <a [routerLink]="['/']" class="brand-link">
+    <img src="assets/dist/img/logo.png" alt="AdminLTE Logo" style="opacity: 0.8; width: 95%" />
+    <!-- <span class="brand-text font-weight-light">Genoma</span> -->
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
+      </div>
+      <div class="info" style="font-size: 14px">
+        <a href="#" class="d-block">{{
+          auth.currentUserValue?.nmPessoa | capitalizar
+          }}</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2" *ngIf="auth.currentUserValue">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        <li class="nav-item has-treeview" *ngFor="let i of items">
+          <a [routerLink]="i.path" class="nav-link" *ngIf="i.path?.length === 1; else location1"
+            consultar="{{ i.consulta }}">
+            <i class="nav-icon {{ i.icon }}"></i>
+            <p>
+              {{ i.name }}
+              <i class="right fas fa-angle-left" *ngIf="i.children.length > 0"></i>
+            </p>
+          </a>
+          <ng-template #location1>
+            <a href="{{ getFullLocation(i.location) }}" target="_blank" class="nav-link" consultar="{{ i.consulta }}">
+              <i class="nav-icon {{ i.icon }}"></i>
+              <p>
+                {{ i.name }}
+                <i class="right fas fa-angle-left" *ngIf="i.children.length > 0"></i>
+              </p>
+            </a>
+          </ng-template>
+          <ul class="nav nav-treeview" *ngIf="i.children.length > 0">
+            <li class="nav-item" *ngFor="let j of i.children" consultar="{{ j.consulta }}">
+              <a [routerLink]="j.path" class="nav-link" *ngIf="j.path?.length === 1; else location2">
+                <i class="nav-icon {{ j.icon }}"></i>
+                <p style="font-size: 13px">
+                  {{ j.name }}
+                  <i class="right fas fa-angle-left" *ngIf="j.children.length > 0"></i>
+                </p>
+              </a>
+              <ng-template #location2>
+                <a href="{{ getFullLocation(j.location) }}" target="_blank" class="nav-link">
+                  <i class="nav-icon {{ j.icon }}"></i>
+                  <p style="font-size: 13px">
+                    {{ j.name }}
+                    <i class="right fas fa-angle-left" *ngIf="j.children.length > 0"></i>
+                  </p>
+                </a>
+              </ng-template>
+              <ul class="nav nav-treeview" *ngIf="j.children.length > 0">
+                <li class="nav-item" *ngFor="let k of j.children" consultar="{{ k.consulta }}">
+                  <a [routerLink]="k.path" class="nav-link" *ngIf="k.path?.length === 1; else location3">
+                    <i class="nav-icon {{ k.icon }}"></i>
+                    <p>
+                      {{ k.name }}
+                      <i class="right fas fa-angle-left" *ngIf="k.children.length > 0"></i>
+                    </p>
+                  </a>
+                  <ng-template #location3>
+                    <a href="{{ getFullLocation(j.location) }}" target="_blank" class="nav-link">
+                      <i class="nav-icon {{ k.icon }}"></i>
+                      <p>
+                        {{ k.name }}
+                        <i class="right fas fa-angle-left" *ngIf="k.children.length > 0"></i>
+                      </p>
+                    </a>
+                  </ng-template>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a id="sair" (click)="logout()" class="nav-link">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Sair</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,60 @@
+a {
+    cursor: pointer;
+}
+
+.card.card-daniel {
+    .card-header {
+        background-color: #5f84d0;
+        color: white;
+    }    
+}
+.card.card-correcao{
+    .card-header{
+        background-color:#60ab71;
+        color: white;
+        
+    }
+.card.card-correcao{
+    .card-body{
+        padding-bottom: 0px !important;
+    
+    }
+}
+}
+.col-form-label{
+    font-weight:normal !important;
+    font-size:small;
+}
+ul,li{
+    
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"
+}
+.stylebtn{
+    text-align: right !important;
+}
+
+.btn-primary {
+    color: white !important;
+}
+
+.tableHeader{
+    background-color: #007bff;
+    color: white;
+    font-weight: normal !important;
+}
+
+.corrigida{
+    color: #007bff;
+}
+
+.naoCorrigida{
+    color: #dc3545;
+}
+
+.form-control{
+    padding-bottom: 2px !important;
+     border-radius: 4px !important;
+      border-color: #60ab71;   
+     background-color: #60ab71;
+      color: white
+}

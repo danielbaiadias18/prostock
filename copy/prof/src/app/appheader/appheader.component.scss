@@ -1,0 +1,13 @@
+body.control-sidebar-slide-open #backToTop {
+    right: calc(250px + 1rem);
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 4.5rem;
+    right: 1rem;
+    z-index: 999;
+    color: white;
+    border-radius: 100%;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}

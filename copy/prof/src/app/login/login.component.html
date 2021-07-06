@@ -1,0 +1,65 @@
+<div class="hold-transition login-page">
+    <div class="login-box" style="width: 25%;margin-right: 44%;">
+        <!-- <div class="login-logo">
+            <a href="#">Genoma <b class="fas fa-plus"></b></a>
+        </div> -->
+        <!-- /.login-logo -->
+        <div style="border-radius: 28px;width: 124%;">
+            <div class="card-body rounded-pill login-card-body" style="border-radius: 28px;">
+
+                <div class="col-9 text-center">
+                    <img src="assets/dist/img/logo.png" class="img-fluid" style="margin-left: 14%;">
+                </div>
+                <form [formGroup]="login" (ngSubmit)="logar(login.value)">
+                    <div class="input-group mb-3">
+                        <label for="cdEmpresa" class="col-3" style="font-weight: normal;color: #1175bc;font-size: 13px;text-align: right;
+                        margin-top: 2%;">Empresa:</label>
+                        <select class="form-control col-8" placeholder="Empresa" name="cdEmpresa" formControlName="cdEmpresa">
+                            <option [value]="e.cdEmpresa" *ngFor="let e of empresas">
+                                {{ e.nmEmpresa | capitalizar }}
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="input-group mb-3">
+                        <label for="login" class="col-3" style="font-weight: normal;color: #1175bc;font-size: 13px;text-align: right;
+                        margin-top: 2%;">Usuário:</label>
+                        <input type="text" style="font-size: 13px;"
+                            [class]="contains('login', 'login.login') ? 'form-control is-invalid col-8' : 'form-control col-8'"
+                            placeholder="Usuário" name="login" formControlName="login" aria-describedby="loginerror">
+
+                    </div>
+                    <div class="input-group">
+                        <label for="senha" class="col-3" style="font-weight: normal;color: #1175bc;font-size: 13px;text-align: right;
+                        margin-top: 2%;">Senha:</label>
+                        <input type="password" style="font-size: 13px;"
+                            [class]="contains('login', 'login.senha') ? 'form-control is-invalid col-8' : 'form-control col-8'"
+                            placeholder="Password" name="senha" formControlName="senha" aria-describedby="loginerror">
+
+                    </div>
+                    <div class="row" *ngIf="contains('login.senha')">
+                        <div class="col-12">
+                            <span id="loginerror" class="error invalid-feedback" style="display: block;    margin-left: 27%;">
+                                {{ model.ModelState.get('login.senha')[0] }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button type="submit" class="btn rounded-pill mt-2" style="margin-right: 8%;font-size: 13px;width: 67%;background-color: #32A864;color:azure;"
+                                [disabled]="login.invalid || inProcess">{{ inProcess ? "Autenticando..." : "Entrar" }}</button>
+                        </div>
+                    </div>
+                    <div class="pt-2 d-flex text-center">
+                        <div class="link col-10 offset-2">
+                          <span style="font-size: small;cursor: pointer;" (click)="openModal()">Esqueci minha senha</span>
+                        </div>
+                      </div>
+                </form>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+</div>

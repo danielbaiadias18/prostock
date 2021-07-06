@@ -1,0 +1,64 @@
+<div class="modal-header">
+  <h2 class="modal-title">Esqueci Minha Senha</h2>
+  <button
+    type="button"
+    class="close pull-right"
+    (click)="close()"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="form">
+    <div class="pb-3">
+      <span>Digite o e-mail do professor abaixo para enviar um e-mail com instruções para a recuperação de senha</span>
+    </div>
+    <div class="row" style="display: flex; flex-direction: row; align-items: center;">
+      <label class="col-1">E-mail</label>
+      <div class="col-8">
+      <input
+        class="form-control col-11"
+        type="email"
+        name="email"
+        formControlName="email"
+        placeholder="E-mail"
+      />
+    </div>
+      <div class="col-2 ">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="submit(form.value)"
+        [disabled]="form.invalid || inProcess"
+      >
+        {{ inProcess? 'Enviando...' : 'Enviar' }}
+      </button>
+    </div>
+    </div>
+    <ng-container
+      *ngIf="
+        (form.get('email').invalid &&
+          form.get('email').touched &&
+          form.get('email').dirty) ||
+        contains('esquecisenha.email')
+      "
+    >
+      <div class="col-12">
+        <span
+          class="text-danger"
+          *ngIf="
+            form.get('email').invalid &&
+            form.get('email').touched &&
+            form.get('email').dirty
+          "
+        >
+          Este campo é obrigatório.
+        </span>
+        <span class="text-danger" *ngIf="contains('esquecisenha.email')">{{
+          model.ModelState.get("esquecisenha.email")[0]
+        }}</span>
+      </div>
+    </ng-container>
+  </form>
+</div>

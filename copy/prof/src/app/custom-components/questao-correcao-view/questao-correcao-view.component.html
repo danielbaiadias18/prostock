@@ -1,0 +1,231 @@
+<div id="conteudoInterno">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="pt-2" [ngClass]="{'col-5': nrQuestao > 0, 'col-10': nrQuestao <= 0}">
+                            <h3 class="card-title titulo">
+                              <i class="{{ icons.get(questao?.cdQuestaoTipo) }} text-primary" style="color: #ff8b43 !important;"></i>
+                                QUESTÃO {{ (nrQuestao > 0 ? (nrQuestao | number:'2.0-0'): "DO TIPO ")  }}
+                                {{ nrQuestao > 0 ? "" : tipo}}</h3>
+                        </div>
+                        <div class="col-2" *ngIf="nrQuestao > 0">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" disabled
+                                        class="btn btn-danger">Valor</button>
+                                </div>
+                                <div *ngIf="!editavel" class="form-control">
+                                    {{ vlQuestao | number:'1.1-1' }}
+                                </div>
+                                <div *ngIf="editavel" class="form-control input-group-prepend">
+                                    <input type="number" [(ngModel)]="vlQuestao" style="overflow: hidden;
+                                    border: hidden !important;
+                                    outline-offset: 0px;
+                                    outline: -webkit-focus-ring-color auto 0px;" step="0.5" min="0.5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" disabled class="btn btn-primary"
+                                        style=" background-color: #00933e; opacity: 100; border-color: #00933e;">Nota</button>
+                                </div>
+                                <div class="form-control input-group-prepend">
+                                    <input type="number"  [(ngModel)]="nota" [disabled]="questao?.cdQuestaoTipo != 1"
+                                        (change)="changeNota()" style="overflow: hidden;
+                                        border: hidden !important;
+                                        outline-offset: 0px;
+                                        outline: -webkit-focus-ring-color auto 0px;" step="0.5" min="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button"
+                                        style="background-color: #00933e; opacity: 100; border-color: #00933e;" disabled
+                                        class="btn btn-primary">#</button>
+                                </div>
+                                <div class="form-control">
+                                    {{ questao?.cdQuestao }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1" style="padding: 0">
+                            <div class="btn-group-toggle">
+                                <label class="btn"
+                                    [ngClass]="{ 'btn-success': pontuado || questao?.cdQuestaoTipo != 1 , 'btn-secondary': !pontuado, 'azulOpaco': pontuado || questao?.cdQuestaoTipo != 1 }">
+                                    <input type="checkbox" [disabled]="pontuado || questao?.cdQuestaoTipo != 1"
+                                        (click)="pontuar()" data-toggle="toogle">{{ pontuado || questao?.cdQuestaoTipo != 1 ? "Pontuado" : "Pontuar"}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <section id="Enunciado">
+                        <div class="row">
+                            <div class="col-12">
+                                <div [innerHtml]="questao?.dsSuporte | safeHtml" class="ck-content"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12">
+                              <div [innerHtml]="questao?.dsComando | safeHtml" class="ck-content"></div>
+                          </div>
+                      </div>
+                    </section>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div [ngSwitch]="questao?.cdQuestaoTipo">
+                                <!-- Dissertativa -->
+
+                                    <div *ngSwitchCase="1" [innerHtml]="questao?.dsResposta | safeHtml" readonly
+                                    class="form-control ck-content" style="height:100%" ></div>
+                                <!-- V ou F -->
+                                <div *ngSwitchCase="2" class="itemMultiplaEscolha">
+                                    <div *ngFor="let a of alternativas; let i = index" class="row pt-1 pb-1">
+                                        <div class="col-1 col-lg-1">
+                                            <app-custom-flag [disabled]="true" [(ngModel)]="a.verdadeiro">
+                                            </app-custom-flag>
+                                        </div>
+                                        <div class="col-auto lined">
+                                            <div class="row mt-2" style="text-align: right;">
+                                                <b style="text-align: right;"
+                                                    [ngClass]="{ 'verde': a.acertou, 'vermelho': !a.acertou }"
+                                                    class="text-primary pr-1 d-inline">{{ getAlternativa(i) }})</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-9 col-lg-10 lined">
+                                            <div class="row mt-2">
+                                                <div [innerHtml]="a.dsAlternativa1 | safeHtml"
+                                                    class="ck-content d-inline">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <!-- Múltipla escolha -->
+                                <div *ngSwitchCase="3" class="itemMultiplaEscolha">
+                                    <div *ngFor="let a of alternativas; let i = index" class="row mb-2">
+                                        <div class="col-2 col-lg-1" style="margin-top: 1%;">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="radio" id="radioPrimary1{{i}}" [(ngModel)]="a.verdadeiro"
+                                                    disabled [value]="true">
+                                                <label for="radioPrimary1{{i}}">
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-auto lined">
+                                            <div class="row mt-2" style="text-align: right;">
+                                                <b style="text-align: right;"
+                                                    [ngClass]="{ 'vermelho': (a.verdadeiro && !a.correta), 'verde': a.correta }"
+                                                    class="text-primary pr-1 d-inline">{{ getAlternativa(i) }})</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-9 col-lg-10 lined">
+                                            <div class="row mt-2">
+                                                <div [innerHtml]="a.dsAlternativa1 | safeHtml"
+                                                    class="ck-content d-inline">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <hr>
+                                    </div>
+                                </div>
+
+                                <!-- Associação -->
+                                <div *ngSwitchCase="4" class="itemMultiplaEscolha">
+                                    <div class="row mb-3" *ngFor="let a of alternativas; let i = index">
+                                        <div class="col-12 mb-2 mb-lg-0 col-lg-1">
+                                            <div class="btn-group" dropdown [isDisabled]="true">
+                                                <label
+                                                    [ngClass]="{ 'vermelho': !(a.indice1 == a.indiceCorreta) , 'verde': a.indice1 == a.indiceCorreta }">{{ a.indiceCorreta }}</label>
+                                                <button dropdownToggle type="button"
+                                                    class="btn btn-default dropdown-toggle"
+                                                    aria-controls="dropdown-basic">
+                                                    {{ a.indice1 }} <span class="caret"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-6 col-lg-5">
+                                            <div [innerHtml]="a.dsAlternativa2 | safeHtml" class="ck-content">
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-lg-6">
+                                            <div class="row pr-4 pl-4">
+                                                <div>
+                                                    <b class="text-primary">{{ a.indice2 }})</b>
+                                                </div>
+                                                <div>
+                                                    <div [innerHtml]="a.dsAlternativa1 | safeHtml" class="ck-content">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div id="accordion">
+                            <div class="card mt-4">
+                                <div class="card-header row" data-toggle="collapse" aria-expanded="true"
+                                    [attr.data-target]="'#a' + questao?.cdQuestao" id="headingOne"
+                                    style=" padding: 0px;  cursor: pointer; background-color:#ff8b43 !important; height: 30px;">
+                                    <h5 class="mb-0">
+                                        <button class="btn" style="color:white;padding-top: 2px;">
+                                            Correção
+                                        </button>
+                                        <label *ngIf="pontuado && questao?.cdQuestaoTipo == 1"
+                                            style="color:white;padding-top: 2px;"
+                                            class="lblfeedback">{{dtFeedBack | date:'dd/MM/yyyy'}}</label>
+                                    </h5>
+                                    <span class="fas fa-plus" style="float:right; color:white;position: absolute;right: 10px;top: 7px;"></span>
+                                </div>
+
+                                <!-- Feedback -->
+                                <div [attr.id]="'a' + questao?.cdQuestao" [ngClass]="{'show': questao?.cdQuestaoTipo == 1}"
+                                    class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="input-group mb-2">
+                                            <textarea class="form-control" [attr.id]="'b' + questao?.cdQuestao" [(ngModel)]="feedBack"
+                                                placeholder="Feedback"></textarea>
+                                        </div>
+
+                                        <!-- REFERENCIA -->
+                                        <div class="input-group mb-2">
+                                            <textarea class="form-control" [(ngModel)]="referencia"
+                                                placeholder="Referência"></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="row justify-content-md-center">
+                                                <button (click)="salvarFeedback()"
+                                                    class="btn bg-success">Salvar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,217 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Cadastro de Avaliações</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+          <li class="breadcrumb-item active">Avaliações</li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="pesquisar" (ngSubmit)="addFiltro(pesquisar.value, true, 1, 2, 3, 4, 5, 6, 7)">
+              <div class="row">
+                <label class="col-auto ml-5 text-right">Pesquisar por</label>
+                <div class="col-2">
+                  <select id="PesquisarPor" class="form-control" name="tipo" formControlName="tipo">
+                    <option value="1">Código</option>
+                    <option value="2">Nome</option>
+                    <!-- <option value="3">Valor</option> -->
+                    <option value="4">Status</option>
+                    <!-- <option value="5">Disciplina</option> -->
+                    <!-- <option value="6">Área do Conhecimento</option> -->
+                    <option value="7">Série</option>
+                  </select>
+                </div>
+                <div class="col-5">
+                  <input [type]="pesquisar.controls.tipo.value == 1 ? 'number' : 'text'" id="pesquisa"
+                    class="form-control" name="text" formControlName="text" placeholder="Digite sua pesquisa aqui">
+                </div>
+                <div class="col-auto text-center">
+                  <button type="submit" class="btn btn-primary mr-2" [disabled]="pesquisar.invalid">
+                    <i class="fas fa-search"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-secondary" tooltip="Filtros" (click)="show()">
+                    <i class="fas fa-filter"></i>
+                  </button>
+                  <a [routerLink]="['/avaliacao/novo']" class="btn ml-3 btn-primary" incluir="/avaliacao">
+                    <i class="fas fa-plus"></i>
+                    Nova avaliação
+                  </a>
+                </div>
+              </div>
+            </form>
+            <div @list class="list-container mt-3" *ngIf="filtros && filtros.length > 0">
+              <div @items class="box" *ngFor="let f of filtros">
+                <b *ngIf="f.label">{{ f.label }}:</b>
+                "{{ f.text }}"
+                <a (click)="rmFiltro(f)"><i class="fas fa-times-circle"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 table-responsive" *ngIf="avaliacoes">
+                <table class="table table-striped table-bordered table-sm row-border hover" datatable
+                  [dtOptions]="dtOptions">
+                  <thead>
+                    <tr>
+                      <th>Ações</th>
+                      <th>#</th>
+                      <th>Tipo de Avaliação</th>
+                      <th>Nome</th>
+                      <th>Serie</th>
+                      <th>Etapa</th>
+                      <th>Segmento</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let q of avaliacoes; let i = index" [ngClass]="{'danger text-danger': !q.idAtivo}">
+                      <td>
+                        <div class="btn-group dropdown-content" dropdown>
+                          <ul id="menu{{ i }}" *dropdownMenu class="dropdown-menu" role="menu">
+                            <li role="menuitem" *ngIf="q.verificaUso" excluir="/avaliacao">
+                              <a class="dropdown-item" [routerLink]="['/avaliacao']" (click)="desativar(q)">
+                                <div class="row">
+                                  <div class="col-2 text-center">
+                                    <i class="fas" [ngClass]="{'fa-lock': q.idAtivo, 'fa-unlock': !q.idAtivo}"></i>
+                                  </div>
+                                  <div class="col-10">
+                                    {{ q.idAtivo ?
+                                    'Desativar' : 'Ativar' }}
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                            <li role="menuitem" *ngIf="q.idAtivo" alterar="/avaliacao">
+                              <a class="dropdown-item" [routerLink]="['/avaliacao', q.cdAvaliacao]">
+                                <div class="row">
+                                  <div class="col-2 text-center">
+                                    <i class="fas fa-edit"></i>
+                                  </div>
+                                  <div class="col-10">
+                                    Editar</div>
+                                </div>
+                              </a>
+                            </li>
+                            <li role="menuitem" incluir="/avaliacao">
+                              <a class="dropdown-item">
+                                <div class="row" (click)="showDuplicar(q)">
+                                  <div class="col-2 text-center">
+                                    <i class="fas fa-plus"></i>
+                                  </div>
+                                  <div class="col-10">
+                                    Duplicar
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+
+                            <li class="divider dropdown-divider"></li>
+                            <!-- <li role="menuitem" *ngIf="q.cdStatus === 1">
+                                                            <a class="dropdown-item">
+                                                                <div class="row" (click)="Enviar(q)">
+                                                                    <div class="col-2 text-center">
+                                                                        <i class="fas fa-paper-plane"></i>
+                                                                    </div>
+                                                                    <div class="col-10">
+                                                                        Enviar para Validação
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </li> -->
+                            <li role="menuitem" *ngIf="q.idAtivo" alterar="/avaliacao">
+                              <a class="dropdown-item" (click)="showAnularQuestao(q)">
+                                <div class="row">
+                                  <div class="col-2 text-center">
+                                    <i class="fas fa-times-circle"></i>
+                                  </div>
+                                  <div class="col-10">
+                                    Anular Questão
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                            <li role="menuitem" *ngIf="q.verificaUso" alterar="/avaliacao">
+                              <a class="dropdown-item" (click)="vincularQuestao(q)">
+                                <div class="row">
+                                  <div class="col-2 text-center">
+                                    <i class="fas fa-question-circle"></i>
+                                  </div>
+                                  <div class="col-10">
+                                    Vincular Questão
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+
+                            <li role="menuitem" *ngIf="q.stTrilha != true && q.idAtivo" alterar="/avaliacao">
+                              <a class="dropdown-item" (click)="showVincularAlunos(q)">
+                                <div class="row">
+                                  <div class="col-2 text-center">
+                                    <i class="fas fa-users"></i>
+                                  </div>
+                                  <div class="col-10">
+                                    Vincular Alunos
+                                  </div>
+                                </div>
+                              </a>
+                            </li>
+                          </ul>
+                          <button dropdownToggle type="button" class="btn btn-default dropdown-toggle">
+                            Ações <span class="caret"></span>
+                          </button>
+                        </div>
+                      </td>
+                      <td style="cursor: pointer;" tooltip="Clique na avaliação para visualizar" container="body"
+                        (click)="visualizarAvaliacao(q)">{{ q.cdAvaliacao }}</td>
+                      <td style="cursor: pointer;" tooltip="Clique na avaliação para visualizar" container="body"
+                        (click)="visualizarAvaliacao(q)">{{ q.nmAvaliacaoTipo | capitalizar }}
+                      </td>
+                      <td style="cursor: pointer;" tooltip="Clique na avaliação para visualizar" container="body"
+                        (click)="visualizarAvaliacao(q)">{{ q.nmAvaliacao | capitalizar }}</td>
+                      <td style="cursor: pointer;" tooltip="Clique na avaliação para visualizar" container="body"
+                        (click)="visualizarAvaliacao(q)">{{ q.nmSerie | capitalizar }}</td>
+                      <td style="cursor: pointer;" tooltip="Clique na avaliação para visualizar" container="body"
+                        (click)="visualizarAvaliacao(q)">{{ q.nmEtapa | capitalizar }}</td>
+                      <td style="cursor: pointer;" tooltip="Clique na avaliação para visualizar" container="body"
+                        (click)="visualizarAvaliacao(q)">{{ q.nmSegmento | capitalizar }}</td>
+                      <td style="cursor: pointer;"
+                        [ngClass]="{'text-danger': q.cdStatus == 1, 'text-orange': q.cdStatus == 2, 'text-success': q.cdStatus == 3}"
+                        tooltip="Clique na avaliação para visualizar" container="body" (click)="visualizarAvaliacao(q)">{{ q.nmStatus |
+                        capitalizar }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <loading-screen></loading-screen>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

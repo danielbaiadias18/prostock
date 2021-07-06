@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="filtro" (ngSubmit)="confirm(filtro.value)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-6">
+                <label>Área de Conhecimento</label>
+                <ng-select id="cdAreaConhecimento" formControlName="cdAreaConhecimento" name="cdAreaConhecimento"
+                [items]="areasConhecimento" bindValue="cdAreaConhecimento" bindLabel="nmAreaConhecimento">
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>Disciplina</label>
+                <ng-select id="cdDisciplina" formControlName="cdDisciplina" name="cdDisciplina"
+                [items]="disciplinas" bindValue="cdDisciplina" bindLabel="nmDisciplina">
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-6">
+                <label>Etapa</label>
+                <ng-select id="cdEtapa" formControlName="cdEtapa" name="cdEtapa"
+                [items]="etapas" bindValue="cdEtapa" bindLabel="nmEtapa">
+                </ng-select>
+            </div> -->
+            <div class="col-6">
+                <label>Segmento</label>
+                <ng-select id="cdSegmento" formControlName="cdSegmento" name="cdSegmento"
+                [items]="segmentos" bindValue="cdSegmento" bindLabel="nmSegmento">
+                </ng-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <label>Período Letivo</label>
+                <ng-select id="cdPeriodoLetivo" formControlName="cdPeriodoLetivo" name="cdPeriodoLetivo"
+                [items]="periodosLetivos" bindValue="cdPeriodoLetivo" bindLabel="nmPeriodoLetivo">
+                </ng-select>
+            </div>
+            <div class="col-6">
+                <label>Série</label>
+                <ng-select id="cdSerie" formControlName="cdSerie" name="cdSerie"
+                [items]="series" bindValue="cdSerie" bindLabel="nmSerie">
+                </ng-select>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>
+</form>

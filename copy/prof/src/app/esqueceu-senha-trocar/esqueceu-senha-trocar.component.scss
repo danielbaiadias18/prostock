@@ -1,0 +1,21 @@
+.bg-orang{
+  width: 100%;
+  height: 100vh;
+  background-color: #ff6900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form{
+  width: 100%;
+  padding: 15px;
+}
+.main-box{
+  min-width: 450px;
+  height: 60vh;
+  width:30%;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}

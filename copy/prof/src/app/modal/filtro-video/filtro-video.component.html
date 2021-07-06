@@ -1,0 +1,53 @@
+<div *ngIf="isLoading" class="overlay d-flex justify-content-center align-items-center">
+    <i class="fas fa-2x fa-sync fa-spin"></i>
+</div>
+<div class="modal-header">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<form [formGroup]="filtro" (ngSubmit)="confirm(filtro.value)">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12 mt-2 mt-lg-0 col-lg-6">
+                <div class="form-group">
+                    <label for="cdProfessor">Professor Responsável Questão</label>
+                    <ng-select id="cdProfessor" formControlName="cdProfessor" name="cdProfessor" [items]="professores"
+                        bindValue="cdProfessor" bindLabel="nmProfessor">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="form-group">
+                    <label>Série</label>
+                    <ng-select id="cdSerie" formControlName="cdSerie" name="cdSerie" [items]="series"
+                        bindValue="cdSerie" bindLabel="nmSerie">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 mt-2 mt-lg-0 col-lg-4">
+                <div class="form-group">
+                    <label>Disciplina</label>
+                    <ng-select id="cdDisciplina" formControlName="cdDisciplina" name="cdDisciplina"
+                        [items]="disciplinas" bindValue="cdDisciplina" bindLabel="nmDisciplina">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-12 mt-2 mt-lg-0 col-lg-4">
+                <div class="form-group">
+                    <label>Tópico</label>
+                    <ng-select id="cdTopico" formControlName="cdTopico" name="cdTopico" [items]="topicos"
+                        bindValue="cdTopico" bindLabel="nmTopico">
+                    </ng-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </div>
+</form>

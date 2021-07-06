@@ -1,0 +1,477 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Correção das Avaliações</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+          <li class="breadcrumb-item active">Correção da Avaliações</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card card-daniel">
+      <div class="card-header">
+        <i class="fas fa-edit"></i> Dados da Avaliação
+      </div>
+      <div class="card-body">
+        <form [formGroup]="pesquisar" class="col-12">
+          <div class="row">
+            <div class="col-4">
+              <label>Disciplina</label>
+              <ng-select
+                formControlName="cdDisciplina"
+                [items]="this.disciplinas"
+                bindValue="cdDisciplina"
+                bindLabel="nmDisciplina"
+              >
+              </ng-select>
+            </div>
+            <div class="col-2">
+              <label>Período Letivo</label>
+              <ng-select
+                formControlName="cdPeriodoLetivo"
+                [items]="this.periodoLetivo"
+                bindValue="cdPeriodoLetivo"
+                bindLabel="nmPeriodoLetivo"
+              >
+              </ng-select>
+            </div>
+            <div class="col-3">
+              <label>Série</label>
+              <ng-select
+                formControlName="cdSerie"
+                (change)="this.carregaTurma()"
+                [items]="this.series"
+                bindValue="cdSerie"
+                bindLabel="nmSerie"
+              >
+              </ng-select>
+            </div>
+
+            <div class="col-3">
+              <label>Turma</label>
+              <ng-select
+                formControlName="cdTurma"
+                [items]="this.turmas"
+                bindValue="cdTurma"
+                bindLabel="nmTurma"
+                (change)="abrirAvaliacao(this.avaliacaoEscolhida.cdAvaliacao)"
+              >
+              </ng-select>
+            </div>
+            <div class="col text-center mt-3">
+              <a
+                (click)="pesquisar.invalid ? null : this.pesquisarAvaliacoes()"
+                class="btn btn-primary"
+              >
+                <i class="fas fa-search"></i>
+                Pesquisar
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!avaliacaoAberta">
+  <div class="row" style="padding-left: 10px" *ngFor="let a of avaliacoes">
+    <div class="col-12">
+      <div class="card card-correcao" style="margin: 10px !important">
+        <div
+          class="card-header"
+          style="padding-bottom: 7px !important; margin-top: 1px !important"
+        >
+          <div clas="col-12">
+            <div class="col-12">
+              <div class="input-group col-12">
+                <button
+                  type="button"
+                  style="pointer-events: none !important"
+                  class="btn btn-primary"
+                >
+                  #{{ a.cdAvaliacao }}
+                </button>
+                <div class="form-control col">
+                  {{ a.nmAvaliacao | uppercase }}
+                </div>
+                <div class="text-right col-2">
+                  <a
+                    [routerLink]="['/avaliacaocorrecao']"
+                    class="btn btn-primary col-xs-03"
+                    (click)="this.abrirAvaliacao(a.cdAvaliacao)"
+                    style="
+                      float: right !important;
+                      font-size: 13px !important;
+                      margin-top: 1px !important;
+                    "
+                    >Abrir</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-5">
+              <div class="form-group">
+                <table class="table table-bordered" style="text-align: center">
+                  <thead class="tableHeader">
+                    <tr>
+                      <th style="font-weight: normal">Sobre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ a.nmAvaliacaoTipo }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ a.nmEtapa }} - {{ a.nmAreaConhecimento }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ a.nmSegmento }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <table class="table table-bordered" style="text-align: center">
+                  <thead class="tableHeader">
+                    <tr>
+                      <th style="width: 10px; font-weight: normal">
+                        Disciplina
+                      </th>
+                      <th style="width: 10px; font-weight: normal">Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let x of a.disciplinas">
+                      <td>{{ x.nmDisciplina }}</td>
+                      <td>{{ x.valor }}</td>
+                    </tr>
+                    <tr *ngIf="a.disciplinas.length == 1">
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr *ngIf="a.disciplinas.length == 1">
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr *ngIf="a.disciplinas.length == 2">
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <table class="table table-bordered" style="text-align: center">
+                  <thead>
+                    <tr>
+                      <th colspan="2" class="tableHeader">
+                        Dados Complementares
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="font-size: 15px; font-weight: bold">
+                        Tipo da Prova
+                      </td>
+                      <td>{{ a.stTrilha == true ? "Trilha" : a.stTrilha == null || a.stTrilha == false && a.modoAplicacao == 1 ? "Web" : "Impressa" }}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 15px; font-weight: bold">
+                        Tempo de duração
+                        <span
+                          style="color: dimgray"
+                          class="fas fa-hourglass-half"
+                        ></span>
+                      </td>
+                      <td>{{ a.tempoAvaliacao }} min</td>
+                    </tr>
+                    <tr>
+                      <td style="font-size: 15px; font-weight: bold">
+                        Valor da Prova
+                      </td>
+                      <td>{{ a.valor }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="padding-left: 10px" *ngIf="avaliacaoAberta">
+  <div class="col-12">
+    <div class="card card-correcao" style="margin: 10px !important">
+      <div
+        class="card-header"
+        style="padding-bottom: 7px !important; margin-top: 1px !important"
+      >
+        <div clas="col-12">
+          <div class="col-12">
+            <div class="input-group col-12">
+              <button
+                type="button"
+                style="pointer-events: none !important"
+                class="btn btn-primary"
+              >
+                #{{ avaliacaoEscolhida.cdAvaliacao }}
+              </button>
+              <div class="form-control col">
+                {{ avaliacaoEscolhida.nmAvaliacao | uppercase }}
+              </div>
+              <div class="text-right col-2">
+                <a
+                  [routerLink]="['/avaliacaocorrecao']"
+                  class="btn btn-primary col-xs-03"
+                  (click)="avaliacaoAberta = false"
+                  style="
+                    float: right !important;
+                    font-size: 13px !important;
+                    margin-top: -3px !important;
+                  "
+                  >Voltar</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-5">
+            <div class="form-group">
+              <table class="table table-bordered" style="text-align: center">
+                <thead class="tableHeader">
+                  <tr>
+                    <th style="font-weight: normal">Sobre</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{ avaliacaoEscolhida.nmAvaliacaoTipo }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      {{ avaliacaoEscolhida.nmEtapa }} -
+                      {{ avaliacaoEscolhida.nmAreaConhecimento }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{ avaliacaoEscolhida.nmSegmento }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="form-group">
+              <table class="table table-bordered" style="text-align: center">
+                <thead class="tableHeader">
+                  <tr>
+                    <th style="width: 10px; font-weight: normal">Disciplina</th>
+                    <th style="width: 10px; font-weight: normal">Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let x of avaliacaoEscolhida.disciplinas">
+                    <td>{{ x.nmDisciplina }}</td>
+                    <td>{{ x.valor }}</td>
+                  </tr>
+                  <tr *ngIf="avaliacaoEscolhida.disciplinas.length == 1">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr *ngIf="avaliacaoEscolhida.disciplinas.length == 1">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                  <tr *ngIf="avaliacaoEscolhida.disciplinas.length == 2">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <table class="table table-bordered" style="text-align: center">
+                <thead>
+                  <tr>
+                    <th colspan="2" class="tableHeader">
+                      Dados Complementares
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-size: 15px; font-weight: bold">
+                      Tipo da Prova
+                    </td>
+                    <td>{{ avaliacaoEscolhida.stTrilha == true ? "Trilha" : avaliacaoEscolhida.stTrilha == null || avaliacaoEscolhida.stTrilha == false && avaliacaoEscolhida.modoAplicacao == 1 ? "Web" : "Impressa" }}</td>
+                    <!-- <td>
+                      {{
+                        avaliacaoEscolhida.modoAplicacao == 1
+                          ? "Web"
+                          : "Impressa"
+                      }}
+                    </td> -->
+                  </tr>
+                  <tr>
+                    <td style="font-size: 15px; font-weight: bold">
+                      Tempo de duração
+                      <span
+                        style="color: dimgray"
+                        class="fas fa-hourglass-half"
+                      ></span>
+                    </td>
+                    <td>{{ avaliacaoEscolhida.tempoAvaliacao }} min</td>
+                  </tr>
+                  <tr>
+                    <td style="font-size: 15px; font-weight: bold">
+                      Valor da Prova
+                    </td>
+                    <td>{{ avaliacaoEscolhida.valor }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 text-center">
+    <input
+      type="file"
+      hidden
+      id="file"
+      accept="text/plain"
+      (change)="fileInput($event)"
+      #file
+    />
+    <a
+      (click)="file.click()"
+      class="btn btn-outline-primary"
+      *ngIf="avaliacaoEscolhida.modoAplicacao != 1"
+    >
+      <i class="fas fa-cloud-upload-alt text-primary"></i>
+      <app-loading-bar placeholder="Corrigir Avaliação"></app-loading-bar>
+    </a>
+    <!-- <a
+      class="btn btn-outline-primary ml-2"
+      [attr.href]="imprimirCorrecaoAvaliacao(avaliacaoEscolhida.cdAvaliacao)"
+      target="_blank"
+      *ngIf="avaliacoes[indexAvaliacao].disciplinas.length == 1"
+    >
+      <i class="fas fa-print"></i>
+      Imprimir Correção
+    </a>
+    <a
+      class="btn btn-outline-primary ml-2"
+      [attr.href]="relNotasPorDisciplina(avaliacaoEscolhida.cdAvaliacao)"
+      target="_blank"
+      *ngIf="avaliacoes[indexAvaliacao].disciplinas?.length > 1"
+    >
+      <i class="fas fa-file-excel text-success"></i>
+      Exportar Correção
+    </a> -->
+    <div class="btn btn-outline-primary" (click)="abrirAvaliacao(avaliacaoEscolhida.cdAvaliacao)">
+      <i class="fas fa-sync-alt"></i>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="avaliacaoAberta">
+  <table
+    class="table table-striped"
+    style="margin: 15px; text-align: center !important"
+  >
+    <thead>
+      <tr class="table bg-primary">
+        <th scope="col">Matrícula</th>
+        <th scope="col">Aluno</th>
+        <th scope="col">Turma</th>
+        <th scope="col">Nota Obtida</th>
+        <th scope="col">Exibir Notas</th>
+        <th scope="col">Corrigida</th>
+        <th scope="col">Visualizar Prova</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of avaliacaoAlunos">
+        <th scope="row">{{ x.cdMatricula }}</th>
+        <td>{{ x.nome }}</td>
+        <td>{{ x.nmTurma }}</td>
+        <td>{{ x.notaObtida | number: "1.2-2" }}</td>
+        <td>
+          <a
+            *ngIf="x.notasPorDisciplina && x.notaObtida > 0"
+            data-toggle="tooltip"
+            data-placement="top"
+            title="Exibir Notas"
+            (click)="exibirNotas(x.cdAvaliacaoAluno)"
+            ><i class="fas fa-file"></i
+          ></a>
+        </td>
+        <td [ngClass]="{ corrigida: x.corrigida, naoCorrigida: !x.corrigida }">
+          {{ x.corrigida ? "Sim" : "Não" }}
+        </td>
+        <td>
+          <a
+            data-toggle="tooltip"
+            data-placement="top"
+            *ngIf="
+              x.dtInicioAvaliacao != '0001-01-01T00:00:00' &&
+              x.dtInicioAvaliacao != null
+            "
+            (click)="
+              visualizarAvaliacao(
+                avaliacaoEscolhida.cdAvaliacao,
+                x.cdAvaliacaoAluno
+              )
+            "
+            title="Visualizar"
+            ><i class="far fa-file-alt"></i
+          ></a>
+        </td>
+      </tr>
+      <tr *ngIf="!this.pesquisar.controls.cdTurma.value && this.avaliacaoAlunos.length == 0">
+        <td colspan="7">
+          <p class="text-danger">
+            Selecione uma turma para carregar os alunos.
+          </p>
+        </td>
+      </tr>
+      <tr *ngIf="this.pesquisar.controls.cdTurma.value && this.avaliacaoAlunos.length == 0">
+        <td colspan="7">
+          <p class="text-danger">
+            Nenhum aluno vinculado a essa prova.
+          </p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

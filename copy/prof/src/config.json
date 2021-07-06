@@ -1,0 +1,5 @@
+{
+  "app_name": "Genoma",
+  "api_url": "http://localhost:10400/api/",
+  "url_imagens": "http://192.168.0.3/genomaAluno/imgsAlunos/"
+}

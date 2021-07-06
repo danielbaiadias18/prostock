@@ -1,0 +1,40 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>500 Error Page</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+                    <li class="breadcrumb-item active">500 Error Page</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-danger"> 500</h2>
+
+        <div class="error-content">
+            <h3><i class="far fa-times-circle text-danger"></i> Oops! Erro no servidor.</h3>
+            <p>
+                <ng-container *ngIf="previousPage; else volte">
+                    Tente novamente clicando <a [routerLink]="[previousPage]">aqui</a> ou volte
+                </ng-container>
+                <ng-template #volte>
+                    Volte
+                </ng-template>
+                à <a [routerLink]="['/']"><i class="fas fa-home"></i> Tela Principal</a> e
+                entre em contato conosco se o problema persistir.
+            </p>
+        </div>
+        <!-- /.error-content -->
+    </div>
+    <!-- /.error-page -->
+</section>
+<!-- /.content -->

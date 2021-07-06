@@ -1,0 +1,391 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Cadastro de Trilha de Aprendizado</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/trilha']">Trilhas</a>
+          </li>
+          <li class="breadcrumb-item active">{{ titTela }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <form [formGroup]="cadastroTrilha">
+      <input type="hidden" name="cdTrilha" formControlName="cdTrilha" />
+      <input type="hidden" name="cdEmpresa" formControlName="cdEmpresa" />
+      <input type="hidden" name="cdStatus" formControlName="cdStatus" />
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-wendell">
+            <div class="card-header">
+              <i class="fas fa-edit"></i> Trilha
+              <a style="float: right;cursor:pointer" *ngIf="cdTrilha != 0" (click)="scrollToElement(target)"><i
+                  class="fas fa-stream"></i></a>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-lg-5">
+                  <label class="col-form-label" for="nmTrilha">Nome da Trilha</label>
+                  <input type="text" id="nmTrilha" class="form-control" name="text" formControlName="nmTrilha"
+                  maxlength="100"
+                    placeholder="Nome da trilha" />
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label class="col-form-label" for="cdPeriodoLetivo">Período Letivo</label>
+                  <select class="form-control" formControlName="cdPeriodoLetivo" id="cdPeriodoLetivo"
+                    name="cdPeriodoLetivo">
+                    <option selected="true">Selecione...</option>
+                    <option *ngFor="let periodo of periodosLetivos" [value]="periodo.cdPeriodoLetivo">
+                      {{ periodo.nmPeriodoLetivo }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <!-- <div class="col-12 col-lg-3">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdEtapa">Etapa</label>
+                    <select class="form-control" formControlName="cdEtapa" id="cdEtapa" name="cdEtapa">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of etapas" [value]="s.cdEtapa">
+                        {{ s.nmEtapa | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div> -->
+                <div class="col-12 col-lg-4">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdAreaConhecimento">Área de Conhecimento</label>
+                    <select class="form-control" formControlName="cdAreaConhecimento" id="cdAreaConhecimento"
+                      name="cdAreaConhecimento">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of areasConhecimento" [value]="s.cdAreaConhecimento">
+                        {{ s.nmAreaConhecimento | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdSegmento">Segmento</label>
+                    <select class="form-control" formControlName="cdSegmento" id="cdSegmento" name="cdSegmento">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of segmentos" [value]="s.cdSegmento">
+                        {{ s.nmSegmento | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-4">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdSerie">Série</label>
+                    <ng-select formControlName="cdSerie" [items]="series" bindValue="cdSerie" bindLabel="nmSerie">
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div @web class="col-6">
+          <div class="card card-wendell">
+            <div class="card-header"><i class="fas fa-users"></i> Turma</div>
+            <div class="card-body">
+              <div class="row col-12">
+                <ng-container formArrayName="Turmas">
+                  <div class="row col-12" *ngFor="let q of turmasAvaliacao.controls; index as i" [formGroup]="q">
+                    <div class="col-9">
+                      <div class="col-12 col-lg-12">
+                        <div class="form-group">
+                          <label class="col-form-label" style="padding: 0px; margin-bottom: 8px"
+                            for="cdTurma">Turma</label>
+                          <ng-select formControlName="cdTurma" [readonly]="this.emUso" [items]="turmas"
+                            bindValue="cdTurma" bindLabel="nmTurma">
+                          </ng-select>
+                        </div>
+                        <span class="error invalid-feedback" style="display: block !important" *ngIf="
+                            q.controls.cdTurma.invalid &&
+                            q.controls.cdTurma.touched &&
+                            q.controls.cdTurma.dirty
+                          ">
+                          {{
+                            q.controls.cdTurma.hasError("duplicidade")
+                              ? "Esta turma já foi adicionada"
+                              : ""
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="col-12 text-center" style="margin-top: 34% !important">
+                        <button [disabled]="turmasAvaliacao.invalid" *ngIf="i == turmasAvaliacao.length - 1"
+                          (click)="turmaAvaliacaoAdd(q)" class="btn btn-primary">
+                          Novo <span class="fas fa-plus"></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="col-12 text-center" style="margin-top: 53% !important">
+                        <button *ngIf="i !== 0" (click)="turmasAvaliacao.removeAt(i)" class="btn btn-danger">
+                          <span class="fas fa-trash-alt"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="card card-wendell">
+            <!-- [ngClass]="{'': !avaliacaoImpOuWeb, 'card-wendell': avaliacaoImpOuWeb}" -->
+            <div class="card-header">
+              <i class="fas fa-book"></i> Disciplina
+            </div>
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <table class="table table-striped table-bordered table-sm row-border hover">
+                    <thead>
+                      <tr>
+                        <th *ngIf="disciplinaAvaliacao.length > 2"></th>
+                        <!-- <th>Ordem</th> -->
+                        <th style="width: 95%;">Disciplina</th>
+                        <!-- <th>Valor</th>
+                                                <th>Média</th> -->
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="Disciplinas" id="listaDeDisciplinas">
+                      <tr *ngFor="
+                          let a of disciplinaAvaliacao.controls;
+                          let i = index
+                        " [formGroup]="a">
+                        <td style="width: 1px" class="text-center" *ngIf="disciplinaAvaliacao.length > 2">
+                          <a (click)="
+                              this.emUso ? null : disciplinaAvaliacaoRemove(i)
+                            " *ngIf="i > 0 && i < disciplinaAvaliacao.length - 1">
+                            <i class="fas fa-trash text-danger"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <div class="form-group" style="margin-bottom: 0!important;">
+                            <ng-select formControlName="cdDisciplina" [readonly]="this.emUso" [items]="disciplinas"
+                              bindValue="cdDisciplina" bindLabel="nmDisciplina">
+                            </ng-select>
+                            <ng-container *ngIf="
+                                a.controls.cdDisciplina.invalid &&
+                                a.controls.cdDisciplina.dirty &&
+                                a.controls.cdDisciplina.touched
+                              ">
+                              <span class="error invalid-feedback" style="display: block !important" *ngIf="
+                                  a.controls.cdDisciplina.hasError(
+                                    'duplicidade'
+                                  )
+                                ">
+                                Esta disciplina já foi adicionada
+                              </span>
+                            </ng-container>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row mb-2">
+        <div class="col-12 text-center">
+          <button type="submit" [disabled]="isSaving" class="btn btn-primary">
+            {{ isSaving ? "..." : "Salvar" }}
+          </button>
+        </div>
+      </div> -->
+    </form>
+    <div #target>
+      <!-- ancora do header do cadastro -->
+    </div>
+    <div class="row" id="trilha" *ngIf="cdTrilha != 0">
+      <div class="card card-wendell col-12">
+        <div class="card-header">
+          <h1>{{ (cadastroTrilha.get('nmTrilha').value == "" ? "Trilha" : cadastroTrilha.get('nmTrilha').value) }}</h1>
+        </div>
+        <div class="card-body">
+          <div class="col-12">
+            <!-- começa timeline -->
+            <div class="timeline" *ngFor="let x of Modulos?.controls; let i = index" [formGroup]="x">
+              <!-- nome modulo -->
+              <div class="time-label row">
+                <input type="text" id="{{ 'nmModulo' + i }}" class="form-control" style="background-color: #007bff;color: #fff;" autoSizeInput
+                  [includeBorders]="true" name="text" formControlName="nmModulo" placeholder="Novo Módulo" maxlength="200" />
+
+                <div class="minusMod scale" (click)="removeModulo(i)">
+                  <i class="fas fa-minus bg-red" style="margin-top: 0;"></i>
+                </div>
+                <!-- <ng-container *ngIf="
+                                x.controls.nmModulo.invalid &&
+                                x.controls.nmModulo.dirty &&
+                                x.controls.nmModulo.touched
+                              ">
+                              <span class="text-danger" style="display: block !important">
+                                Este campo é obrigatório
+                              </span>
+                            </ng-container> -->
+              </div>
+
+              <!-- termina nome modulo -->
+              <!-- item -->
+              <div *ngFor="let y of x?.controls['Itens']?.controls; let j = index">
+                <i *ngIf="y?.controls['cdTipo'].value == 3" class="fas fa-question-circle bg-blue"></i>
+                <i *ngIf="y?.controls['cdTipo'].value == 1" class="fas fa-align-left bg-gray"></i>
+                <i *ngIf="y?.controls['cdTipo'].value == 2" class="fas fa-video bg-red"></i>
+
+                <div class="timeline-item" [formGroup]="y">
+                  <input type="text" id="{{'nmItemModulo' + j + i}}" class="timeline-header form-control jtBdBttm"
+                    name="nmItemModulo" formControlName="nmItemModulo" placeholder="Nome do Item" maxlength="200" />
+
+                  <div class="timeline-body row">
+
+                    <!-- TEXTO -->
+                    <!-- <textarea *ngIf="y?.controls['cdVideo'].value == null && y?.controls['cdAvaliacao'].value == null"
+                      type="text" id="texto" #txtarea [style.height]="(txtarea.scrollHeight)+'px'" class="form-control"
+                      style="overflow:hidden;border: 0;" name="text" formControlName="texto"
+                      placeholder="Texto"></textarea> -->
+
+                      <ckeditor *ngIf="y?.controls['cdVideo'].value == null && y?.controls['cdAvaliacao'].value == null"
+                       [editor]="editor" id="texto" formControlName="texto"></ckeditor>
+
+                    <!-- VÍDEO -->
+                    <iframe *ngIf="y?.controls['cdTipo'].value == 2" [src]="y?.controls['link']?.value | safeUrl"
+                      class="ifram" width="640" height="360" frameborder="0"
+                      allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                    <!-- TEXTO -->
+                    <!-- <textarea *ngIf="y?.controls['cdTipo'].value == 2" type="text" id="texto" #txtarea
+                      [style.height]="(txtarea.scrollHeight)+'px'" class="form-control"
+                      style="overflow:hidden;border: 0;width: 42%;margin-left: 1%;" name="text" formControlName="textVideo"
+                      placeholder="Digite aqui o texto referente ao vídeo"></textarea> -->
+
+                      <ckeditor *ngIf="y?.controls['cdTipo'].value == 2" style="overflow:hidden;border: 0;width: 42%;margin-left: 1%;"
+                      [editor]="editor" id="texto" formControlName="textVideo" placeholder="Digite aqui o texto referente ao vídeo"></ckeditor>
+
+                    <!-- AVALIACAO -->
+                    <app-avaliacao-card style="width: 100%;" *ngIf="y?.controls['cdTipo'].value ==  3" [a]="getAvaliacao(y?.controls['cdAvaliacao'].value)">
+                    </app-avaliacao-card>
+
+                    <!-- QUESTAO -->
+                    <!-- <app-questao-view *ngIf="y?.controls['cdTipo'].value == 3"
+                      [questao]="getQuestao(y?.controls['cdQuestao'].value)"
+                      [tipo]="getQuestao(y?.controls['cdQuestao'].value)?.nmQuestaoTipo"
+                      [alternativas]="getQuestao(y?.controls['cdQuestao'].value)?.Alternativas" readOnly="true"
+                      style="width: 100%;">
+                    </app-questao-view> -->
+
+                  </div>
+                </div>
+                <div class="minus bg-red scale" (click)="removeItem(x,j)">
+                  <i class="fas fa-minus bg-red" style="margin-top: 0;"></i>
+                </div>
+                <!-- <ng-container *ngIf="
+                                y.controls.nmItemModulo.invalid &&
+                                y.controls.nmItemModulo.dirty &&
+                                y.controls.nmItemModulo.touched
+                              ">
+                              <span class="error invalid-feedback" style="display: block !important" *ngIf="
+                                  y.controls.nmItemModulo.hasError(
+                                    'duplicidade'
+                                  )
+                                ">
+                                Este campo é obrigatório
+                              </span>
+                            </ng-container> -->
+
+              </div>
+
+              <!-- <i class="fas fa-plus bg-green" style="margin-top:0" (click)="openModuloItemModal(x, 2)"></i> -->
+
+              <div class="btn-group dropdown-content" dropdown
+                style="margin-bottom: 45px;cursor: pointer;margin-top: 10px;">
+                <ul id="menu{{ i }}" *dropdownMenu class="dropdown-menu" role="menu">
+                  <li role="menuitem">
+                    <a class="dropdown-item" (click)="openModuloItem(x)">
+                      <div class="row">
+                        <div class="col-2 text-center iconMenu">
+                          <i class="fas fa-book"></i>
+                        </div>
+                        <div class="col-10">
+                          Texto
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                      <div class="row" (click)="openModuloItemModal(x, 2)">
+                        <div class="col-2 text-center iconMenu">
+                          <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="col-10">
+                          Vídeo</div>
+                      </div>
+                    </a>
+                  </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item">
+                      <div class="row" (click)="openModuloItemModal(x, 3)">
+                        <div class="col-2 text-center iconMenu">
+                          <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="col-10">
+                          Avaliação
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+                <i class="fas fa-plus bg-green scale" dropdownToggle style="margin-top:0"></i>
+
+              </div>
+
+            </div>
+            <div class="time-label">
+              <button class="btn newModulo bg-blue scale" (click)="newModulo()">
+                <i class="fas fa-plus" style="margin-top: 0!important;"></i>
+              </button>
+            </div>
+            <!-- termina timeline -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-12 text-center">
+        <button type="button" [disabled]="isSaving" class="btn btn-primary"
+          (click)="Salvar(cadastroTrilha.getRawValue())">
+          {{ isSaving ? "..." : "Salvar" }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

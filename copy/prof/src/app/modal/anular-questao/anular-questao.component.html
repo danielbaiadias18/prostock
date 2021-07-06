@@ -1,0 +1,114 @@
+<div class="modal-header">
+  <h3>Anular Questões da Avaliação {{this.avaliacao?.nmAvaliacao}}</h3>
+  <button type="button" class="close pull-right" (click)="close()" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form [formGroup]="anular" (ngSubmit)="confirm()">
+
+  <div class="modal-body">
+    <div class="row col-12">
+      <h5 class="col-lg-10">Questões</h5>
+    </div>
+
+    <div class="card">
+      <div class="card-header p-0 pt-1">
+        <!-- <input type="hidden" name="cdTurma" formControlName="cdTurma"> -->
+      </div>
+      <div class="card-body">
+        <div class="tab-content">
+          <div class="row lined">
+
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+
+                <div class="row">
+                  <div class="col-6 mt-2 mt-lg-0 col-lg-4">
+                    <div class="form-group">
+
+                      <label>Disciplina</label>
+                      <ng-select id="cdDisciplina" formControlName="cdDisciplina" name="cdDisciplina"
+                        [items]="disciplinas" bindValue="cdDisciplina" bindLabel="nmDisciplina">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-6 mt-2 mt-lg-0 col-lg-4">
+                    <div class="form-group">
+                      <label>Questão</label>
+                      <ng-select id="cdQuestao" formControlName="cdQuestao" name="cdQuestao" [items]="this.questoes"
+                        (change)="this.adicionarQuestao()" bindValue="cdQuestao" bindLabel="cdQuestao">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-12 mt-2 mt-lg-0 col-lg-4">
+                    <div class="form-group">
+                      <label for="cdTurma">Turmas</label>
+                      <ng-select formControlName="cdTurma" [multiple]="true" [items]="turmas" bindValue="cdTurma"
+                        bindLabel="nmTurma">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <!-- <div class="col-12 col-lg-4">
+                                        <div class="form-group">
+                                            <label style="margin-left:30%">Tipo de Anulação</label>
+                                            <app-custom-radio-btn id="tipoAnulacao" [txt1]="'Ceder Pontos'" [txt2]="'Recalcular Pontos'"
+                                                formControlName="cederOuRecalcular"></app-custom-radio-btn>
+                                        </div>
+                                    </div> -->
+                </div>
+              </div>
+              <div class="row" *ngIf="this.questoesAdicionadas.length > 0">
+                <div class="col-12 text-right" style="font-size: 12px;">
+                  <table class="table table-striped row-border hover">
+                    <thead>
+                      <tr>
+                        <th style="width: 6%;text-align: center;">Cód Questão</th>
+                        <th style="width: 12%;text-align: center;">Tipo</th>
+                        <th style="width: 16%;text-align: center;">Área de Conhecimento</th>
+                        <th style="width: 14%;text-align: center;">Série</th>
+                        <th style="width: 12%;text-align: center;">Disciplina</th>
+                        <th style="width: 8%;text-align: center;">Dificuldade</th>
+                        <th style="width: 16%;text-align: center;">Suporte</th>
+                        <th style="width: 16%;text-align: center;">Comando</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableAlunos">
+                      <tr *ngFor="let a of this.questoesAdicionadas; let i = index">
+                        <td style="width: 6%;text-align: center;"> {{ a.cdQuestao }}</td>
+                        <td style="width: 12%;text-align: center;"> {{ a.nmQuestaoTipo }}</td>
+                        <td style="width: 16%;text-align: center;"> {{ a.nmAreaConhecimento }}
+                        </td>
+                        <td style="width: 14%;text-align: center;"> {{ a.nmSerie }}</td>
+                        <td style="width: 12%;text-align: center;"> {{ a.nmDisciplina }}</td>
+                        <td style="width: 8%;text-align: center;"> {{ a.nmDificuldade }}</td>
+                        <td style="width: 16%;text-align: center;">
+                          <div [innerHtml]="a.dsSuporte"></div>
+                        </td>
+                        <td style="width: 16%;text-align: center;">
+                          <div [innerHtml]="a.dsComando"></div>
+                        </td>
+                        <td><span class="fas fa-times" (click)="remove(a.cdQuestao)"
+                            style="color: brown;font-size: 20px;"></span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" (click)="close()" class="btn btn-secondary">Cancelar</button>
+    <button type="submit" class="btn btn-primary"><span class="fas fa-ban"></span> Anular
+    </button>
+  </div>
+</form>

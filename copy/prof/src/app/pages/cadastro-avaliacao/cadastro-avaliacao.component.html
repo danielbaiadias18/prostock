@@ -1,0 +1,725 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Cadastro de Avaliação</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/avaliacao']">Avaliações</a></li>
+          <li class="breadcrumb-item active">{{ titTela }}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <form [formGroup]="cadastroAvaliacao" (ngSubmit)="Salvar(cadastroAvaliacao.getRawValue())">
+      <input type="hidden" name="cdAvaliacao" formControlName="cdAvaliacao">
+      <input type="hidden" name="cdEmpresa" formControlName="cdEmpresa">
+      <input type="hidden" name="cdStatus" formControlName="cdStatus">
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-wendell">
+            <div class="card-header">
+              <i class="fas fa-edit"></i> Avaliação
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12 col-lg-2">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdSerie">Tipo</label>
+                    <select class="form-control" formControlName="cdAvaliacaoTipo" id="cdAvaliacaoTipo"
+                      name="cdAvaliacaoTipo">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of avaliacaoTipos" [value]="s.cdAvaliacaoTipo">
+                        {{ s.nmTipo | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                  <label class="col-form-label" for="nmAvaliacao">Nome da Avaliação</label>
+                  <input type="text" id="nmAvaliacao" class="form-control" name="text" formControlName="nmAvaliacao"
+                    placeholder="Nome da avaliação">
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label class="col-form-label" for="cdPeriodoLetivo">Período Letivo</label>
+                  <select class="form-control" formControlName="cdPeriodoLetivo" id="cdPeriodoLetivo"
+                    name="cdPeriodoLetivo">
+                    <option selected="true">Selecione...</option>
+                    <option *ngFor="let periodo of periodosLetivos" [value]="periodo.cdPeriodoLetivo">
+                      {{ periodo.nmPeriodoLetivo }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-3">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdEtapa">Etapa</label>
+                    <select class="form-control" formControlName="cdEtapa" id="cdEtapa" name="cdEtapa">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of etapas" [value]="s.cdEtapa">
+                        {{ s.nmEtapa | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdAreaConhecimento">Área de
+                      Conhecimento</label>
+                    <select class="form-control" formControlName="cdAreaConhecimento" id="cdAreaConhecimento"
+                      name="cdAreaConhecimento">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of areasConhecimento" [value]="s.cdAreaConhecimento">
+                        {{ s.nmAreaConhecimento | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdSegmento">Segmento</label>
+                    <select class="form-control" formControlName="cdSegmento" id="cdSegmento" name="cdSegmento">
+                      <option value="">Selecione...</option>
+                      <option *ngFor="let s of segmentos" [value]="s.cdSegmento">
+                        {{ s.nmSegmento | capitalizar }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-4">
+                  <div class="form-group">
+                    <label class="col-form-label" for="cdSerie">Série</label>
+                    <ng-select formControlName="cdSerie" [multiple]="true" [items]="series" bindValue="cdSerie"
+                      bindLabel="nmSerie">
+                    </ng-select>
+                  </div>
+                </div>
+                <div [class]="'col-12 col-lg-2 ' + (stTrilha == true? 'vis-hidden' : '')">
+                  <div class="form-group">
+                    <label style="margin-left: 33%;">Avaliação</label>
+                    <app-custom-radio-btn [txt1]="'Web'" [txt2]="'Impressa'" formControlName="avaliacaoImpOuWeb">
+                    </app-custom-radio-btn>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-2 d-flex" style="align-items: center;">
+                  <label for="stTrilha" class="col-form-label mr-3">Para trilha?</label>
+                  <input type="checkbox" style="cursor: pointer;transform:scale( 1.5);" name="stTrilha"
+                    formControlName="stTrilha">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div @web class="col-12" *ngIf="avaliacaoImpOuWeb; else impressa">
+          <div class="card card-wendell" *ngIf="stTrilha != true">
+            <div class="card-header">
+              <i class="fas fa-users"></i> Turma
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <ng-container formArrayName="Turmas">
+                  <div class="row col-12" *ngFor="let q of turmasAvaliacao.controls; index as i" [formGroup]="q"
+                    style="width: 100%;">
+                    <div class="col-2">
+                      <div class="col-12 col-lg-12">
+                        <div class="form-group">
+                          <label class="col-form-label" style="padding: 0px; margin-bottom:8px"
+                            for="cdTurma">Turma</label>
+                          <ng-select formControlName="cdTurma" [readonly]="this.emUso" [items]="turmas"
+                            bindValue="cdTurma" bindLabel="nmTurma">
+                          </ng-select>
+                        </div>
+                        <span class="error invalid-feedback" style="display: block !important;"
+                          *ngIf="q.controls.cdTurma.invalid && q.controls.cdTurma.touched && q.controls.cdTurma.dirty">
+                          {{ q.controls.cdTurma.hasError('duplicidade') ? 'Esta turma já foi adicionada' : '' }}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="col-3">
+                      <label>Data/Hora de início da avaliação</label>
+                      <div class="input-group col-lg-12">
+                        <input type="text" placeholder="Selecione a data" class="form-control" bsDatepicker
+                          [bsConfig]="bsConfig" formControlName="dtIni">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-calendar"></span>
+                          </div>
+                        </div>
+                        <input type="text" mask="Hh:m0" formControlName="hrIni" [dropSpecialCharacters]="false"
+                          [readonly]="this.emUso" placeholder="00:00" class="form-control col-md-3">
+                      </div>
+                      <ng-container *ngIf="(q.get('dtIni').invalid &&
+                                                q.get('dtIni').touched &&
+                                                q.get('dtIni').dirty)
+                                                ||
+                                                (q.get('hrIni').invalid &&
+                                                q.get('hrIni').touched &&
+                                                q.get('hrIni').dirty)">
+
+                        <span *ngIf="q.get('dtIni').hasError('data')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          Data inválida
+                        </span>
+                        <span *ngIf="q.get('hrIni').hasError('hora')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          Hora inválida
+                        </span>
+                        <span *ngIf="q.get('dtIni').hasError('periodoLetivo')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          A data inicial não pode ser menor que a data inicial do período letivo
+                        </span>
+                      </ng-container>
+                    </div>
+
+                    <div class="col-3">
+                      <label class="ml-1">Data/Hora do fim</label>
+                      <div class="input-group col-lg-12">
+                        <input type="text" placeholder="Selecione a data" class="form-control" bsDatepicker
+                          [bsConfig]="bsConfig" formControlName="dtFim">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-calendar"></span>
+                          </div>
+                        </div>
+                        <input type="text" mask="Hh:m0" formControlName="hrFim" [dropSpecialCharacters]="false"
+                          placeholder="00:00" class="col-md-3 form-control">
+                      </div>
+                      <ng-container *ngIf="(q.get('dtFim').invalid &&
+                                                            q.get('dtFim').touched &&
+                                                            q.get('dtFim').dirty)
+                                                            ||
+                                                            (q.get('hrFim').invalid &&
+                                                            q.get('hrFim').touched &&
+                                                            q.get('hrFim').dirty)">
+                        <span *ngIf="q.get('hrFim').hasError('data')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          Data inválida
+                        </span>
+                        <span *ngIf="q.get('hrFim').hasError('hora')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          Hora inválida
+                        </span>
+                        <span *ngIf="q.get('dtFim').hasError('periodo')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          A data inicial deve ser menor que a data final
+                        </span>
+                        <span *ngIf="q.get('dtFim').hasError('periodoLetivo')" class="error invalid-feedback"
+                          style="display: block !important;">
+                          A data final não pode ser maior que a data final do período letivo
+                        </span>
+                      </ng-container>
+                    </div>
+                    <div class="col-2">
+                      <div class="form-group">
+                        <label class="col-form-label" style="padding: 0px; margin-bottom:8px" for="senhaAcesso">Senha
+                          de acesso</label>
+                        <input id="senhaAcesso" [readonly]="this.emUso" class="form-control" name="senhaAcesso"
+                          formControlName="senhaAcesso" placeholder="Senha de acesso">
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="col-12 text-center" style="margin-top: 34% !important;">
+                        <button [disabled]="turmasAvaliacao.invalid" *ngIf="i == turmasAvaliacao.length -1"
+                          (click)="turmaAvaliacaoAdd(q)" class="btn btn-primary">Novo <span class="fas fa-plus"></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <div class="col-12 text-center" style="margin-top: 53% !important;">
+                        <button *ngIf="i !== 0" (click)="turmasAvaliacao.removeAt(i)" class="btn btn-danger"><span
+                            class="fas fa-trash-alt"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #impressa>
+          <div @impressa class="col-12 col-lg-4">
+            <div class="card card-wendell autoGrow">
+              <div class="card-header">
+                <i class="fas fa-users"></i> Turma
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label class="col-form-label" style="padding: 0px; margin-bottom:8px" for="cdTurma">Turma</label>
+                      <ng-select formControlName="cdTurma" [readonly]="this.emUso" [multiple]="true" [items]="turmas"
+                        bindValue="cdTurma" bindLabel="nmTurma">
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="col-12 col-lg-8">
+          <div class="card" [ngClass]="{'card-emerson': !avaliacaoImpOuWeb, 'card-wendell': avaliacaoImpOuWeb}">
+            <div class="card-header">
+              <i class="fas fa-book"></i> Disciplina
+            </div>
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <table class="table table-striped table-bordered table-sm row-border hover">
+                    <thead>
+                      <tr>
+                        <th *ngIf="disciplinaAvaliacao.length > 2"></th>
+                        <th>Ordem</th>
+                        <th style="width: 150px;">Disciplina</th>
+                        <th>Valor</th>
+                        <th>Média</th>
+                      </tr>
+                    </thead>
+                    <tbody formArrayName="Disciplinas" id="listaDeDisciplinas">
+                      <tr *ngFor="let a of disciplinaAvaliacao.controls | sortForm: 'nrOrdem'; let i = index"
+                        [formGroup]="a">
+                        <td style="width: 1px;" class="text-center" *ngIf="disciplinaAvaliacao.length > 2">
+                          <a (click)="this.emUso ? null : disciplinaAvaliacaoRemove(i)"
+                            *ngIf="i > 0 && i < disciplinaAvaliacao.length - 1">
+                            <i class="fas fa-trash text-danger"></i>
+                          </a>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <input type="number" [disabled]="this.emUso" min="1" max="20" class="form-control"
+                              formControlName="nrOrdem">
+                            <ng-container *ngIf="a.controls.nrOrdem.invalid &&
+                                                                   a.controls.nrOrdem.dirty &&
+                                                                   a.controls.nrOrdem.touched">
+                              <span class="error invalid-feedback" style="display: block !important;"
+                                *ngIf="a.controls.nrOrdem.hasError('duplicidade')">
+                                Este valor de ordem já está em uso
+                              </span>
+                              <span class="error invalid-feedback" style="display: block !important;"
+                                *ngIf="a.controls.nrOrdem.hasError('min')">
+                                O valor mínimo permitido é 1
+                              </span>
+                              <span class="error invalid-feedback" style="display: block !important;"
+                                *ngIf="a.controls.nrOrdem.hasError('max')">
+                                O valor máximo permitido é 20
+                              </span>
+                            </ng-container>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <ng-select formControlName="cdDisciplina" [readonly]="this.emUso" [items]="disciplinas"
+                              bindValue="cdDisciplina" bindLabel="nmDisciplina">
+                            </ng-select>
+                            <ng-container *ngIf="a.controls.cdDisciplina.invalid &&
+                                                                            a.controls.cdDisciplina.dirty &&
+                                                                            a.controls.cdDisciplina.touched">
+                              <span class="error invalid-feedback" style="display: block !important;"
+                                *ngIf="a.controls.cdDisciplina.hasError('duplicidade')">
+                                Esta disciplina já foi adicionada
+                              </span>
+                            </ng-container>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <input formControlName="valor" (blur)="valorBlur(i)" type="number" step="0.5" min="0.5"
+                              [readonly]="this.emUso" class="form-control">
+                            <ng-container *ngIf="a.controls.valor.invalid &&
+                                                                             a.controls.valor.dirty &&
+                                                                             a.controls.valor.touched">
+                              <span class="error invalid-feedback" style="display: block !important;"
+                                *ngIf="a.controls.valor.hasError('min')">
+                                O valor deve ser maior que 0
+                              </span>
+                            </ng-container>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="form-group">
+                            <input formControlName="media" type="number" step="0.5" min="0.5" [readonly]="true"
+                              class="form-control">
+                            <ng-container *ngIf="a.controls.media.invalid &&
+                                                                   a.controls.media.dirty &&
+                                                                   a.controls.media.touched">
+                              <span class="error invalid-feedback" style="display: block !important;"
+                                *ngIf="a.controls.media.hasError('min')">
+                                O valor deve ser maior que 0
+                              </span>
+                            </ng-container>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group mt-3 ml-5">
+                    <div class="custom-control custom-switch">
+                      <!-- <input id="separadasPorDisciplina" type="checkbox" class="custom-control-input" value="separadasPorDisciplina" name="separadasPorDisciplina" ngModel> -->
+                      <input type="checkbox" class="custom-control-input" formControlName="notasPorDisciplina"
+                        name="notasPorDisciplina" id="notasPorDisciplina">
+                      <label class="custom-control-label" for="notasPorDisciplina">Notas separadas
+                        por disciplina</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label class="col-form-label" for="valor">Valor Total</label>
+                  <input id="valor" class="form-control" name="text" formControlName="valor"
+                    placeholder="Valor da avaliação" mask="separator.2" [thousandSeparator]="'.'" [decimalMarker]="','"
+                    (blur)="valorTotalBlur()">
+                </div>
+                <div class="col-12 col-lg-3">
+                  <label class="col-form-label" for="media">Média Total</label>
+                  <input id="media" class="form-control" name="text" formControlName="media"
+                    placeholder="Média da Avaliação">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-12" [ngClass]="{'col-lg-4': avaliacaoImpOuWeb}">
+                    <div class="card autoGrow"
+                        [ngClass]="{'card-wendell' : !avaliacaoImpOuWeb, 'card-emerson': avaliacaoImpOuWeb}">
+                        <div class="card-header">
+                            <i class="fas fa-user-secret"></i> Classificação
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12" [ngClass]="{'col-lg-6': !avaliacaoImpOuWeb}">
+                                    <div class="form-group">
+                                        <label>Classificação</label>
+                                        <ng-select formControlName="cdClassificacao" [items]="classificacoes"
+                                            bindValue="cdClassificacao" bindLabel="titClassificacao">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+      </div>
+
+      <div class="row" *ngIf="avaliacaoImpOuWeb">
+        <div class="col-12">
+          <div class="card card-wendell">
+            <div class="card-header">
+              <i class="fas fa-signal"></i> Para On-Line
+            </div>
+            <!-- <div class="card-body"> -->
+            <div class="row">
+              <div class="col-12">
+                <div class="card card-emerson card-tabs mb-0">
+                  <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                      <li class="nav-item" *ngFor="let t of tabs">
+                        <a [ngClass]="{ 'active': t.tab === currentTab, 'has-error': hasErrorOf(t.tab) }"
+                          class="nav-link" (click)="currentTab = t.tab" role="tab">{{ t.ds | capitalizar }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="card-body">
+                    <div class="tab-content" [ngSwitch]="currentTab">
+
+                      <!-- Quando -->
+                      <ng-container *ngSwitchCase="1" formGroupName="Quando">
+                        <div class="row mb-3">
+                          <div class="col-12 col-lg-2">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-2">
+                                  <input type="checkbox" formControlName="stHabilitada" [disabled]="this.emUso"
+                                    class="custom-control-input" id="swHabilitarProva">
+                                  <label class="custom-control-label" for="swHabilitarProva">Habilitar
+                                    prova</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-12 col-lg-6">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-1">
+                                  <input type="checkbox" [disabled]="this.emUso" class="custom-control-input mt-2"
+                                    id="swExibirData" formControlName="stDtExibir">
+                                  <label class="custom-control-label" for="swExibirData">
+                                    Exibir a partir de</label>
+                                </div>
+                                <div @dropdown class="input-group col-7"
+                                  *ngIf="cadastroAvaliacao.get('Quando').get('stDtExibir').value">
+                                  <input formControlName="dtExibir" placeholder="Selecione a data"
+                                    [disabled]="this.emUso" class="form-control" bsDatepicker [bsConfig]="bsConfig">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-calendar"></span>
+                                    </div>
+                                  </div>
+                                  <input type="text" [dropSpecialCharacters]="false" mask="Hh:m0"
+                                    formControlName="hrExibir" [disabled]="this.emUso" placeholder="00:00"
+                                    class="col-md-3 form-control">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <!-- Quando -->
+
+                      <!--Execução da Prova-->
+                      <ng-container *ngSwitchCase="2" formGroupName="Executar">
+                        <input type="hidden" fromControlName="cdCriterio" name="cdCriterio">
+                        <div class="row mb-3">
+                          <div class="col-12 col-lg-3">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-2">
+                                  <input type="checkbox" formControlName="stEmbaralharQuestoes"
+                                    class="custom-control-input" [disabled]="this.emUso" id="swEmbaralharQuestoes">
+                                  <label class="custom-control-label" for="swEmbaralharQuestoes">
+                                    Embaralhar Questões</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-lg-3">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-2">
+                                  <input type="checkbox" formControlName="stEmbaralharAlternativas"
+                                    class="custom-control-input" [disabled]="this.emUso" id="swEmbaralharAlternativas">
+                                  <label class="custom-control-label" for="swEmbaralharAlternativas">
+                                    Embaralhar Alternativas</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <div class="row">
+                                                    <div class="col-12 col-lg-3">
+                                                        <div class="form-group">
+                                                            <label>Critério da Avaliação</label>
+                                                            <select formControlName="cdCriterio"
+                                                                class="form-control mr-1 ml-1">
+                                                                <option value="">Selecione...</option>
+                                                                <option *ngFor="let c of criterios"
+                                                                    [value]="c.cdCriterio">
+                                                                    {{ c.dsCriterio | capitalizar }}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div> -->
+                      </ng-container>
+                      <!--Execução da Prova-->
+
+
+                      <!-- Tempo e Tentativas -->
+                      <ng-container *ngSwitchCase="3" formGroupName="TempoTentativa">
+                        <div class="row mb-3">
+                          <div class="col-12 col-lg-6">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <label>O aluno poderá responder em até</label>
+                                <input type="number" min="1" [disabled]="this.emUso"
+                                  class="form-control ml-1 mr-1 col-2" formControlName="qtdMinutos">
+                                <label>minuto(s)</label>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- <div class="col-12 col-lg-6">
+                                                        <div class="form-inline">
+                                                            <div class="form-group">
+                                                                <label>O aluno terá</label>
+                                                                <input type="number" formControlName="qtdTentativas"
+                                                                    min="1" class="form-control ml-1 mr-1 col-2">
+                                                                <label>tentativa(s) para resolver a avaliação</label>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                        </div>
+                      </ng-container>
+                      <!-- Tempo e Tentativas -->
+
+
+                      <!-- Finalizacao da Prova -->
+                      <ng-container *ngSwitchCase="4" formGroupName="Finalizar">
+                        <div class="row mb-3">
+                          <div class="col-12 col-lg-2">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-2">
+                                  <input type="checkbox" class="custom-control-input" formControlName="stExibirNota"
+                                    [disabled]="this.emUso" id="swExibirNota">
+                                  <label class="custom-control-label" for="swExibirNota">
+                                    Exibir Nota</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-lg-2">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-1">
+                                  <input type="checkbox" formControlName="stExibirGabarito"
+                                    class="custom-control-input mt-2" id="swExibirGabarito">
+                                  <label class="custom-control-label" for="swExibirGabarito">
+                                    Exibir Gabarito</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 col-lg-8"
+                            *ngIf="!cadastroAvaliacao.get('Finalizar').get('stExibirGabarito').value">
+                            <div class="form-inline">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch mt-1">
+                                  <input type="checkbox" class="custom-control-input mt-2" id="swExibirData"
+                                    formControlName="stDtExibir">
+                                  <label class="custom-control-label" for="swExibirData">
+                                    Exibir a partir de</label>
+                                </div>
+                                <div @dropdown class="input-group col-7"
+                                  *ngIf="cadastroAvaliacao.get('Finalizar').get('stDtExibir').value">
+                                  <input formControlName="dtExibir" placeholder="Selecione a data" class="form-control"
+                                    bsDatepicker [bsConfig]="bsConfig">
+                                  <div class="input-group-append">
+                                    <div class="input-group-text">
+                                      <span class="fas fa-calendar"></span>
+                                    </div>
+                                  </div>
+                                  <input type="text" [dropSpecialCharacters]="false" mask="Hh:m0"
+                                    formControlName="hrExibir" placeholder="00:00" class="col-md-3 form-control">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label class="d-inline">Resultado por:</label>
+                              <div class="icheck-primary d-inline ml-2">
+                                <input type="radio" id="rbArea" [value]="1" formControlName="cdTipoResultado">
+                                <label for="rbArea">
+                                  Área
+                                </label>
+                              </div>
+                              <div class="icheck-primary d-inline ml-2">
+                                <input type="radio" id="rbDisciplina" [value]="2" formControlName="cdTipoResultado">
+                                <label for="rbDisciplina">
+                                  Disciplina
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </ng-container>
+                      <!-- Finalizacao da Prova -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-wendell">
+            <div class="card-header">
+              <i class="fas fa-balance-scale"></i> Regras da Avaliação
+            </div>
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-12">
+                  <ckeditor [editor]="editor" formControlName="dsRegras">
+                  </ckeditor>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--
+            <div class="col-12 col-lg-12">
+                <div class="card" [ngClass]="{'card-emerson': !avaliacaoImpOuWeb, 'card-wendell': avaliacaoImpOuWeb}">
+                    <div class="card-header">
+                        <i class="fas fa-check"></i> Validações
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <table class="table table-striped table-bordered table-sm row-border hover"
+                                    *ngIf="validacoes.length > 0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 1px;" class="text-center">Usuário</th>
+                                            <th style="width: 1px;" class="text-center">Data/Hora Validação</th>
+                                            <th style="width: 1px;" class="text-center">IP</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let a of validacoes; let i = index">
+                                            <td style="width: 1px;" class="text-center">
+                                                {{a.nmUsuario}}
+                                            </td>
+                                            <td style="width: 1px;" class="text-center">
+                                                {{a.dtIncReg | date:'dd/MM/yyyy, h:mm '}}
+                                            </td>
+                                            <td style="width: 1px;" class="text-center">
+                                                {{a.nucomputador}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <label *ngIf="validacoes.length == 0"> Essa prova ainda não possui validação
+                                    cadastrada.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+      <div class="row mb-2">
+        <div class="col-12 text-center">
+          <button type="submit" [disabled]="isSaving" class="btn btn-primary">
+            {{ isSaving ? '...' : 'Salvar' }}
+          </button>
+          <!-- <button type="button" *ngIf="cadastroAvaliacao.controls.cdAvaliacao.value > 0
+                        && cadastroAvaliacao.controls.cdStatus.value === 1" class="btn btn-secondary ml-1"
+                        (click)="Enviar()">
+                        <i class="fas fa-paper-plane"></i>
+                        Enviar para Validação
+                    </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

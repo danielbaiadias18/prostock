@@ -1,0 +1,8 @@
+<div class="text-center" [ngClass]="{'op': isDisabled}">
+    <a type="button" class="btn" style="border: 1px solid #42af70" (click)="change(true)" [ngClass]="{ 'btn-primary': val }">
+          {{txt1}}  
+    </a>
+    <a type="button" class="btn" style="border: 1px solid #42af70" (click)="change(false)" [ngClass]="{ 'btn-primary': !val }">
+        {{txt2}}
+    </a>
+</div>
