@@ -1,0 +1,77 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cadastro de Produtos</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+                    <li class="breadcrumb-item active">Produtos - Cadastro</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="form" (ngSubmit)="salvar()">
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" formControlName="nome" class="form-control" [class]="(form.get('nome')!.invalid && (form.get('nome')!.dirty || form.get('nome')!.touched)) ? 'is-invalid' : ''" id="nome" required>
+                                    <div *ngIf="form.get('nome')!.invalid && (form.get('nome')!.dirty || form.get('nome')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="marca">Marca</label>
+                                    <input type="text" formControlName="marca" class="form-control" [class]="(form.get('marca')!.invalid && (form.get('marca')!.dirty || form.get('marca')!.touched)) ? 'is-invalid' : ''" id="marca" required>
+                                    <div *ngIf="form.get('marca')!.invalid && (form.get('marca')!.dirty || form.get('marca')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="valor">Valor Unitário</label>
+                                    <input type="text" formControlName="valor" mask="separator.2" [thousandSeparator]="'.'"
+                                    [decimalMarker]="','"
+                                    prefix="R$ " class="form-control" [class]="(form.get('valor')!.invalid && (form.get('valor')!.dirty || form.get('valor')!.touched)) ? 'is-invalid' : ''" id="valor" required>
+                                    <div *ngIf="form.get('valor')!.invalid && (form.get('valor')!.dirty || form.get('valor')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-12">
+                                    <label for="descricao">Descrição</label>
+                                    <textarea formControlName="descricao" required [class]="(form.get('descricao')!.invalid && (form.get('descricao')!.dirty || form.get('descricao')!.touched)) ? 'is-invalid' : ''" class="form-control" id="descricao" rows="3"></textarea>
+                                    <div *ngIf="form.get('descricao')!.invalid && (form.get('descricao')!.dirty || form.get('descricao')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

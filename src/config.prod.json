@@ -1,0 +1,5 @@
+
+{
+    "app_name": "ProStock",
+    "api_url": "http://localhost:5000/api/"
+}

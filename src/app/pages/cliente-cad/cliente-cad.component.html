@@ -1,0 +1,172 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cadastro de Clientes</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+                    <li class="breadcrumb-item active">Clientes - Cadastro</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="form" (ngSubmit)="salvar()">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" formControlName="nome" class="form-control" [class]="(form.get('nome')!.invalid && (form.get('nome')!.dirty || form.get('nome')!.touched)) ? 'is-invalid' : ''" id="nome" required>
+                                    <div *ngIf="form.get('nome')!.invalid && (form.get('nome')!.dirty || form.get('nome')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="cpf">Cpf</label>
+                                    <input type="text" mask="000.000.000-00" formControlName="cpf" class="form-control" [class]="(form.get('cpf')!.invalid && (form.get('cpf')!.dirty || form.get('cpf')!.touched)) ? 'is-invalid' : ''" id="cpf" required>
+                                    <div *ngIf="form.get('cpf')!.invalid && (form.get('cpf')!.dirty || form.get('cpf')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="text" formControlName="telefone" mask="(00) 00000-0000" class="form-control" [class]="(form.get('telefone')!.invalid && (form.get('telefone')!.dirty || form.get('telefone')!.touched)) ? 'is-invalid' : ''" id="telefone" required>
+                                    <div *ngIf="form.get('telefone')!.invalid && (form.get('telefone')!.dirty || form.get('telefone')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="email">Email</label>
+                                    <input type="text" formControlName="email" class="form-control" [class]="(form.get('email')!.invalid && (form.get('email')!.dirty || form.get('email')!.touched)) ? 'is-invalid' : ''" id="email" required>
+                                    <div *ngIf="form.get('email')!.invalid && (form.get('email')!.dirty || form.get('email')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="formEndereco" (ngSubmit)="adicionarEndereco()">
+                            <div class="row">
+                                
+                                <div class="form-group col-2">
+                                    <label for="cep">Cep</label>
+                                    <input type="text" mask="00000-000" formControlName="cep" class="form-control" [class]="(formEndereco.get('cep')!.invalid && (formEndereco.get('cep')!.dirty || formEndereco.get('cep')!.touched)) ? 'is-invalid' : ''" id="cep" required>
+                                    <div *ngIf="formEndereco.get('cep')!.invalid && (formEndereco.get('cep')!.dirty || formEndereco.get('cep')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="rua">Rua</label>
+                                    <input type="text" formControlName="rua" class="form-control" [class]="(formEndereco.get('rua')!.invalid && (formEndereco.get('rua')!.dirty || formEndereco.get('rua')!.touched)) ? 'is-invalid' : ''" id="rua" required>
+                                    <div *ngIf="formEndereco.get('rua')!.invalid && (formEndereco.get('rua')!.dirty || formEndereco.get('rua')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-4">
+                                    <label for="cidade">Cidade</label>
+                                    <input type="text" formControlName="cidade" class="form-control" [class]="(formEndereco.get('cidade')!.invalid && (formEndereco.get('cidade')!.dirty || formEndereco.get('cidade')!.touched)) ? 'is-invalid' : ''" id="cidade" required>
+                                    <div *ngIf="formEndereco.get('cidade')!.invalid && (formEndereco.get('cidade')!.dirty || formEndereco.get('cidade')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-2">
+                                    <label for="UF">UF</label>
+                                    <input type="text" formControlName="UF" class="form-control" [class]="(formEndereco.get('UF')!.invalid && (formEndereco.get('UF')!.dirty || formEndereco.get('UF')!.touched)) ? 'is-invalid' : ''" id="UF" required>
+                                    <div *ngIf="formEndereco.get('UF')!.invalid && (formEndereco.get('UF')!.dirty || formEndereco.get('UF')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-3">
+                                    <label for="pais">País</label>
+                                    <input type="text" formControlName="pais" class="form-control" [class]="(formEndereco.get('pais')!.invalid && (formEndereco.get('pais')!.dirty || formEndereco.get('pais')!.touched)) ? 'is-invalid' : ''" id="pais" required>
+                                    <div *ngIf="formEndereco.get('pais')!.invalid && (formEndereco.get('pais')!.dirty || formEndereco.get('pais')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-7">
+                                    <label for="complemento">Complemento</label>
+                                    <input type="text" formControlName="complemento" class="form-control" id="complemento">
+                                </div>
+                                
+                            </div>
+                            <div class="col-12 text-center mb-4">
+                                <button type="submit" class="btn btn-primary">Adicionar</button>
+                            </div>
+                        </form>
+
+                        <div class="row">
+                            <div class="col-12 table-responsive" *ngIf="enderecos.length > 0">
+                                <table class="table table-striped table-bordered table-sm row-border hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Cep</th>
+                                            <th>Rua</th>
+                                            <th>Bairro</th>
+                                            <th>Cidade</th>
+                                            <th>Uf</th>
+                                            <th>Complemento</th>
+                                            <th>Pais</th>
+                                            <th style="width: 1px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let e of enderecos; let i = index">
+                                            <td>{{ e.Cep }}</td>
+                                            <td>{{ e.Rua }}</td>
+                                            <td>{{ e.Bairro }}</td>
+                                            <td>{{ e.Cidade }}</td>
+                                            <td>{{ e.Uf }}</td>
+                                            <td>{{ e.Complemento }}</td>
+                                            <td>{{ e.Pais }}</td>
+                                            <td (click)="excluirEndereco(i)"><i class="far fa-trash-alt text-danger"></i></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
