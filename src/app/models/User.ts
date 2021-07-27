@@ -3,5 +3,5 @@ export interface User {
     Login: string;
     cdEmpresa: number;
     Nome: string;
-    Token: string;
+    token: string;
 }

@@ -68,7 +68,7 @@
                                             <th style="width: 1px;">Código</th>
                                             <th>Nome</th>
                                             <th>Marca</th>
-                                            <th>Nycole</th>
+                                            <th>Descrição</th>
                                             <th style="width: 12%;">Valor Unitário</th>
                                         </tr>
                                     </thead>
@@ -82,7 +82,7 @@
                                                         Ações
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                        <a class="dropdown-item" [routerLink]="['/produto', p.Id]">
+                                                        <a class="dropdown-item" [routerLink]="['/produto', p.id]">
                                                             <div class="row">
                                                                 <div class="col-2 text-center">
                                                                     <i class="fas fa-edit"></i>
@@ -91,7 +91,7 @@
                                                                     Editar</div>
                                                             </div>
                                                         </a>
-                                                        <a class="dropdown-item" (click)="excluirProduto(p.Id)">
+                                                        <a class="dropdown-item" (click)="excluirProduto(p.id)">
                                                             <div class="row">
                                                                 <div class="col-2 text-center text-danger">
                                                                     <i class="fas fa-trash"></i>
@@ -107,7 +107,7 @@
                                                     <ul id="menu{{ i }}" *dropdownMenu class="dropdown-menu"
                                                         role="menu">
                                                         <li role="menuitem">
-                                                            <a class="dropdown-item" [routerLink]="['/produto', p.Id]">
+                                                            <a class="dropdown-item" [routerLink]="['/produto', p.id]">
                                                                 <div class="row">
                                                                     <div class="col-2 text-center">
                                                                         <i class="fas fa-edit"></i>
@@ -136,11 +136,11 @@
                                                     </button>
                                                 </div> -->
                                             </td>
-                                            <td>{{ p.Id }}</td>
-                                            <td>{{ p.Nome }}</td>
-                                            <td>{{ p.Marca }}</td>
-                                            <td>{{ p.Descricao }}</td>
-                                            <td>R${{ p.ValorUnit | number:'1.2-2' }}</td>
+                                            <td>{{ p.id }}</td>
+                                            <td>{{ p.nome }}</td>
+                                            <td>{{ p.marca }}</td>
+                                            <td>{{ p.descricao }}</td>
+                                            <td>{{ p.valorUnit | currency:'BRL' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

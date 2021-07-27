@@ -1,8 +1,8 @@
 export interface iProduto{
-    Id: number;
-    Nome: string;
-    Marca: string;
-    Descricao: string;
-    ValorUnit: number;
-    UsuarioId: number;
+    id: number;
+    nome: string;
+    marca: string;
+    descricao: string;
+    valorUnit: number;
+    usuarioId: number;
 }

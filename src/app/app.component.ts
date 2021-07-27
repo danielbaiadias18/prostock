@@ -10,7 +10,6 @@ declare var $: JQueryStatic;
 })
 export class AppComponent {
   title = 'prostock';
-
   canSee = true;
   
   @ViewChild('wrapper') wrapper!: ElementRef;
