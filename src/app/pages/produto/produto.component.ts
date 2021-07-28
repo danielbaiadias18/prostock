@@ -43,11 +43,12 @@ export class ProdutoComponent implements OnInit {
     this.http.get(`${environment.api_url}produto`)
       .subscribe((response: any) => {
         this.produtos = response;
+        console.log(response, "produtos")
       });
   }
 
   excluirProduto(idProduto: number){
-    this.produtos = this.produtos.filter(x => x.id != idProduto);
+    // this.produtos = this.produtos.filter(x => x.id != idProduto);
 
     this.http.delete(`${environment.api_url}produto/${idProduto}`)
       .subscribe((response: any) => {
