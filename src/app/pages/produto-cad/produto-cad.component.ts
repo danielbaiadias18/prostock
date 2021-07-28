@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { iProduto } from 'src/app/models/Produto';
 import { Uteis } from 'src/app/models/Uteis';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-produto-cad',
@@ -55,12 +56,24 @@ export class ProdutoCadComponent implements OnInit {
       debugger;
       if(this.idProduto! > 0){
         this.http.put(environment.api_url + `produto/${this.idProduto}`, this.form.value).subscribe((res: any) => {
-          console.log(res, "resresrs");
+          if(res)
+            Swal.fire(
+              'Produto cadastrado com sucesso!',
+              '',
+              'success'
+            );
+            this.router.navigate(['produto']);
         });
 
       }else{
         this.http.post(environment.api_url + 'produto', this.form.value).subscribe((res: any) => {
-          console.log(res, "resresrs");
+          if(res)
+          Swal.fire(
+            'Produto cadastrado com sucesso!',
+            '',
+            'success'
+          );
+          this.router.navigate(['produto']);
         });
       }
     } else {
