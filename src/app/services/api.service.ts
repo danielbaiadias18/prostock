@@ -25,7 +25,6 @@ export class ApiService {
   async api(method: HttpMethod | HttpMethodBody, action: string, body: any): Promise<any>;
   async api(method: HttpMethod | HttpMethodBody, action: string, body?: any): Promise<any> {
     let ret: Observable<any>;
-    debugger;
     switch (method) {
       case HttpMethod.GET:
         ret = this.http.get(`${await this.getUrl()}${action}`);
@@ -81,7 +80,6 @@ export class ApiService {
     return new Promise<any>((ok, e) => {
       this.http.request(ret).subscribe(resp => { obj = resp },
         (err: HttpErrorResponse) => {
-          debugger;
           if (err.status == 400) {
             let model: iModel = new Model(err.error);
             e(model);

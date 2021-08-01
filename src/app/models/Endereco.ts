@@ -1,11 +1,11 @@
 export interface iEndereco{
-    Id: number;
-    Cep: string;
-    Rua: string;
-    Bairro: string;
-    Cidade: string;
-    Uf: string;
-    Complemento: string;
-    Pais: string;
-    PessoaId: number;
+    id: number;
+    cep: string;
+    rua: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
+    complemento: string;
+    pais: string;
+    pessoaId: number;
 }

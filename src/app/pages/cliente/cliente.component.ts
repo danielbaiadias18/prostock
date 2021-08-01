@@ -1,5 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { iCliente } from 'src/app/models/Cliente';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cliente',
@@ -8,37 +13,27 @@ import { iCliente } from 'src/app/models/Cliente';
 })
 export class ClienteComponent implements OnInit {
 
-  clientes: iCliente[] = [
-    {
-      Id: 1,
-      Nome: 'Janin da Silva',
-      Cpf: '804.249.800-45',
-      Telefone: '(14) 80524-4746',
-      Email: 'JaninUmCincoSete@hotmail.com'
-    },
-    {
-      Id: 2,
-      Nome: 'Daniel Bias Daia',
-      Cpf: '198.201.570-56',
-      Telefone: '(33) 47273-5026',
-      Email: 'DanielzinDosCria@gmail.com'
-    },
-    {
-      Id: 1,
-      Nome: 'Filipin Pjl',
-      Cpf: '321.884.380-43',
-      Telefone: '(28) 30114-2554',
-      Email: 'FelipeFreeFire@hotmail.com'
-    }
-  ];
+  clientes: iCliente[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
+    this.http.get(`${environment.api_url}cliente`)
+      .subscribe((response: any) => {
+        this.clientes = response;
+      });
   }
 
   excluirCliente(idCliente: number){
-    this.clientes = this.clientes.filter(x => x.Id != idCliente);
+    this.http.delete(`${environment.api_url}cliente/${idCliente}`)
+      .subscribe((response: any) => {
+        Swal.fire(
+          'Cliente excluído com sucesso!',
+          '',
+          'success'
+        );
+        this.ngOnInit();
+      });
   }
 
 }

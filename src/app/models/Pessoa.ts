@@ -1,6 +1,9 @@
+import { iEndereco } from "./Endereco";
+
 export interface iPessoa{
-    Nome: string;
-    Cpf: string;
-    Telefone: string;
-    Email: string;
+    nome: string;
+    cpf: string;
+    telefone: string;
+    email: string;
+    enderecos: iEndereco[];
 }

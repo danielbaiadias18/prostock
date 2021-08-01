@@ -32,12 +32,10 @@ export class ProdutoCadComponent implements OnInit {
     this.route.paramMap.subscribe(async (param) => {
       if (!Number.isNaN(Number(param.get('id')))) {
         this.idProduto = +(param.get('id') ?? 0);
-        console.log(this.idProduto, "idProduto");
 
         this.http.get(`${environment.api_url}produto/${this.idProduto}`)
           .subscribe((response: any) => {
             this.produto = response;
-            console.log(response, "produto");
 
             this.form.controls['nome'].setValue(this.produto?.nome);
             this.form.controls['marca'].setValue(this.produto?.marca);
@@ -53,12 +51,11 @@ export class ProdutoCadComponent implements OnInit {
 
   salvar() {
     if (this.form.valid) {
-      debugger;
       if(this.idProduto! > 0){
         this.http.put(environment.api_url + `produto/${this.idProduto}`, this.form.value).subscribe((res: any) => {
           if(res)
             Swal.fire(
-              'Produto cadastrado com sucesso!',
+              'Produto alterado com sucesso!',
               '',
               'success'
             );

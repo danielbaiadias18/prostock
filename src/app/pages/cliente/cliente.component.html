@@ -50,7 +50,7 @@
                                                         Ações
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                        <a class="dropdown-item" [routerLink]="['/cliente', c.Id]">
+                                                        <a class="dropdown-item" [routerLink]="['/cliente', c.id]">
                                                             <div class="row">
                                                                 <div class="col-2 text-center">
                                                                     <i class="fas fa-edit"></i>
@@ -59,7 +59,7 @@
                                                                     Editar</div>
                                                             </div>
                                                         </a>
-                                                        <a class="dropdown-item" (click)="excluirCliente(c.Id)">
+                                                        <a class="dropdown-item" (click)="excluirCliente(c.id)">
                                                             <div class="row">
                                                                 <div class="col-2 text-center text-danger">
                                                                     <i class="fas fa-trash"></i>
@@ -72,11 +72,11 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ c.Id }}</td>
-                                            <td>{{ c.Nome }}</td>
-                                            <td>{{ c.Cpf }}</td>
-                                            <td>{{ c.Telefone }}</td>
-                                            <td>{{ c.Email }}</td>
+                                            <td>{{ c.id }}</td>
+                                            <td>{{ c.pessoa.nome }}</td>
+                                            <td>{{ c.pessoa.cpf | mask: '000.000.000-00' }}</td>
+                                            <td>{{ c.pessoa.telefone | mask:'(00) 00000-0000'}}</td>
+                                            <td>{{ c.pessoa.email }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -1,5 +1,6 @@
 import { iPessoa } from "./Pessoa";
 
-export interface iCliente extends iPessoa{
-    Id: number;
+export interface iCliente{
+    id: number;
+    pessoa: iPessoa;
 }
