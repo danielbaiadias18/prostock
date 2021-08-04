@@ -15,7 +15,7 @@ export class ClienteComponent implements OnInit {
 
   clientes: iCliente[] = [];
 
-  constructor(private http: HttpClient, private auth: AuthenticationService, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     this.http.get(`${environment.api_url}cliente`)

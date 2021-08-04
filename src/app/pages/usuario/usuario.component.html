@@ -1,4 +1,4 @@
-<!-- <section class="content-header">
+<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -7,7 +7,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
-                    <li class="breadcrumb-item active">Usuário</li>
+                    <li class="breadcrumb-item active">Usuários</li>
                 </ol>
             </div>
         </div>
@@ -35,13 +35,14 @@
                                             <th style="width: 1px;">Ações</th>
                                             <th style="width: 1px;">Código</th>
                                             <th>Login</th>
+                                            <th>Nome</th>
                                             <th>Cpf</th>
                                             <th>Telefone</th>
                                             <th>Email</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let c of clientes; let i = index">
+                                        <tr *ngFor="let u of usuarios; let i = index">
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-secondary dropdown-toggle" type="button"
@@ -50,7 +51,7 @@
                                                         Ações
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                        <a class="dropdown-item" [routerLink]="['/cliente', c.Id]">
+                                                        <a class="dropdown-item" [routerLink]="['/usuario', u.id]">
                                                             <div class="row">
                                                                 <div class="col-2 text-center">
                                                                     <i class="fas fa-edit"></i>
@@ -59,7 +60,7 @@
                                                                     Editar</div>
                                                             </div>
                                                         </a>
-                                                        <a class="dropdown-item" (click)="excluirCliente(c.Id)">
+                                                        <a class="dropdown-item" (click)="excluirUsuario(u.id)">
                                                             <div class="row">
                                                                 <div class="col-2 text-center text-danger">
                                                                     <i class="fas fa-trash"></i>
@@ -72,11 +73,12 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{{ c.Id }}</td>
-                                            <td>{{ c.Nome }}</td>
-                                            <td>{{ c.Cpf }}</td>
-                                            <td>{{ c.Telefone }}</td>
-                                            <td>{{ c.Email }}</td>
+                                            <td>{{ u.id }}</td>
+                                            <td>{{ u.login }}</td>
+                                            <td>{{ u.pessoa.nome }}</td>
+                                            <td>{{ u.pessoa.cpf | mask: '000.000.000-00' }}</td>
+                                            <td>{{ u.pessoa.telefone | mask:'(00) 00000-0000'}}</td>
+                                            <td>{{ u.pessoa.email }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -87,4 +89,4 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>

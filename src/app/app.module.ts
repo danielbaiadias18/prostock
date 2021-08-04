@@ -22,6 +22,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { ApiService } from './services/api.service';
 import { ConfigService } from './services/config.service';
 import { BarsService } from './services/bars.service';
+import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { BarsService } from './services/bars.service';
     ProdutoCadComponent,
     ClienteComponent,
     ClienteCadComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    UsuarioCadComponent
   ],
   imports: [
     BrowserModule,

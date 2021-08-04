@@ -6,6 +6,8 @@ import { ClienteComponent } from './pages/cliente/cliente.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProdutoCadComponent } from './pages/produto-cad/produto-cad.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
+import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
 
 const routerOptions: ExtraOptions = {
   useHash: false,
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path: 'produto/:id' , component: ProdutoCadComponent},
   { path: 'cliente' , component: ClienteComponent},
   { path: 'cliente/:id' , component: ClienteCadComponent},
+  { path: 'usuario' , component: UsuarioComponent},
+  { path: 'usuario/:id' , component: UsuarioCadComponent},
   { path: 'login', component: LoginComponent },
   // { path: 'erro', component: Erro500Component },
   // { path: '**', component: NotfoundComponent }
