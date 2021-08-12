@@ -8,3 +8,13 @@
 .scale:hover{
     transform: scale(1.25);
 }
+
+.table-vertical-align{
+    tbody tr td{
+        vertical-align: middle;
+    }
+}
+
+a{
+    cursor: pointer;
+}

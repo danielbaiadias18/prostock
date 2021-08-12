@@ -23,6 +23,8 @@ import { ApiService } from './services/api.service';
 import { ConfigService } from './services/config.service';
 import { BarsService } from './services/bars.service';
 import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
+import { VendaComponent } from './pages/venda/venda.component';
+import { VendaCadComponent } from './pages/venda-cad/venda-cad.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
     ClienteComponent,
     ClienteCadComponent,
     UsuarioComponent,
-    UsuarioCadComponent
+    UsuarioCadComponent,
+    VendaComponent,
+    VendaCadComponent
   ],
   imports: [
     BrowserModule,

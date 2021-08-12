@@ -1,1 +1,133 @@
-<p>usuario-cad works!</p>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cadastro de Usuário</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+                    <li class="breadcrumb-item active">Usuários - Cadastro</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="form">
+                            <div class="row">
+                                <div class="form-group col-5">
+                                    <label for="login">Login</label>
+                                    <input type="text" formControlName="login" class="form-control"
+                                        [class]="(form.get('login')!.invalid && (form.get('login')!.dirty || form.get('login')!.touched)) ? 'is-invalid' : ''"
+                                        id="login" required>
+                                    <div
+                                        *ngIf="form.get('login')!.invalid && (form.get('login')!.dirty || form.get('login')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-5">
+                                    <label for="senha">Senha</label>
+                                    <div class="input-group">
+                                        <input [type]="fieldTextType ? 'text' : 'password'" formControlName="senha"
+                                            class="form-control"
+                                            [class]="(form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)) ? 'is-invalid' : ''"
+                                            id="senha" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text cursor">
+                                                <i class="fa" [ngClass]="{
+                                                    'fa-eye-slash': !fieldTextType,
+                                                    'fa-eye': fieldTextType
+                                                    }" (click)="toggleFieldTextType()"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="pessoaForm">
+                            <div class="row">
+
+                                <div class="form-group col-6">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" formControlName="nome" class="form-control"
+                                        [class]="(pessoaForm.get('nome')!.invalid && (pessoaForm.get('nome')!.dirty || pessoaForm.get('nome')!.touched)) ? 'is-invalid' : ''"
+                                        id="nome" required>
+                                    <div
+                                        *ngIf="pessoaForm.get('nome')!.invalid && (pessoaForm.get('nome')!.dirty || pessoaForm.get('nome')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="cpf">Cpf</label>
+                                    <input type="text" mask="099.099.099-09" formControlName="cpf" class="form-control"
+                                        [class]="(pessoaForm.get('cpf')!.invalid && (pessoaForm.get('cpf')!.dirty || pessoaForm.get('cpf')!.touched)) ? 'is-invalid' : ''"
+                                        id="cpf" required>
+                                    <div
+                                        *ngIf="pessoaForm.get('cpf')!.invalid && (pessoaForm.get('cpf')!.dirty || pessoaForm.get('cpf')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="telefone">Telefone</label>
+                                    <input type="text" formControlName="telefone" mask="(09) 09999-0999"
+                                        class="form-control"
+                                        [class]="(pessoaForm.get('telefone')!.invalid && (pessoaForm.get('telefone')!.dirty || pessoaForm.get('telefone')!.touched)) ? 'is-invalid' : ''"
+                                        id="telefone" required>
+                                    <div
+                                        *ngIf="pessoaForm.get('telefone')!.invalid && (pessoaForm.get('telefone')!.dirty || pessoaForm.get('telefone')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label for="email">Email</label>
+                                    <input type="text" formControlName="email" class="form-control"
+                                        [class]="(pessoaForm.get('email')!.invalid && (pessoaForm.get('email')!.dirty || pessoaForm.get('email')!.touched)) ? 'is-invalid' : ''"
+                                        id="email" required>
+                                    <div
+                                        *ngIf="pessoaForm.get('email')!.invalid && (pessoaForm.get('email')!.dirty || pessoaForm.get('email')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-center mb-4">
+            <button type="button" (click)="salvar()" class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>

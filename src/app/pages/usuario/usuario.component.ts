@@ -19,7 +19,7 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(`${environment.api_url}usuario`)
       .subscribe((response: any) => {
-        debugger;
+        console.log(response, "response");
         this.usuarios = response;
       });
   }
