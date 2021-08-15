@@ -22,15 +22,9 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  // login(username: any, password: any) {
-  //   return this.http.post<any>(`http://192.168.0.3/avaliacaoOnline/api/login`, { username, password })
-  //     .pipe(map(user => {
-  //       // store user details and jwt token in local storage to keep user logged in between page refreshes
-  //       localStorage.setItem('currentUser', JSON.stringify(user));
-  //       this.currentUserSubject.next(user);
-  //       return user;
-  //     }));
-  // }
+  isAuthenticated(){
+    return localStorage.getItem('currentUser') != null;
+  }
 
   logout() {
     // remove user from local storage and set current user to null

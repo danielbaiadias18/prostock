@@ -25,6 +25,10 @@ import { BarsService } from './services/bars.service';
 import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
 import { VendaComponent } from './pages/venda/venda.component';
 import { VendaCadComponent } from './pages/venda-cad/venda-cad.component';
+import { AuthGuardService } from './guards/auth-guard.service';
+import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
+import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
+import { UnauthorizedComponent } from './pages/errors/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,10 @@ import { VendaCadComponent } from './pages/venda-cad/venda-cad.component';
     UsuarioComponent,
     UsuarioCadComponent,
     VendaComponent,
-    VendaCadComponent
+    VendaCadComponent,
+    NotFoundComponent,
+    BadRequestComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,8 @@ import { VendaCadComponent } from './pages/venda-cad/venda-cad.component';
     AuthenticationService,
     ApiService,
     ConfigService,
-    BarsService
+    BarsService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
