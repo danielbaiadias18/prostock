@@ -20,6 +20,7 @@ export class ProdutoComponent implements OnInit {
   ngOnInit(): void {
     this.http.get(`${environment.api_url}produto`)
       .subscribe((response: any) => {
+        debugger;
         this.produtos = response;
       });
   }

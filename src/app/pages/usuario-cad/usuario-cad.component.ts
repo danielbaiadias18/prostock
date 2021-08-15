@@ -32,7 +32,7 @@ export class UsuarioCadComponent implements OnInit {
 
     this.form = this.fb.group({
       login: ['', Validators.compose([Validators.required])],
-      senha: ['', Validators.compose([Validators.required])],
+      senha: [''],
     });
   }
 
@@ -69,7 +69,6 @@ export class UsuarioCadComponent implements OnInit {
           senha: this.form.get('senha')!.value,
           pessoa: this.pessoaForm.value
         };
-
         this.http.put(environment.api_url + `usuario/${this.idUsuario}`, this.usuario).subscribe((res: any) => {
           if (res)
             Swal.fire(

@@ -39,8 +39,7 @@
                                     <div class="input-group">
                                         <input [type]="fieldTextType ? 'text' : 'password'" formControlName="senha"
                                             class="form-control"
-                                            [class]="(form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)) ? 'is-invalid' : ''"
-                                            id="senha" required>
+                                            id="senha">
                                         <div class="input-group-append">
                                             <span class="input-group-text cursor">
                                                 <i class="fa" [ngClass]="{
@@ -50,12 +49,12 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div
+                                    <!-- <div
                                         *ngIf="form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)">
                                         <small class="text-danger">
                                             Este campo é requerido
                                         </small>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </form>
@@ -83,7 +82,7 @@
 
                                 <div class="form-group col-4">
                                     <label for="cpf">Cpf</label>
-                                    <input type="text" mask="099.099.099-09" formControlName="cpf" class="form-control"
+                                    <input type="text" mask="099.099.099-09" formControlName="cpf" class="form-control" [dropSpecialCharacters]="true"
                                         [class]="(pessoaForm.get('cpf')!.invalid && (pessoaForm.get('cpf')!.dirty || pessoaForm.get('cpf')!.touched)) ? 'is-invalid' : ''"
                                         id="cpf" required>
                                     <div
@@ -97,7 +96,7 @@
                                 <div class="form-group col-4">
                                     <label for="telefone">Telefone</label>
                                     <input type="text" formControlName="telefone" mask="(09) 09999-0999"
-                                        class="form-control"
+                                        class="form-control" [dropSpecialCharacters]="true"
                                         [class]="(pessoaForm.get('telefone')!.invalid && (pessoaForm.get('telefone')!.dirty || pessoaForm.get('telefone')!.touched)) ? 'is-invalid' : ''"
                                         id="telefone" required>
                                     <div
