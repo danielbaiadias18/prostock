@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-venda',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VendaComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private http: HttpClient) { }
+  
+  vendas = true;
+  
   ngOnInit(): void {
+    this.http.get(`${environment.api_url}venda`)
+      .subscribe((response: any) => {
+        console.log(response)
+        // this.vendas = response;
+      });
   }
 
 }

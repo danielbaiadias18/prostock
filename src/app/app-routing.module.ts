@@ -12,6 +12,8 @@ import { ProdutoCadComponent } from './pages/produto-cad/produto-cad.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { VendaCadComponent } from './pages/venda-cad/venda-cad.component';
+import { VendaComponent } from './pages/venda/venda.component';
 
 const routerOptions: ExtraOptions = {
   useHash: false,
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'cliente/:id' , component: ClienteCadComponent, canActivate: [AuthGuardService] },
   { path: 'usuario' , component: UsuarioComponent, canActivate: [AuthGuardService] },
   { path: 'usuario/:id' , component: UsuarioCadComponent, canActivate: [AuthGuardService] },
+  { path: 'venda' , component: VendaComponent, canActivate: [AuthGuardService] },
+  { path: 'venda/:id' , component: VendaCadComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'badrequest', component: BadRequestComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
