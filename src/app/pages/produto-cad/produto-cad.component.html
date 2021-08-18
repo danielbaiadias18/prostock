@@ -44,8 +44,8 @@
 
                                 <div class="form-group col-4">
                                     <label for="valorUnit">Valor Unitário</label>
-                                    <input type="text" formControlName="valorUnit" mask="separator.2" [thousandSeparator]="','"
-                                    [decimalMarker]="'.'" [dropSpecialCharacters]="true"
+                                    <input type="text" formControlName="valorUnit" mask="separator.2" [thousandSeparator]="'.'"
+                                    [decimalMarker]="','" [dropSpecialCharacters]="true"
                                     prefix="R$ " class="form-control" [class]="(form.get('valorUnit')!.invalid && (form.get('valorUnit')!.dirty || form.get('valorUnit')!.touched)) ? 'is-invalid' : ''" id="valorUnit" required>
                                     <div *ngIf="form.get('valorUnit')!.invalid && (form.get('valorUnit')!.dirty || form.get('valorUnit')!.touched)">
                                         <small class="text-danger">

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { iUsuario } from 'src/app/models/Usuario';
 import { Uteis } from 'src/app/models/Uteis';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -14,15 +15,14 @@ import Swal from 'sweetalert2';
 })
 export class UsuarioCadComponent implements OnInit {
 
-  
+
   pessoaForm: FormGroup;
   form: FormGroup;
   usuario: iUsuario | undefined;
   idUsuario!: number;
   fieldTextType: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
-    
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) {
     this.pessoaForm = this.fb.group({
       nome: ['', Validators.required],
       cpf: ['', Validators.compose([Validators.required])],
@@ -32,7 +32,7 @@ export class UsuarioCadComponent implements OnInit {
 
     this.form = this.fb.group({
       login: ['', Validators.compose([Validators.required])],
-      senha: [''],
+      senha: ['', Validators.compose([])],
     });
   }
 
@@ -54,10 +54,14 @@ export class UsuarioCadComponent implements OnInit {
             this.pessoaForm.controls['email'].setValue(this.usuario?.pessoa?.email);
           });
 
+        if (this.idUsuario == 0)
+          this.form.controls['senha'].setValidators(Validators.required);
+
       } else {
         this.router.navigate(['/notfound']);
       }
     });
+
   }
 
   salvar() {
@@ -67,7 +71,9 @@ export class UsuarioCadComponent implements OnInit {
           id: this.idUsuario,
           login: this.form.get('login')!.value,
           senha: this.form.get('senha')!.value,
-          pessoa: this.pessoaForm.value
+          pessoa: this.pessoaForm.value,
+          pessoaId: this.auth.currentUserValue.user.pessoaId,
+          lojaId: this.auth.currentUserValue.user.lojaId
         };
         this.http.put(environment.api_url + `usuario/${this.idUsuario}`, this.usuario).subscribe((res: any) => {
           if (res)
@@ -84,11 +90,13 @@ export class UsuarioCadComponent implements OnInit {
           id: this.idUsuario,
           login: this.form.get('login')!.value,
           senha: this.form.get('senha')!.value,
-          pessoa: this.pessoaForm.value
+          pessoa: this.pessoaForm.value,
+          pessoaId: this.auth.currentUserValue.user.pessoaId,
+          lojaId: this.auth.currentUserValue.user.lojaId
         };
 
         this.http.post(environment.api_url + 'usuario', this.usuario).subscribe((res: any) => {
-          if (res){
+          if (res) {
             Swal.fire(
               `Usuário cadastrado com sucesso!`,
               '',

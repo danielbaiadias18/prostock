@@ -38,7 +38,7 @@
                                     <label for="senha">Senha</label>
                                     <div class="input-group">
                                         <input [type]="fieldTextType ? 'text' : 'password'" formControlName="senha"
-                                            class="form-control"
+                                            class="form-control" [class]="(form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)) ? 'is-invalid' : ''"
                                             id="senha">
                                         <div class="input-group-append">
                                             <span class="input-group-text cursor">
@@ -49,12 +49,12 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <!-- <div
+                                    <div
                                         *ngIf="form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)">
                                         <small class="text-danger">
                                             Este campo é requerido
                                         </small>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </form>

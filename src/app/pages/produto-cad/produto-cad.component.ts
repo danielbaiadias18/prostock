@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { iProduto } from 'src/app/models/Produto';
 import { Uteis } from 'src/app/models/Uteis';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
@@ -18,7 +19,7 @@ export class ProdutoCadComponent implements OnInit {
   produto: iProduto | undefined;
   idProduto: number | undefined;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) {
     this.form = this.fb.group({
       nome: ['', Validators.required],
       marca: ['', Validators.required],
@@ -51,6 +52,9 @@ export class ProdutoCadComponent implements OnInit {
 
   salvar() {
     if (this.form.valid) {
+      this.form.addControl('usuarioId', new FormControl('', Validators.required));
+      this.form.controls['usuarioId'].setValue(this.auth.currentUserValue.user.id);
+debugger;
       if(this.idProduto! > 0){
         this.http.put(environment.api_url + `produto/${this.idProduto}`, this.form.value).subscribe((res: any) => {
           if(res)

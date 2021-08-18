@@ -75,10 +75,10 @@
                                             </td>
                                             <td>{{ u.id }}</td>
                                             <td>{{ u.login }}</td>
-                                            <td>{{ u.pessoa.nome }}</td>
-                                            <td>{{ u.pessoa.cpf | mask: '000.000.000-00' }}</td>
-                                            <td>{{ u.pessoa.telefone | mask:'(00) 00000-0000'}}</td>
-                                            <td>{{ u.pessoa.email }}</td>
+                                            <td [class]="u.pessoa.nome || 'text-center'">{{ u.pessoa.nome || '-'}}</td>
+                                            <td [class]="u.pessoa.cpf || 'text-center'">{{ (u.pessoa.cpf | mask: '000.000.000-00') || '-' }}</td>
+                                            <td [class]="u.pessoa.telefone || 'text-center'">{{ (u.pessoa.telefone | mask:'(00) 00000-0000') || '-'}}</td>
+                                            <td [class]="u.pessoa.email || 'text-center'">{{ u.pessoa.email || '-' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
