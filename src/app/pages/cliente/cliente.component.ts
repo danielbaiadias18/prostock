@@ -24,16 +24,36 @@ export class ClienteComponent implements OnInit {
       });
   }
 
-  excluirCliente(idCliente: number){
-    this.http.delete(`${environment.api_url}cliente/${idCliente}`)
-      .subscribe((response: any) => {
-        Swal.fire(
-          'Cliente excluído com sucesso!',
-          '',
-          'success'
-        );
-        this.ngOnInit();
-      });
-  }
+  excluirCliente(idCliente: number) {
 
+    Swal.fire({
+      title: 'Deseja excluir o cliente \"' + this.clientes.filter(x => x.id === idCliente)[0].pessoa.nome + '\"?',
+      showCancelButton: true,
+      confirmButtonText: `Excluir`,
+      confirmButtonColor: `#dc3545`,
+      cancelButtonText: `Cancelar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.delete(`${environment.api_url}cliente/${idCliente}`)
+          .subscribe(() => {
+            this.ngOnInit();
+          });
+        Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        }).fire({
+          icon: 'success',
+          title: 'Cliente excluído com sucesso!'
+        });
+      }
+    });
+
+  }
 }

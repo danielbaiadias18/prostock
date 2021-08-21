@@ -77,11 +77,20 @@ export class UsuarioCadComponent implements OnInit {
         };
         this.http.put(environment.api_url + `usuario/${this.idUsuario}`, this.usuario).subscribe((res: any) => {
           if (res)
-            Swal.fire(
-              'Usuário alterado com sucesso!',
-              '',
-              'success'
-            );
+          Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          }).fire({
+            icon: 'success',
+            title: 'Usuário alterado com sucesso!'
+          });
           this.router.navigate(['usuario']);
         });
 
@@ -97,11 +106,20 @@ export class UsuarioCadComponent implements OnInit {
 
         this.http.post(environment.api_url + 'usuario', this.usuario).subscribe((res: any) => {
           if (res) {
-            Swal.fire(
-              `Usuário cadastrado com sucesso!`,
-              '',
-              'success'
-            );
+            Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            }).fire({
+              icon: 'success',
+              title: 'Usuário cadastrado com sucesso!'
+            });
           }
           this.router.navigate(['usuario']);
         });

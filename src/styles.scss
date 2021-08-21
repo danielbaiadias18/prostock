@@ -18,3 +18,22 @@
 a{
     cursor: pointer;
 }
+  
+@media (max-width: 767px) {
+    .table-responsive .dropdown-menu {
+        position: static !important;
+    }
+  }
+  @media (min-width: 768px) {
+    .table-responsive {
+        overflow: inherit;
+    }
+  }
+
+  thead{
+    position: sticky;
+      top: 20px;
+      background-color: #6c757d;
+      color: white;
+      z-index: 99;
+  }

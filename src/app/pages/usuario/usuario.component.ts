@@ -25,14 +25,33 @@ export class UsuarioComponent implements OnInit {
   }
 
   excluirUsuario(idUsuario: number){
-    this.http.delete(`${environment.api_url}usuario/${idUsuario}`)
-      .subscribe((response: any) => {
-        Swal.fire(
-          'Usuário excluído com sucesso!',
-          '',
-          'success'
-        );
-        this.ngOnInit();
+      Swal.fire({
+        title: 'Deseja excluir o usuário \"' + (this.usuarios.filter(x => x.id === idUsuario)[0].pessoa.nome != null ? this.usuarios.filter(x => x.id === idUsuario)[0].pessoa.nome : this.usuarios.filter(x => x.id === idUsuario)[0].login) + '\"?',
+        showCancelButton: true,
+        confirmButtonText: `Excluir`,
+        confirmButtonColor: `#dc3545`,
+        cancelButtonText: `Cancelar`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.http.delete(`${environment.api_url}usuario/${idUsuario}`)
+          .subscribe(() => {
+            this.ngOnInit();
+          });
+          Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          }).fire({
+            icon: 'success',
+            title: 'Usuário excluído com sucesso!'
+          });
+        }
       });
   }
 

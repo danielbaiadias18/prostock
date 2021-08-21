@@ -54,26 +54,44 @@ export class ProdutoCadComponent implements OnInit {
     if (this.form.valid) {
       this.form.addControl('usuarioId', new FormControl('', Validators.required));
       this.form.controls['usuarioId'].setValue(this.auth.currentUserValue.user.id);
-debugger;
-      if(this.idProduto! > 0){
+      if (this.idProduto! > 0) {
         this.http.put(environment.api_url + `produto/${this.idProduto}`, this.form.value).subscribe((res: any) => {
-          if(res)
-            Swal.fire(
-              'Produto alterado com sucesso!',
-              '',
-              'success'
-            );
-            this.router.navigate(['produto']);
+          if (res)
+            Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            }).fire({
+              icon: 'success',
+              title: 'Produto alterado com sucesso!'
+            });
+
+          this.router.navigate(['produto']);
         });
 
-      }else{
+      } else {
         this.http.post(environment.api_url + 'produto', this.form.value).subscribe((res: any) => {
-          if(res)
-          Swal.fire(
-            'Produto cadastrado com sucesso!',
-            '',
-            'success'
-          );
+          if (res)
+            Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            }).fire({
+              icon: 'success',
+              title: 'Produto cadastrado com sucesso!'
+            });
           this.router.navigate(['produto']);
         });
       }

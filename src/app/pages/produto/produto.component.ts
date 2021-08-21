@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class ProdutoComponent implements OnInit {
 
   produtos: iProduto[] = [];
-  
+
   constructor(private http: HttpClient, private auth: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,15 +25,33 @@ export class ProdutoComponent implements OnInit {
   }
 
   excluirProduto(idProduto: number) {
-    this.http.delete(`${environment.api_url}produto/${idProduto}`)
-      .subscribe((response: any) => {
-        Swal.fire(
-          'Produto excluído com sucesso!',
-          '',
-          'success'
-        );
-        this.ngOnInit();
-      });
+    Swal.fire({
+      title: 'Deseja excluir o produto \"' + this.produtos.filter(x => x.id === idProduto)[0].nome + '\"?',
+      showCancelButton: true,
+      confirmButtonText: `Excluir`,
+      confirmButtonColor: `#dc3545`,
+      cancelButtonText: `Cancelar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.http.delete(`${environment.api_url}produto/${idProduto}`)
+        .subscribe(() => {
+          this.ngOnInit();
+        });
+        Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+        }).fire({
+          icon: 'success',
+          title: 'Produto excluído com sucesso!'
+        });
+      }
+    });
   }
-
 }
