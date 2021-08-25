@@ -17,3 +17,18 @@ export interface iVenda {
     usuario: iUsuario;
     produtosVendas: iProdutoVenda[];
 }
+
+
+export interface iVendaPost {
+    id: number;
+    valorTotal: number;
+    desconto: number;
+    acrescimo: number;
+    frete: number;
+    data: Date;
+    status: string;
+    descricao: string;
+    clienteId: number;
+    usuarioId: number;
+    produtos: iProdutoVenda[];
+}

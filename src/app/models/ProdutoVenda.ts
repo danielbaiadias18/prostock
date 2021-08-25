@@ -6,6 +6,5 @@ export interface iProdutoVenda{
     produtoId: number;
     produto: iProduto;
     vendaId: number;
-    venda: iVenda;
     quantidade: number;
 }

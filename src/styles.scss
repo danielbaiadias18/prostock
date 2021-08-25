@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
 
 .cursor{
     cursor: pointer;
@@ -37,3 +38,12 @@ a{
       color: white;
       z-index: 99;
   }
+
+  .ng-select-container {
+    height: 38px!important;
+    cursor: pointer;
+}
+
+.is-invalid .ng-select-container {
+    border-color: #dc3545
+}

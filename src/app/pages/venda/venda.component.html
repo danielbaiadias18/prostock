@@ -37,7 +37,7 @@
                                             <th>Cliente</th>
                                             <th>Data</th>
                                             <th>Valor</th>
-                                            <th style="width: 12%;">Vendedor</th>
+                                            <th style="width: 12%;">Vendedor</th>event
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -59,7 +59,7 @@
                                                                     Editar</div>
                                                             </div>
                                                         </a> -->
-                                                        <a class="dropdown-item" [routerLink]="['/venda', v.id]">
+                                                        <a class="dropdown-item" (click)="detalhe(v)">
                                                             <div class="row">
                                                                 <div class="col-2 text-center">
                                                                     <i class="fas fa-list"></i>

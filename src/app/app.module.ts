@@ -10,7 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProdutoCadComponent } from './pages/produto-cad/produto-cad.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { ClienteComponent } from './pages/cliente/cliente.component';
@@ -29,6 +29,8 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
 import { UnauthorizedComponent } from './pages/errors/unauthorized/unauthorized.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { VendaDetalheComponent } from './modals/venda-detalhe/venda-detalhe.component';
 
 @NgModule({
   declarations: [
@@ -48,14 +50,17 @@ import { UnauthorizedComponent } from './pages/errors/unauthorized/unauthorized.
     VendaCadComponent,
     NotFoundComponent,
     BadRequestComponent,
-    UnauthorizedComponent
+    UnauthorizedComponent,
+    VendaDetalheComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     NgxMaskModule.forRoot({
       dropSpecialCharacters: false // ao salvar, vai manter a mascara
     }),
