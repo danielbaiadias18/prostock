@@ -59,7 +59,7 @@ export class VendaComponent implements OnInit {
   }
 
   detalhe(venda: iVenda) {
-    const modalRef = this.modalService.open(VendaDetalheComponent);
+    const modalRef = this.modalService.open(VendaDetalheComponent, {size: 'xl'});
     modalRef.componentInstance.venda = venda;
   }
 

@@ -37,7 +37,7 @@
                                             <th>Cliente</th>
                                             <th>Data</th>
                                             <th>Valor</th>
-                                            <th style="width: 12%;">Vendedor</th>event
+                                            <th style="width: 12%;">Vendedor</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,7 +84,7 @@
                                             <td>{{ v.id }}</td>
                                             <td>{{ v.cliente.pessoa.nome }}</td>
                                             <td>{{ v.data | date:'dd/MM/yyyy'}}</td>
-                                            <td>{{ v.valorTotal }}</td>
+                                            <td>{{ v.valorTotal | currency:'BRL' }}</td>
                                             <td>{{ v.usuario.pessoa.nome }}</td>
                                         </tr>
                                     </tbody>

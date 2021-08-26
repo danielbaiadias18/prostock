@@ -1,1 +1,92 @@
-<p>{{venda.data}}</p>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Detalhe da Venda #{{venda.id}}</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <form [formGroup]="form">
+                            <div class="row">
+
+                                <div class="form-group col-4">
+                                    <label for="cliente">Cliente</label>
+                                    <input type="text" readonly formControlName="cliente" class="form-control"
+                                        id="cliente">
+                                </div>
+
+                                <div class="form-group col-8">
+                                    <label for="descricao">Descrição</label>
+                                    <input type="text" readonly formControlName="descricao" class="form-control"
+                                        id="descricao">
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="acrescimo">Acréscimo</label>
+                                    <input type="number" readonly formControlName="acrescimo" class="form-control"
+                                    id="acrescimo">
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="desconto">Desconto</label>
+                                    <input type="number" readonly formControlName="desconto" class="form-control"
+                                        id="desconto">
+                                </div>
+
+                                <div class="form-group col-4">
+                                    <label for="frete">Frete</label>
+                                    <input type="number" readonly formControlName="frete" class="form-control"
+                                        id="frete">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card" *ngIf="produtosVenda.length > 0">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table
+                                    class="table table-striped table-bordered table-sm row-border hover table-vertical-align">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 1px;">Código</th>
+                                            <th>Nome</th>
+                                            <th>Marca</th>
+                                            <th>Descrição</th>
+                                            <th style="width: 12%;">Quantidade</th>
+                                            <th style="width: 12%;">Valor Unitário</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let p of produtosVenda; let i = index">
+                                            <td>{{ p.produto.id }}</td>
+                                            <td>{{ p.produto.nome }}</td>
+                                            <td>{{ p.produto.marca }}</td>
+                                            <td>{{ p.produto.descricao }}</td>
+                                            <td>{{ p.quantidade }}</td>
+                                            <td>{{ p.produto.valorUnit | currency:'BRL' }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
