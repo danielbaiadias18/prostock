@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Cadastro de Usuário</h1>
+                <h1>Perfil</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -56,13 +56,7 @@
                                         </small>
                                     </div>
                                 </div>
-                                <div class="form-group col-1" *ngIf="this.auth.currentUserValue.user.tipoUsuario == 1">
-                                    <label for="ckb" class="text-center" style="width: 100%;">Admin</label>
-                                    <div class="input-group">
-                                        <input type="checkbox" [checked]="this.usuario?.tipoUsuario == 1" (change)="changeCkb($event)" class="form-control cursor" id="ckb" style="height: 24px!important;">
-                                    </div>
-                                   
-                                </div>
+                                
                             </div>
                         </form>
                     </div>

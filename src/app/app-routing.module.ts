@@ -7,7 +7,10 @@ import { ClienteComponent } from './pages/cliente/cliente.component';
 import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
 import { NotFoundComponent } from './pages/errors/not-found/not-found.component';
 import { UnauthorizedComponent } from './pages/errors/unauthorized/unauthorized.component';
+import { EstoqueCadComponent } from './pages/estoque-cad/estoque-cad.component';
+import { EstoqueComponent } from './pages/estoque/estoque.component';
 import { LoginComponent } from './pages/login/login.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ProdutoCadComponent } from './pages/produto-cad/produto-cad.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
@@ -31,6 +34,9 @@ const routes: Routes = [
   { path: 'usuario/:id' , component: UsuarioCadComponent, canActivate: [AuthGuardService] },
   { path: 'venda' , component: VendaComponent, canActivate: [AuthGuardService] },
   { path: 'venda/:id' , component: VendaCadComponent, canActivate: [AuthGuardService] },
+  { path: 'estoque' , component: EstoqueComponent, canActivate: [AuthGuardService] },
+  { path: 'estoque/:id' , component: EstoqueCadComponent, canActivate: [AuthGuardService] },
+  { path: 'perfil' , component: PerfilComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent },
   { path: 'badrequest', component: BadRequestComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },

@@ -10,12 +10,12 @@ export interface iVenda {
     frete: number;
     data: Date;
     status: string;
-    descricao: string;
+    // descricao: string;
     clienteId: number;
     cliente: iCliente;
     usuarioId: number;
     usuario: iUsuario;
-    produtosVendas: iProdutoVenda[];
+    produtos: iProdutoVenda[];
 }
 
 
@@ -27,7 +27,7 @@ export interface iVendaPost {
     frete: number;
     data: Date;
     status: string;
-    descricao: string;
+    // descricao: string;
     clienteId: number;
     usuarioId: number;
     produtos: iProdutoVenda[];

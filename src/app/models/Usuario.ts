@@ -7,4 +7,5 @@ export interface iUsuario {
     senha: string;
     pessoaId: number;
     pessoa: iPessoa;
+    tipoUsuario: number;
 }

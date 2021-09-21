@@ -8,3 +8,13 @@ export interface iProdutoVenda{
     vendaId: number;
     quantidade: number;
 }
+
+export interface iProdutoVendaGet{
+    id: number;
+    descricao: string;
+    marca: string;
+    nome: string;
+    usuarioId: number;
+    valorUnit: number;
+    vendas: null
+}

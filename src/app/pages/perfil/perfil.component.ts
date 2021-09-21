@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { iUsuario } from 'src/app/models/Usuario';
 import { Uteis } from 'src/app/models/Uteis';
@@ -9,11 +9,11 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-usuario-cad',
-  templateUrl: './usuario-cad.component.html',
-  styleUrls: ['./usuario-cad.component.scss']
+  selector: 'app-perfil',
+  templateUrl: './perfil.component.html',
+  styleUrls: ['./perfil.component.scss']
 })
-export class UsuarioCadComponent implements OnInit {
+export class PerfilComponent implements OnInit {
 
 
   pessoaForm: FormGroup;
@@ -40,8 +40,8 @@ export class UsuarioCadComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(async (param) => {
-      if (!Number.isNaN(Number(param.get('id')))) {
-        this.idUsuario = +(param.get('id') ?? 0);
+      if (this.auth.currentUserValue.user.pessoaId > 0) {
+        this.idUsuario = this.auth.currentUserValue.user.pessoaId;
 
         this.http.get(`${environment.api_url}usuario/${this.idUsuario}`)
           .subscribe((response: any) => {
@@ -95,7 +95,7 @@ export class UsuarioCadComponent implements OnInit {
             icon: 'success',
             title: 'Usuário alterado com sucesso!'
           });
-          this.router.navigate(['usuario']);
+          this.router.navigate(['home']);
         });
 
       } else {

@@ -1,0 +1,74 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cadastro de Estoque</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+                    <li class="breadcrumb-item active">Estoques - Cadastro</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="form">
+                            <div class="row">
+                                <div class="form-group col-4">
+                                    <label for="produto">Produto</label>
+                                    <ng-select formControlName="produtoId"
+                                        [class]="(form.get('produtoId')!.invalid && (form.get('produtoId')!.dirty || form.get('produtoId')!.touched)) ? 'is-invalid' : ''"
+                                        id="produtoId" required [items]="prods" bindLabel="name"
+                                        placeholder="Selecione um produto" appendTo="body" [multiple]="false"
+                                        [clearable]="false" class="col-12" style="padding: 0;">
+                                    </ng-select>
+                                    <div
+                                        *ngIf="form.get('produtoId')!.invalid && (form.get('produtoId')!.dirty || form.get('produtoId')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-2">
+                                    <label for="qtdAtual">Quantidade Atual</label>
+                                    <input type="number" formControlName="qtdAtual" class="form-control"
+                                        [class]="(form.get('qtdAtual')!.invalid && (form.get('qtdAtual')!.dirty || form.get('qtdAtual')!.touched)) ? 'is-invalid' : ''"
+                                        id="qtdAtual" required>
+                                    <div
+                                        *ngIf="form.get('qtdAtual')!.invalid && (form.get('qtdAtual')!.dirty || form.get('qtdAtual')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-2">
+                                    <label for="qtdMinima">Quantidade Mínima</label>
+                                    <input type="number" formControlName="qtdMinima" class="form-control"
+                                        [class]="(form.get('qtdMinima')!.invalid && (form.get('qtdMinima')!.dirty || form.get('qtdMinima')!.touched)) ? 'is-invalid' : ''"
+                                        id="qtdMinima" required>
+                                    <div
+                                        *ngIf="form.get('qtdMinima')!.invalid && (form.get('qtdMinima')!.dirty || form.get('qtdMinima')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 text-center mb-4">
+            <button type="button" (click)="salvar()" class="btn btn-primary">Salvar</button>
+        </div>
+    </div>
+</div>

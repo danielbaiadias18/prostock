@@ -1,0 +1,109 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Trocar Senha</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form [formGroup]="form">
+                            <div class="row">
+                                <!-- <div class="form-group col-10 offset-1">
+                                    <label for="senhaAntiga">Senha Antiga</label>
+                                            <div class="input-group">
+                                        <input [type]="fieldTextType ? 'text' : 'password'" formControlName="senhaAntiga"
+                                            class="form-control" [class]="(form.get('senhaAntiga')!.invalid && (form.get('senhaAntiga')!.dirty || form.get('senhaAntiga')!.touched)) ? 'is-invalid' : ''"
+                                            id="senhaAntiga">
+                                        <div class="input-group-append" (click)="toggleFieldTextType(1)">
+                                            <span class="input-group-text cursor">
+                                                <i class="fa" [ngClass]="{
+                                                    'fa-eye-slash': !fieldTextType,
+                                                    'fa-eye': fieldTextType
+                                                    }"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="form.get('senhaAntiga')!.invalid && (form.get('senhaAntiga')!.dirty || form.get('senhaAntiga')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="form-group col-10 offset-1">
+                                    <label for="senha">Nova Senha</label>
+                                    <div class="input-group">
+                                        <input [type]="fieldTextType2 ? 'text' : 'password'" formControlName="senha"
+                                            class="form-control" [class]="(form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)) ? 'is-invalid' : ''"
+                                            id="senha">
+                                        <div class="input-group-append" (click)="toggleFieldTextType(2)">
+                                            <span class="input-group-text cursor">
+                                                <i class="fa" [ngClass]="{
+                                                    'fa-eye-slash': !fieldTextType2,
+                                                    'fa-eye': fieldTextType2
+                                                    }"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="form.get('senha')!.invalid && (form.get('senha')!.dirty || form.get('senha')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-10 offset-1">
+                                    <label for="confirmarSenha">Confirmar Nova Senha</label>
+                                    <div class="input-group">
+                                        <input [type]="fieldTextType3 ? 'text' : 'password'" formControlName="confirmarSenha"
+                                            class="form-control" [class]="(form.get('confirmarSenha')!.invalid && (form.get('confirmarSenha')!.dirty || form.get('confirmarSenha')!.touched)) ? 'is-invalid' : ''"
+                                            id="confirmarSenha">
+                                        <div class="input-group-append" (click)="toggleFieldTextType(3)">
+                                            <span class="input-group-text cursor">
+                                                <i class="fa" [ngClass]="{
+                                                    'fa-eye-slash': !fieldTextType3,
+                                                    'fa-eye': fieldTextType3
+                                                    }"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div
+                                        *ngIf="form.get('confirmarSenha')!.invalid && (form.get('confirmarSenha')!.dirty || form.get('confirmarSenha')!.touched) && !(this.form.controls['confirmarSenha'].getError('notMatch'))">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                    <div
+                                        *ngIf="this.form.controls['confirmarSenha'].getError('notMatch')">
+                                        <small class="text-danger">
+                                            As senhas devem ser iguais.
+                                        </small>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </form>
+                        <div class="col-12 mt-4">
+                            <button class="btn col-4 btn-danger" (click)="close()">
+                                Cancelar
+                            </button>
+                            <button class="btn col-4 offset-4 btn-success" (click)="confirm()">
+                                Confirmar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

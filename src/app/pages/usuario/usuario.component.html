@@ -28,7 +28,7 @@
                             </a>
                         </div>
                         <div class="row">
-                            <div class="col-12 table-responsive" *ngIf="usuarios">
+                            <div class="col-12 table-responsive">
                                 <table class="table table-striped table-bordered table-sm row-border hover table-vertical-align">
                                     <thead>
                                         <tr>
@@ -60,6 +60,15 @@
                                                                     Editar</div>
                                                             </div>
                                                         </a>
+                                                        <a class="dropdown-item" (click)="trocaSenha(u)">
+                                                            <div class="row">
+                                                                <div class="col-2 text-center">
+                                                                    <i class="fas fa-lock"></i>
+                                                                </div>
+                                                                <div class="col-10">
+                                                                    Trocar Senha</div>
+                                                            </div>
+                                                        </a>
                                                         <a class="dropdown-item" (click)="excluirUsuario(u.id)">
                                                             <div class="row">
                                                                 <div class="col-2 text-center text-danger">
@@ -79,6 +88,9 @@
                                             <td [class]="u.pessoa.cpf || 'text-center'">{{ (u.pessoa.cpf | mask: '000.000.000-00') || '-' }}</td>
                                             <td [class]="u.pessoa.telefone || 'text-center'">{{ (u.pessoa.telefone | mask:'(00) 00000-0000') || '-'}}</td>
                                             <td [class]="u.pessoa.email || 'text-center'">{{ u.pessoa.email || '-' }}</td>
+                                        </tr>
+                                        <tr *ngIf="!usuarios || usuarios.length <= 0">
+                                            <td class="text-center" colspan="6">Nenhum registro disponível</td>
                                         </tr>
                                     </tbody>
                                 </table>

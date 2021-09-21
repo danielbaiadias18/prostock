@@ -31,6 +31,11 @@ import { BadRequestComponent } from './pages/errors/bad-request/bad-request.comp
 import { UnauthorizedComponent } from './pages/errors/unauthorized/unauthorized.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { VendaDetalheComponent } from './modals/venda-detalhe/venda-detalhe.component';
+import { EstoqueComponent } from './pages/estoque/estoque.component';
+import { TrocaSenhaComponent } from './modals/troca-senha/troca-senha.component';
+import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { EstoqueCadComponent } from './pages/estoque-cad/estoque-cad.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,11 @@ import { VendaDetalheComponent } from './modals/venda-detalhe/venda-detalhe.comp
     NotFoundComponent,
     BadRequestComponent,
     UnauthorizedComponent,
-    VendaDetalheComponent
+    VendaDetalheComponent,
+    EstoqueComponent,
+    TrocaSenhaComponent,
+    EstoqueCadComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +80,8 @@ import { VendaDetalheComponent } from './modals/venda-detalhe/venda-detalhe.comp
     ApiService,
     ConfigService,
     BarsService,
-    AuthGuardService
+    AuthGuardService,
+    NgbActiveModal
   ],
   bootstrap: [AppComponent]
 })

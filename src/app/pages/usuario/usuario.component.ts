@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TrocaSenhaComponent } from 'src/app/modals/troca-senha/troca-senha.component';
 import { iUsuario } from 'src/app/models/Usuario';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -14,12 +16,11 @@ export class UsuarioComponent implements OnInit {
 
   usuarios: iUsuario[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.http.get(`${environment.api_url}usuario`)
       .subscribe((response: any) => {
-        console.log(response, "response");
         this.usuarios = response;
       });
   }
@@ -53,6 +54,11 @@ export class UsuarioComponent implements OnInit {
           });
         }
       });
+  }
+
+  trocaSenha(usuario: iUsuario){
+    const modalRef = this.modalService.open(TrocaSenhaComponent, {size: 'md'});
+    modalRef.componentInstance.usuario = usuario;
   }
 
 }

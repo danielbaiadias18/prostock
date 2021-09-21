@@ -37,10 +37,11 @@ export class VendaCadComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) {
     this.form = this.fb.group({
       valorTotal: ['', Validators.required],
-      descricao: [''],
+      // descricao: [''],
       desconto: [0],
       acrescimo: [0],
       frete: [0],
+      data: [new Date().toLocaleDateString('pt-BR')],
       clienteId: ['', Validators.required],
       produtos: this.produtosVenda
     });
@@ -68,32 +69,9 @@ export class VendaCadComponent implements OnInit {
           return rObj;
         });;
       });
-
-    // this.route.paramMap.subscribe(async (param) => {
-    //   if (!Number.isNaN(Number(param.get('id')))) {
-    //     this.idVenda = +(param.get('id') ?? 0);
-
-    //     this.http.get(`${environment.api_url}venda/${this.idVenda}`)
-    //       .subscribe((response: any) => {
-    //         this.venda = response;
-    //         this.produtosVenda = this.venda?.produtosVendas ?? [];
-
-    //         this.form.controls['valorTotal'].setValue(this.venda?.valorTotal);
-    //         this.form.controls['desconto'].setValue(this.venda?.desconto);
-    //         this.form.controls['acrescimo'].setValue(this.venda?.acrescimo);
-    //         this.form.controls['frete'].setValue(this.venda?.frete);
-    //         this.form.controls['clienteId'].setValue(this.venda?.clienteId);
-    //       });
-
-    //   } else {
-    //     this.router.navigate(['/notfound']);
-    //   }
-    // });
-
   };
 
   salvar() {
-    debugger;
     if (this.form.valid) {
       if (this.idVenda! > 0) {
         this.vendaPost! = {
@@ -102,14 +80,14 @@ export class VendaCadComponent implements OnInit {
           desconto: this.form.controls['desconto'].value,
           acrescimo: this.form.controls['acrescimo'].value,
           frete: this.form.controls['frete'].value,
-          data: new Date,
+          data: new Date(this.form.controls['data'].value),
           status: "concluida",
-          descricao: this.form.controls['descricao'].value,
+          // descricao: this.form.controls['descricao'].value,
           clienteId: this.form.controls['clienteId'].value.id,
           usuarioId: this.auth.currentUserValue.user.id,
           produtos: this.produtosVenda
         };
-
+        debugger;
         this.http.put(environment.api_url + `venda/${this.idVenda}`, this.vendaPost).subscribe((res: any) => {
           if (res)
             Swal.mixin({
@@ -136,13 +114,14 @@ export class VendaCadComponent implements OnInit {
           desconto: this.form.controls['desconto'].value,
           acrescimo: this.form.controls['acrescimo'].value,
           frete: this.form.controls['frete'].value,
-          data: new Date,
+          data: new Date(this.form.controls['data'].value),
           status: "concluida",
-          descricao: this.form.controls['descricao'].value,
+          // descricao: this.form.controls['descricao'].value,
           clienteId: this.form.controls['clienteId'].value.id,
           usuarioId: this.auth.currentUserValue.user.id,
           produtos: this.produtosVenda
         };
+        debugger;
         this.http.post(environment.api_url + 'venda', this.vendaPost).subscribe((res: any) => {
           if (res) {
             Swal.mixin({
@@ -170,7 +149,13 @@ export class VendaCadComponent implements OnInit {
 
   adicionarProduto() {
     if (this.formProduto.valid) {
-      this.produtosVenda.push({ produtoId: this.formProduto.get('produtoId')!.value.id, quantidade: this.formProduto.get('quantidade')!.value, id: 0, vendaId: 0, produto: this.produtos.filter(x => x.id == this.formProduto.get('produtoId')!.value.id)[0] });
+      this.produtosVenda.push({
+        produtoId: this.formProduto.get('produtoId')!.value.id,
+        quantidade: this.formProduto.get('quantidade')!.value,
+        id: 0,
+        vendaId: 0,
+        produto: this.produtos.filter(x => x.id == this.formProduto.get('produtoId')!.value.id)[0]
+      });
 
       this.calcTtl();
     } else {
