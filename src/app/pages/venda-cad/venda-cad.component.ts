@@ -84,7 +84,7 @@ export class VendaCadComponent implements OnInit {
           status: "concluida",
           // descricao: this.form.controls['descricao'].value,
           clienteId: this.form.controls['clienteId'].value.id,
-          usuarioId: this.auth.currentUserValue.user.id,
+          usuarioId: this.auth.currentUserValue.user!.id,
           produtos: this.produtosVenda
         };
         debugger;
@@ -118,7 +118,7 @@ export class VendaCadComponent implements OnInit {
           status: "concluida",
           // descricao: this.form.controls['descricao'].value,
           clienteId: this.form.controls['clienteId'].value.id,
-          usuarioId: this.auth.currentUserValue.user.id,
+          usuarioId: this.auth.currentUserValue.user!.id,
           produtos: this.produtosVenda
         };
         debugger;

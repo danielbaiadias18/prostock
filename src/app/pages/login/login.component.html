@@ -16,40 +16,45 @@
 					loginForm.get('login')!.dirty &&
 					loginForm.get('login')!.invalid
 				  }" data-validate="O login é obrigatório">
-					<input class="input100 form-control" type="text" formControlName="login" name="login"
+					<input class="input100 form-control" type="text" (input)="usuarioInvalido = false" formControlName="login" name="login"
 						placeholder="Usuário">
 					<span class="focus-input100" data-placeholder="&#xf207;"></span>
 				</div>
 
-				<div class="wrap-input100 validate-input" data-validate="A senha é obrigatória" [ngClass]="{
+				<div class="wrap-input100 validate-input" style="margin-bottom: 15px!important;" data-validate="A senha é obrigatória" [ngClass]="{
 					'alert-validate':
 					loginForm.get('senha')!.touched &&
 					loginForm.get('senha')!.dirty &&
 					loginForm.get('senha')!.invalid
 				  }">
-					<input class="input100 form-control" type="password" formControlName="senha" name="senha"
+					<input class="input100 form-control" type="password" (input)="usuarioInvalido = false" formControlName="senha" name="senha"
 						placeholder="Senha">
 					<span class="focus-input100" data-placeholder="&#xf191;"></span>
 				</div>
-
+				<div *ngIf="usuarioInvalido" style="margin-bottom: 15px;" class="usuarioInvalido">
+					<small class="text-danger" style="color: #ff6868!important;">
+						Usuario ou senha inválidos!
+					</small>
+				</div>
+<!-- 
 				<div class="contact100-form-checkbox">
 					<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 					<label class="label-checkbox100" for="ckb1">
 						Lembrar senha
 					</label>
-				</div>
+				</div> -->
 
 				<div class="container-login100-form-btn">
 					<button class="login100-form-btn" type="submit" [disabled]="!loginForm.valid">
 						Login
 					</button>
 				</div>
-
+<!-- 
 				<div class="text-center p-t-90">
 					<a class="txt1" href="#">
 						Esqueceu sua senha?
 					</a>
-				</div>
+				</div> -->
 			</form>
 		</div>
 	</div>

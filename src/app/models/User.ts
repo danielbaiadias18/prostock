@@ -6,5 +6,5 @@ export interface User {
     cdEmpresa: number;
     Nome: string;
     token: string;
-    user: iUsuario;
+    user: iUsuario|undefined;
 }

@@ -75,8 +75,8 @@ export class UsuarioCadComponent implements OnInit {
           login: this.form.get('login')!.value,
           senha: this.form.get('senha')!.value,
           pessoa: this.pessoaForm.value,
-          pessoaId: this.auth.currentUserValue.user.pessoaId,
-          lojaId: this.auth.currentUserValue.user.lojaId,
+          pessoaId: this.auth.currentUserValue.user!.pessoaId,
+          lojaId: this.auth.currentUserValue.user!.lojaId,
           tipoUsuario: this.form.get('tipoUsuario')!.value
         };
         this.http.put(environment.api_url + `usuario/${this.idUsuario}`, this.usuario).subscribe((res: any) => {
@@ -104,8 +104,8 @@ export class UsuarioCadComponent implements OnInit {
           login: this.form.get('login')!.value,
           senha: this.form.get('senha')!.value,
           pessoa: this.pessoaForm.value,
-          pessoaId: this.auth.currentUserValue.user.pessoaId,
-          lojaId: this.auth.currentUserValue.user.lojaId,
+          pessoaId: this.auth.currentUserValue.user!.pessoaId,
+          lojaId: this.auth.currentUserValue.user!.lojaId,
           tipoUsuario: this.form.get('tipoUsuario')!.value
         };
 

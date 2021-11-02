@@ -52,7 +52,7 @@ export class TrocaSenhaComponent implements OnInit {
       this.form.controls['confirmarSenha'].setErrors({ notMatch: true });
       Uteis.markFormGroupTouched(this.form);
     } else {
-      this.form.addControl("usuarioId", new FormControl(this.auth.currentUserValue.user.id, Validators.required));
+      this.form.addControl("usuarioId", new FormControl(this.auth.currentUserValue.user!.id, Validators.required));
       this.http.put(environment.api_url + `usuario/changeSenha/${this.usuario.id}`, this.form.value).subscribe((res: any) => {
         if (res)
           Swal.mixin({

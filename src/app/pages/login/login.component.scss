@@ -975,4 +975,16 @@ body, html {
   .ng-invalid.ng-touched:not(form)  {
     border-bottom: 2px solid #a94442; /* red */
   }
+
+  .usuarioInvalido::after {
+      content: "";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: #ff6868;
+      font-size: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-bottom: 15 px;
+  }
+  
   

@@ -53,7 +53,7 @@ export class ProdutoCadComponent implements OnInit {
   salvar() {
     if (this.form.valid) {
       this.form.addControl('usuarioId', new FormControl('', Validators.required));
-      this.form.controls['usuarioId'].setValue(this.auth.currentUserValue.user.id);
+      this.form.controls['usuarioId'].setValue(this.auth.currentUserValue.user!.id);
       if (this.idProduto! > 0) {
         this.http.put(environment.api_url + `produto/${this.idProduto}`, this.form.value).subscribe((res: any) => {
           if (res)

@@ -26,6 +26,7 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'produto' , component: ProdutoComponent, canActivate: [AuthGuardService] },
   { path: 'produto/:id' , component: ProdutoCadComponent, canActivate: [AuthGuardService] },
   { path: 'cliente' , component: ClienteComponent, canActivate: [AuthGuardService] },

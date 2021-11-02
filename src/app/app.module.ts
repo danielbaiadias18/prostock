@@ -36,6 +36,7 @@ import { TrocaSenhaComponent } from './modals/troca-senha/troca-senha.component'
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EstoqueCadComponent } from './pages/estoque-cad/estoque-cad.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
+import { VendaRelComponent } from './pages/venda-rel/venda-rel.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PerfilComponent } from './pages/perfil/perfil.component';
     EstoqueComponent,
     TrocaSenhaComponent,
     EstoqueCadComponent,
-    PerfilComponent
+    PerfilComponent,
+    VendaRelComponent
   ],
   imports: [
     BrowserModule,
