@@ -92,7 +92,16 @@
                                         </small>
                                     </div>
                                 </div>
-                                <div class="form-group col-3">
+                                <div class="form-group col-1">
+                                    <label for="numero">Número</label>
+                                    <input type="text" formControlName="numero" class="form-control" [class]="(formEndereco.get('numero')!.invalid && (formEndereco.get('numero')!.dirty || formEndereco.get('numero')!.touched)) ? 'is-invalid' : ''" id="numero" required>
+                                    <div *ngIf="formEndereco.get('numero')!.invalid && (formEndereco.get('numero')!.dirty || formEndereco.get('numero')!.touched)">
+                                        <small class="text-danger">
+                                            Este campo é requerido
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-2">
                                     <label for="bairro">Bairro</label>
                                     <input type="text" formControlName="bairro" class="form-control" [class]="(formEndereco.get('bairro')!.invalid && (formEndereco.get('bairro')!.dirty || formEndereco.get('bairro')!.touched)) ? 'is-invalid' : ''" id="bairro" required>
                                     <div *ngIf="formEndereco.get('bairro')!.invalid && (formEndereco.get('bairro')!.dirty || formEndereco.get('bairro')!.touched)">

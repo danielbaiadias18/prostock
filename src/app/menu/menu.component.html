@@ -1,8 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="assets/dist/img/prostock.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+      <i _ngcontent-txr-c69="" class="zmdi zmdi-dropbox" style="margin: 0 10px 0 20px;font-size: 25px;"></i>
       <span class="brand-text font-weight-light">ProStock</span>
     </a>
     <!-- Sidebar -->
@@ -13,7 +12,7 @@
           <img src="assets/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info" [routerLink]="['/perfil']">
-          <a class="d-block">Admin</a>
+          <a class="d-block">{{ this.auth.currentUserValue.user!.login }}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -23,27 +22,38 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-chart-line"></i>
               <p>
-                Dashboard
+                Relatórios
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="#" class="nav-link" [routerLink]="['venda-rel']">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Dashboard v1</p>
+                  <p>Vendas</p>
                 </a>
               </li>
-            
+              <li class="nav-item">
+                <a href="#" class="nav-link" [routerLink]="['venda-detalhe-rel']">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Detalhe da Venda</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Produtos</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Pages
+                Cadastros
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>

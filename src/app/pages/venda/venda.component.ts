@@ -6,7 +6,6 @@ import { VendaDetalheComponent } from 'src/app/modals/venda-detalhe/venda-detalh
 import { iVenda } from 'src/app/models/Venda';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { ProdutoCadComponent } from '../produto-cad/produto-cad.component';
 
 @Component({
   selector: 'app-venda',
@@ -25,7 +24,7 @@ export class VendaComponent implements OnInit {
         this.vendas = response;
       });
   }
-
+  
   excluirVenda(idVenda: number) {
     Swal.fire({
       title: 'Deseja excluir a venda \"' + this.vendas.filter(x => x.id === idVenda)[0].id + '\"?',

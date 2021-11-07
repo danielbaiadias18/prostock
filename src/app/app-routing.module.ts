@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { HomeComponent } from './home/home.component';
+import { VendaDetalheComponent } from './modals/venda-detalhe/venda-detalhe.component';
 import { ClienteCadComponent } from './pages/cliente-cad/cliente-cad.component';
 import { ClienteComponent } from './pages/cliente/cliente.component';
 import { BadRequestComponent } from './pages/errors/bad-request/bad-request.component';
@@ -16,6 +17,8 @@ import { ProdutoComponent } from './pages/produto/produto.component';
 import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { VendaCadComponent } from './pages/venda-cad/venda-cad.component';
+import { VendaDetalheRelComponent } from './pages/venda-detalhe-rel/venda-detalhe-rel.component';
+import { VendaRelComponent } from './pages/venda-rel/venda-rel.component';
 import { VendaComponent } from './pages/venda/venda.component';
 
 const routerOptions: ExtraOptions = {
@@ -33,6 +36,8 @@ const routes: Routes = [
   { path: 'cliente/:id' , component: ClienteCadComponent, canActivate: [AuthGuardService] },
   { path: 'usuario' , component: UsuarioComponent, canActivate: [AuthGuardService] },
   { path: 'usuario/:id' , component: UsuarioCadComponent, canActivate: [AuthGuardService] },
+  { path: 'venda-rel' , component: VendaRelComponent, canActivate: [AuthGuardService] },
+  { path: 'venda-detalhe-rel' , component: VendaDetalheRelComponent, canActivate: [AuthGuardService] },
   { path: 'venda' , component: VendaComponent, canActivate: [AuthGuardService] },
   { path: 'venda/:id' , component: VendaCadComponent, canActivate: [AuthGuardService] },
   { path: 'estoque' , component: EstoqueComponent, canActivate: [AuthGuardService] },

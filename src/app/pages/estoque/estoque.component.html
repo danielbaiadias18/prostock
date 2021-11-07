@@ -76,6 +76,9 @@
                                             <td>{{ e.qtdAtual }}</td>
                                             <td>{{ e.qtdMinima }}</td>
                                         </tr>
+                                        <tr *ngIf="!estoques || estoques.length <= 0">
+                                            <td class="text-center" colspan="6">Nenhum registro disponível</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>

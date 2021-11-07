@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { iProdutoVendaGet } from 'src/app/models/ProdutoVenda';
 import { iVenda, iVendaPost } from 'src/app/models/Venda';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -19,10 +20,10 @@ export class VendaDetalheComponent implements OnInit {
 
   form: FormGroup;
   vlTotal: number = 0;
-
+  
   produtosVendaGet: iProdutoVendaGet[] = [];
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, private auth: AuthenticationService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, private auth: AuthenticationService,public modalService: NgbModal) {
     this.form = this.fb.group({
       valorTotal: [''],
       vendedor: [''],
@@ -31,7 +32,7 @@ export class VendaDetalheComponent implements OnInit {
       acrescimo: [0],
       frete: [0],
       cliente: ['', Validators.required]
-    }); 
+    });
   }
 
   ngOnInit(): void {

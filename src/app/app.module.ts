@@ -37,6 +37,7 @@ import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EstoqueCadComponent } from './pages/estoque-cad/estoque-cad.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { VendaRelComponent } from './pages/venda-rel/venda-rel.component';
+import { VendaDetalheRelComponent } from './pages/venda-detalhe-rel/venda-detalhe-rel.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { VendaRelComponent } from './pages/venda-rel/venda-rel.component';
     TrocaSenhaComponent,
     EstoqueCadComponent,
     PerfilComponent,
-    VendaRelComponent
+    VendaRelComponent,
+    VendaDetalheRelComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,11 @@
             <div class="col-sm-6">
                 <h1>Detalhe da Venda #{{venda.id}}</h1>
             </div>
+            <div class="col-sm-1 offset-5">
+                <button style="outline: none;" (click)="this.modalService.dismissAll();" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i style="outline: none;" class="fas fa-times"></i>
+                  </button>
+            </div>
         </div>
     </div>
 </section>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service';
 
 const items: iNavItem[] = [
   {
@@ -16,7 +17,7 @@ const items: iNavItem[] = [
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  constructor() {
+  constructor(public auth: AuthenticationService) {
    }
 
   ngOnInit(): void {

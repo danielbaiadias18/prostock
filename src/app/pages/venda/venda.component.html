@@ -21,14 +21,13 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-12 mb-3">
-
                             <a [routerLink]="['/venda/0']" class="btn col-2 offset-10 btn-primary">
                                 <i class="fas fa-plus"></i>
                                 Nova Venda
                             </a>
                         </div>
                         <div class="row">
-                            <div class="col-12 table-responsive">
+                            <div class="col-12 table-responsive" id="vendaDiv">
                                 <table class="table table-striped table-bordered table-sm row-border hover table-vertical-align">
                                     <thead>
                                         <tr>
@@ -50,15 +49,6 @@
                                                         Ações
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu2">
-                                                        <!-- <a class="dropdown-item" [routerLink]="['/venda', v.id]">
-                                                            <div class="row">
-                                                                <div class="col-2 text-center">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </div>
-                                                                <div class="col-10">
-                                                                    Editar</div>
-                                                            </div>
-                                                        </a> -->
                                                         <a class="dropdown-item" (click)="detalhe(v)">
                                                             <div class="row">
                                                                 <div class="col-2 text-center">

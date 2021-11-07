@@ -73,6 +73,17 @@ export class VendaCadComponent implements OnInit {
 
   salvar() {
     if (this.form.valid) {
+
+      var data = new Date(this.form.controls['data'].value);
+
+      var dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
+
+      var mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
+
+      var ano = data.getFullYear();
+
+      let dataFormatada = dia + "/" + mes + "/" + ano;
+
       if (this.idVenda! > 0) {
         this.vendaPost! = {
           id: this.idVenda,
@@ -80,14 +91,14 @@ export class VendaCadComponent implements OnInit {
           desconto: this.form.controls['desconto'].value,
           acrescimo: this.form.controls['acrescimo'].value,
           frete: this.form.controls['frete'].value,
-          data: new Date(this.form.controls['data'].value),
+          data: new Date(dataFormatada),
           status: "concluida",
           // descricao: this.form.controls['descricao'].value,
           clienteId: this.form.controls['clienteId'].value.id,
           usuarioId: this.auth.currentUserValue.user!.id,
           produtos: this.produtosVenda
         };
-        debugger;
+        
         this.http.put(environment.api_url + `venda/${this.idVenda}`, this.vendaPost).subscribe((res: any) => {
           if (res)
             Swal.mixin({
@@ -114,14 +125,16 @@ export class VendaCadComponent implements OnInit {
           desconto: this.form.controls['desconto'].value,
           acrescimo: this.form.controls['acrescimo'].value,
           frete: this.form.controls['frete'].value,
-          data: new Date(this.form.controls['data'].value),
+          data: new Date(dataFormatada),
           status: "concluida",
           // descricao: this.form.controls['descricao'].value,
           clienteId: this.form.controls['clienteId'].value.id,
           usuarioId: this.auth.currentUserValue.user!.id,
           produtos: this.produtosVenda
         };
-        debugger;
+        
+        console.log(this.vendaPost, "this.vendaPost")
+
         this.http.post(environment.api_url + 'venda', this.vendaPost).subscribe((res: any) => {
           if (res) {
             Swal.mixin({
@@ -173,7 +186,6 @@ export class VendaCadComponent implements OnInit {
       this.vlTotal += prodVenda.produto.valorUnit * prodVenda.quantidade;
     });
 
-    debugger;
     let valor = this.vlTotal + this.form.controls['acrescimo'].value + this.form.controls['frete'].value - this.form.controls['desconto'].value;
     this.form.controls['valorTotal'].setValue(valor);
     this.vlTotal = valor;

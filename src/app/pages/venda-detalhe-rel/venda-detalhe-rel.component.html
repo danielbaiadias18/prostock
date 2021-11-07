@@ -1,0 +1,156 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Relatório Detalhado de Venda</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a [routerLink]="['/']">Principal</a></li>
+                    <li class="breadcrumb-item active">Relatórios - Venda Detalhe</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12 mb-3">
+                            <form [formGroup]="form">
+                                <div class="row">
+                                    <div class="form-group col-2">
+                                        <label for="data">Data Início(Opcional)</label>
+                                        <input type="text" formControlName="dateInit" mask="00/00/0000" class="form-control"
+                                            [class]="(form.get('dateInit')!.invalid && (form.get('dateInit')!.dirty)) ? 'is-invalid' : ''"
+                                            id="dateInit">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="data">Data Fim(Opcional)</label>
+                                        <input type="text" formControlName="dateEnd" mask="00/00/0000" class="form-control"
+                                            [class]="(form.get('dateEnd')!.invalid && (form.get('dateEnd')!.dirty)) ? 'is-invalid' : ''"
+                                            id="dateEnd">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <label for="data">Número(Opcional)</label>
+                                        <input type="text" formControlName="codigo" mask="0*" class="form-control"
+                                            [class]="(form.get('codigo')!.invalid && (form.get('codigo')!.dirty)) ? 'is-invalid' : ''"
+                                            id="codigo">
+                                    </div>
+                                    <div class="form-group col-2">
+                                        <button class="btn col-12 btn-primary" style="margin-top: 32px;" (click)="pesquisar()">
+                                            <i class="fas fa-search"></i>
+                                            Pesquisar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 table-responsive">
+                                <table class="table table-striped table-bordered table-sm row-border hover table-vertical-align">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 1px;">Código</th>
+                                            <th>Cliente</th>
+                                            <th>Data</th>
+                                            <th>Valor</th>
+                                            <th style="width: 12%;">Vendedor</th>
+                                            <th style="width: 1%;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let v of vendas; let i = index">
+                                            <td>{{ v.id }}</td>
+                                            <td>{{ v.cliente.pessoa.nome }}</td>
+                                            <td>{{ v.data | date:'dd/MM/yyyy'}}</td>
+                                            <td>{{ v.valorTotal | currency:'BRL' }}</td>
+                                            <td>{{ v.usuario.pessoa.nome }}</td>
+                                            <td><button class="btn" (click)="imprimir(v.id)"><i class="fas fa-print"></i></button></td>
+                                        </tr>
+                                        <tr *ngIf="!vendas || vendas.length <= 0">
+                                            <td class="text-center" colspan="6">Nenhum registro disponível</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hidden">
+    <div class="col-12 table-responsive imprimir" id="vendaDiv">
+        <h1 *ngIf="response != null" style="text-align: center;font-size: 15px;width: 500px;margin-top: 10px;margin-bottom: 10px;">Relatório&nbsp;&nbsp;de&nbsp;&nbsp;Detalhamento&nbsp;&nbsp;da&nbsp;&nbsp;Venda&nbsp;&nbsp;#{{response.id}}</h1>
+        <table class="table table-striped table-bordered table-sm row-border hover table-vertical-align">
+            <thead>
+                <tr style="margin-bottom: 25px;">
+                    <th style="width:60px!important">Código</th>
+                    <th>Cliente</th>
+                    <th style="width: 12%;">Data</th>
+                    <th style="width: 12%;">Status</th>
+                    <th style="width: 18%;">Vendedor</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="response != null">
+                <tr style="margin-top: 25px;">
+                    <td>{{ response.id }}</td>
+                    <td>{{ response.cliente }}</td>
+                    <td>{{ response.data | date:'dd/MM/yyyy'}}</td>
+                    <td>{{ response.status }}</td>
+                    <td>{{ response.usuario }}</td>
+                </tr>
+
+            </tbody>
+            <tbody *ngIf="response == null || response.length <= 0">
+                <tr>
+                    <td class="text-center" colspan="6">Nenhum&nbsp;&nbsp;registro&nbsp;disponível</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3 style="font-size:12px;text-align: center;width: 500px;">Produtos</h3>
+        <table class="table table-striped table-bordered table-sm row-border hover table-vertical-align">
+            <thead>
+                <tr>
+                    <th style="width: 1px;">Código</th>
+                    <th>Nome</th>
+                    <th>Marca</th>
+                    <th>Descrição</th>
+                    <th style="width: 12%;">Valor&nbsp;&nbsp;Unitário</th>
+                    <th style="width: 12%;">Quantidade</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="response?.produtos != null || response?.produtos.length >= 0">
+                <tr *ngFor="let p of response?.produtos; let i = index">
+                    <td>{{ p.id }}</td>
+                    <td>{{ p.nome }}</td>
+                    <td>{{ p.marca }}</td>
+                    <td>{{ p.descricao }}</td>
+                    <td>{{ p.valorUnit | currency:'BRL' }}</td>
+                    <td>{{ p.quantidade }}</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="response?.produtos == null || response?.produtos.length <= 0">
+                <tr>
+                    <td class="text-center" colspan="6">Nenhum&nbsp;&nbsp;registro&nbsp;disponível</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Valor&nbsp;&nbsp;Total:</strong>
+            {{ response.valorTotal | currency:'BRL' }}</p>
+        <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Acréscimo&nbsp;&nbsp;&nbsp;Total:</strong>
+            {{ response.acrescimo | currency:'BRL' }}</p>
+        <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Desconto&nbsp;&nbsp;Total:</strong>
+            {{ response.desconto | currency:'BRL' }}</p>
+        <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Frete&nbsp;Total:</strong>
+            {{ response.frete | currency:'BRL' }}</p>
+    </div>
+</div>

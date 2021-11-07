@@ -33,6 +33,7 @@ export class ClienteCadComponent implements OnInit {
     this.formEndereco = this.fb.group({
       cep: ['', Validators.compose([Validators.required])],
       rua: ['', Validators.compose([Validators.required])],
+      numero: ['', Validators.compose([Validators.required])],
       bairro: ['', Validators.compose([Validators.required])],
       cidade: ['', Validators.compose([Validators.required])],
       uf: ['', Validators.compose([Validators.required])],

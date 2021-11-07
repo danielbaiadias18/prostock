@@ -55,7 +55,7 @@
 
                                 <div class="form-group col-4">
                                     <label for="data">Data</label>
-                                    <input type="text" formControlName="data" class="form-control"
+                                    <input type="text" formControlName="data" mask="00/00/0000" class="form-control"
                                         [class]="(form.get('data')!.invalid && (form.get('data')!.dirty)) ? 'is-invalid' : ''"
                                         id="data">
                                     <div
