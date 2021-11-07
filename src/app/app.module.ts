@@ -38,6 +38,7 @@ import { EstoqueCadComponent } from './pages/estoque-cad/estoque-cad.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { VendaRelComponent } from './pages/venda-rel/venda-rel.component';
 import { VendaDetalheRelComponent } from './pages/venda-detalhe-rel/venda-detalhe-rel.component';
+import { ProdutoRelComponent } from './pages/produto-rel/produto-rel.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { VendaDetalheRelComponent } from './pages/venda-detalhe-rel/venda-detalh
     EstoqueCadComponent,
     PerfilComponent,
     VendaRelComponent,
-    VendaDetalheRelComponent
+    VendaDetalheRelComponent,
+    ProdutoRelComponent
   ],
   imports: [
     BrowserModule,

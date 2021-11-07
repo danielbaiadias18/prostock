@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TrocaSenhaComponent } from 'src/app/modals/troca-senha/troca-senha.component';
 import { iUsuario } from 'src/app/models/Usuario';
 import { Uteis } from 'src/app/models/Uteis';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -22,7 +24,7 @@ export class PerfilComponent implements OnInit {
   idUsuario!: number;
   fieldTextType: boolean = false;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, public auth: AuthenticationService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private router: Router, public auth: AuthenticationService, private modalService: NgbModal) {
     this.pessoaForm = this.fb.group({
       nome: ['', Validators.required],
       cpf: ['', Validators.compose([Validators.required])],
@@ -140,6 +142,11 @@ export class PerfilComponent implements OnInit {
 
   changeCkb(checked: any){
     this.form.controls['tipoUsuario'].setValue( checked.currentTarget.checked ? 1 : 2);
+  }
+  
+  trocaSenha(usuario: iUsuario){
+    const modalRef = this.modalService.open(TrocaSenhaComponent, {size: 'md'});
+    modalRef.componentInstance.usuario = usuario;
   }
 
 }

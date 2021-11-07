@@ -22,11 +22,11 @@ export class TrocaSenhaComponent implements OnInit {
 
   @Input() public usuario!: iUsuario;
 
-  constructor(private fb: FormBuilder, private modalService: NgbActiveModal, private http: HttpClient, private auth: AuthenticationService) {
+  constructor(private fb: FormBuilder, private modalService: NgbActiveModal, private http: HttpClient, public auth: AuthenticationService) {
     this.form = this.fb.group({
-      // senhaAntiga: ['', Validators.compose([Validators.required])],
+      confirmarSenha: ['', Validators.compose([Validators.required])],
       senha: ['', Validators.compose([Validators.required])],
-      confirmarSenha: ['', Validators.compose([Validators.required])]
+      confirmarNovaSenha: ['', Validators.compose([Validators.required])]
     });
   }
 
@@ -49,10 +49,14 @@ export class TrocaSenhaComponent implements OnInit {
   
   confirm() {
     if (!this.matchPass()) {
-      this.form.controls['confirmarSenha'].setErrors({ notMatch: true });
+      this.form.controls['confirmarNovaSenha'].setErrors({ notMatch: true });
       Uteis.markFormGroupTouched(this.form);
     } else {
-      this.form.addControl("usuarioId", new FormControl(this.auth.currentUserValue.user!.id, Validators.required));
+      this.form.removeControl("confirmarNovaSenha");
+      
+      if(this.auth.currentUserValue.user?.tipoUsuario == 1)
+        this.form.addControl("adminId", new FormControl(this.auth.currentUserValue.user!.id, Validators.required));
+
       this.http.put(environment.api_url + `usuario/changeSenha/${this.usuario.id}`, this.form.value).subscribe((res: any) => {
         if (res)
           Swal.mixin({
@@ -78,6 +82,6 @@ export class TrocaSenhaComponent implements OnInit {
     this.modalService.close();
   }
   matchPass() {
-    return this.form.controls['confirmarSenha'].value === this.form.controls['senha'].value;
+    return this.form.controls['confirmarNovaSenha'].value === this.form.controls['senha'].value;
   }
 }

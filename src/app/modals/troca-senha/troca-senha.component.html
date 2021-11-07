@@ -16,12 +16,12 @@
                     <div class="card-body">
                         <form [formGroup]="form">
                             <div class="row">
-                                <!-- <div class="form-group col-10 offset-1">
-                                    <label for="senhaAntiga">Senha Antiga</label>
+                                <div class="form-group col-10 offset-1" *ngIf="this.auth.currentUserValue.user?.tipoUsuario == 2">
+                                    <label for="confirmarSenha">Senha Antiga</label>
                                             <div class="input-group">
-                                        <input [type]="fieldTextType ? 'text' : 'password'" formControlName="senhaAntiga"
-                                            class="form-control" [class]="(form.get('senhaAntiga')!.invalid && (form.get('senhaAntiga')!.dirty || form.get('senhaAntiga')!.touched)) ? 'is-invalid' : ''"
-                                            id="senhaAntiga">
+                                        <input [type]="fieldTextType ? 'text' : 'password'" formControlName="confirmarSenha"
+                                            class="form-control" [class]="(form.get('confirmarSenha')!.invalid && (form.get('confirmarSenha')!.dirty || form.get('confirmarSenha')!.touched)) ? 'is-invalid' : ''"
+                                            id="confirmarSenha">
                                         <div class="input-group-append" (click)="toggleFieldTextType(1)">
                                             <span class="input-group-text cursor">
                                                 <i class="fa" [ngClass]="{
@@ -32,12 +32,12 @@
                                         </div>
                                     </div>
                                     <div
-                                        *ngIf="form.get('senhaAntiga')!.invalid && (form.get('senhaAntiga')!.dirty || form.get('senhaAntiga')!.touched)">
+                                        *ngIf="form.get('confirmarSenha')!.invalid && (form.get('confirmarSenha')!.dirty || form.get('confirmarSenha')!.touched)">
                                         <small class="text-danger">
                                             Este campo é requerido
                                         </small>
                                     </div>
-                                </div> -->
+                                </div>
                                 
                                 <div class="form-group col-10 offset-1">
                                     <label for="senha">Nova Senha</label>
@@ -63,11 +63,11 @@
                                 </div>
                                 
                                 <div class="form-group col-10 offset-1">
-                                    <label for="confirmarSenha">Confirmar Nova Senha</label>
+                                    <label for="confirmarNovaSenha">Confirmar Nova Senha</label>
                                     <div class="input-group">
-                                        <input [type]="fieldTextType3 ? 'text' : 'password'" formControlName="confirmarSenha"
-                                            class="form-control" [class]="(form.get('confirmarSenha')!.invalid && (form.get('confirmarSenha')!.dirty || form.get('confirmarSenha')!.touched)) ? 'is-invalid' : ''"
-                                            id="confirmarSenha">
+                                        <input [type]="fieldTextType3 ? 'text' : 'password'" formControlName="confirmarNovaSenha"
+                                            class="form-control" [class]="(form.get('confirmarNovaSenha')!.invalid && (form.get('confirmarNovaSenha')!.dirty || form.get('confirmarNovaSenha')!.touched)) ? 'is-invalid' : ''"
+                                            id="confirmarNovaSenha">
                                         <div class="input-group-append" (click)="toggleFieldTextType(3)">
                                             <span class="input-group-text cursor">
                                                 <i class="fa" [ngClass]="{
@@ -78,13 +78,13 @@
                                         </div>
                                     </div>
                                     <div
-                                        *ngIf="form.get('confirmarSenha')!.invalid && (form.get('confirmarSenha')!.dirty || form.get('confirmarSenha')!.touched) && !(this.form.controls['confirmarSenha'].getError('notMatch'))">
+                                        *ngIf="form.get('confirmarNovaSenha')!.invalid && (form.get('confirmarNovaSenha')!.dirty || form.get('confirmarNovaSenha')!.touched) && !(this.form.controls['confirmarNovaSenha'].getError('notMatch'))">
                                         <small class="text-danger">
                                             Este campo é requerido
                                         </small>
                                     </div>
                                     <div
-                                        *ngIf="this.form.controls['confirmarSenha'].getError('notMatch')">
+                                        *ngIf="this.form.controls['confirmarNovaSenha'].getError('notMatch')">
                                         <small class="text-danger">
                                             As senhas devem ser iguais.
                                         </small>

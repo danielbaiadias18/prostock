@@ -13,6 +13,7 @@ import { EstoqueComponent } from './pages/estoque/estoque.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ProdutoCadComponent } from './pages/produto-cad/produto-cad.component';
+import { ProdutoRelComponent } from './pages/produto-rel/produto-rel.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { UsuarioCadComponent } from './pages/usuario-cad/usuario-cad.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'produto' , component: ProdutoComponent, canActivate: [AuthGuardService] },
+  { path: 'produto-rel' , component: ProdutoRelComponent, canActivate: [AuthGuardService] },
   { path: 'produto/:id' , component: ProdutoCadComponent, canActivate: [AuthGuardService] },
   { path: 'cliente' , component: ClienteComponent, canActivate: [AuthGuardService] },
   { path: 'cliente/:id' , component: ClienteCadComponent, canActivate: [AuthGuardService] },
