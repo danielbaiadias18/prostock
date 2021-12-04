@@ -12,7 +12,7 @@
           <img src="assets/dist/img/avatar5.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info" [routerLink]="['/perfil']">
-          <a class="d-block">{{ this.auth.currentUserValue.user!.login }}</a>
+          <a class="d-block">{{ this.auth.currentUserValue != null ? this.auth.currentUserValue!.user!.login : "Usuário" }}</a>
         </div>
       </div>
       <!-- Sidebar Menu -->
@@ -70,7 +70,7 @@
                   <p>Cliente</p>
                 </a>
               </li>
-              <li class="nav-item" *ngIf="this.auth.currentUserValue.user?.tipoUsuario == 1">
+              <li class="nav-item" *ngIf="this.auth.currentUserValue?.user?.tipoUsuario == 1">
                 <a href="#" class="nav-link" [routerLink]="['usuario']">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Usuário</p>
