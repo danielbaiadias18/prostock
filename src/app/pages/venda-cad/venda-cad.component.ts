@@ -72,91 +72,108 @@ export class VendaCadComponent implements OnInit {
   };
 
   salvar() {
-    if (this.form.valid) {
+    if (this.produtosVenda.length <= 0) {
+      Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      }).fire({
+        icon: 'warning',
+        title: 'Não é possível realizar uma venda sem produtos!'
+      });
+    } else {
 
-      var data = new Date(this.form.controls['data'].value);
+      if (this.form.valid) {
 
-      var dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
+        var data = new Date(this.form.controls['data'].value);
 
-      var mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
+        var dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
 
-      var ano = data.getFullYear();
+        var mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
 
-      let dataFormatada = dia + "/" + mes + "/" + ano;
+        var ano = data.getFullYear();
 
-      if (this.idVenda! > 0) {
-        this.vendaPost! = {
-          id: this.idVenda,
-          valorTotal: this.vlTotal,
-          desconto: this.form.controls['desconto'].value,
-          acrescimo: this.form.controls['acrescimo'].value,
-          frete: this.form.controls['frete'].value,
-          data: new Date(dataFormatada),
-          status: "concluida",
-          // descricao: this.form.controls['descricao'].value,
-          clienteId: this.form.controls['clienteId'].value.id,
-          usuarioId: this.auth.currentUserValue.user!.id,
-          produtos: this.produtosVenda
-        };
-        
-        this.http.put(environment.api_url + `venda/${this.idVenda}`, this.vendaPost).subscribe((res: any) => {
-          if (res)
-            Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            }).fire({
-              icon: 'success',
-              title: 'Venda alterada com sucesso!'
-            });
-          this.router.navigate(['venda']);
-        });
+        let dataFormatada = dia + "/" + mes + "/" + ano;
+
+        if (this.idVenda! > 0) {
+          this.vendaPost! = {
+            id: this.idVenda,
+            valorTotal: this.vlTotal,
+            desconto: this.form.controls['desconto'].value,
+            acrescimo: this.form.controls['acrescimo'].value,
+            frete: this.form.controls['frete'].value,
+            data: new Date(dataFormatada),
+            status: "concluida",
+            // descricao: this.form.controls['descricao'].value,
+            clienteId: this.form.controls['clienteId'].value.id,
+            usuarioId: this.auth.currentUserValue.user!.id,
+            produtos: this.produtosVenda
+          };
+
+          this.http.put(environment.api_url + `venda/${this.idVenda}`, this.vendaPost).subscribe((res: any) => {
+            if (res)
+              Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              }).fire({
+                icon: 'success',
+                title: 'Venda alterada com sucesso!'
+              });
+            this.router.navigate(['venda']);
+          });
+
+        } else {
+          this.vendaPost! = {
+            id: this.idVenda,
+            valorTotal: this.form.controls['valorTotal'].value,
+            desconto: this.form.controls['desconto'].value,
+            acrescimo: this.form.controls['acrescimo'].value,
+            frete: this.form.controls['frete'].value,
+            data: new Date(dataFormatada),
+            status: "concluida",
+            // descricao: this.form.controls['descricao'].value,
+            clienteId: this.form.controls['clienteId'].value.id,
+            usuarioId: this.auth.currentUserValue.user!.id,
+            produtos: this.produtosVenda
+          };
+
+          this.http.post(environment.api_url + 'venda', this.vendaPost).subscribe((res: any) => {
+            if (res) {
+              Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              }).fire({
+                icon: 'success',
+                title: 'Venda realizada com sucesso!'
+              });
+            }
+            this.router.navigate(['venda']);
+          });
+        }
 
       } else {
-        this.vendaPost! = {
-          id: this.idVenda,
-          valorTotal: this.form.controls['valorTotal'].value,
-          desconto: this.form.controls['desconto'].value,
-          acrescimo: this.form.controls['acrescimo'].value,
-          frete: this.form.controls['frete'].value,
-          data: new Date(dataFormatada),
-          status: "concluida",
-          // descricao: this.form.controls['descricao'].value,
-          clienteId: this.form.controls['clienteId'].value.id,
-          usuarioId: this.auth.currentUserValue.user!.id,
-          produtos: this.produtosVenda
-        };
-        
-        console.log(this.vendaPost, "this.vendaPost")
-
-        this.http.post(environment.api_url + 'venda', this.vendaPost).subscribe((res: any) => {
-          if (res) {
-            Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            }).fire({
-              icon: 'success',
-              title: 'Venda realizada com sucesso!'
-            });
-          }
-          this.router.navigate(['venda']);
-        });
+        Uteis.markFormGroupTouched(this.form)
       }
-    } else {
-      Uteis.markFormGroupTouched(this.form)
     }
   }
 

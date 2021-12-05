@@ -41,8 +41,6 @@ export class ProdutoRelComponent implements OnInit {
           
         // });
         this.vendas = response;
-
-        console.log(this.vendas, "produtos");
       });
 
     var doc = new jsPDF();

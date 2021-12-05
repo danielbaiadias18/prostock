@@ -84,6 +84,7 @@
                                             <th>Nome</th>
                                             <th>Marca</th>
                                             <th>Descrição</th>
+                                            <th>Quantidade</th>
                                             <th style="width: 12%;">Valor Unitário</th>
                                         </tr>
                                     </thead>
@@ -93,10 +94,16 @@
                                             <td>{{ p.nome }}</td>
                                             <td>{{ p.marca }}</td>
                                             <td>{{ p.descricao }}</td>
+                                            <td>{{ p.quantidade }}</td>
                                             <td>{{ p.valorUnit | currency:'BRL' }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12" style="text-align: right;">
+                                <h4>Valor Total: {{venda.valorTotal | currency:'BRL'}}</h4>
                             </div>
                         </div>
                     </div>

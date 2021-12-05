@@ -12,6 +12,7 @@ export interface iProdutoVenda{
 export interface iProdutoVendaGet{
     id: number;
     descricao: string;
+    quantidade: number;
     marca: string;
     nome: string;
     usuarioId: number;

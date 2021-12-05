@@ -41,6 +41,7 @@ export class VendaDetalheComponent implements OnInit {
         this.http.get(`${environment.api_url}venda/${this.venda.id}`)
           .subscribe((response: any) => {
             this.venda = response;
+            console.log(response, "response");
             this.produtosVendaGet = response?.produtos ?? [];
 
             this.form.controls['valorTotal'].setValue(this.venda?.valorTotal);

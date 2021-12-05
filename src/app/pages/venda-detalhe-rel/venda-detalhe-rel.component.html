@@ -144,13 +144,13 @@
             </tbody>
         </table>
         <br>
-        <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Valor&nbsp;&nbsp;Total:</strong>
-            {{ response.valorTotal | currency:'BRL' }}</p>
         <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Acréscimo&nbsp;&nbsp;&nbsp;Total:</strong>
             {{ response.acrescimo | currency:'BRL' }}</p>
         <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Desconto&nbsp;&nbsp;Total:</strong>
             {{ response.desconto | currency:'BRL' }}</p>
         <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Frete&nbsp;Total:</strong>
             {{ response.frete | currency:'BRL' }}</p>
+        <p style="text-align: right;width: 490px;font-size: 9px;" *ngIf="response != null"><strong>Valor&nbsp;&nbsp;Total:</strong>
+            {{ response.valorTotal | currency:'BRL' }}</p>
     </div>
 </div>
