@@ -91,15 +91,13 @@ export class VendaCadComponent implements OnInit {
 
       if (this.form.valid) {
 
-        var data = new Date(this.form.controls['data'].value);
+        var data = this.form.controls['data'].value.split("/");
 
-        var dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
+        var dia = data[0];
+        var mes = data[1];
+        var ano = data[2];
 
-        var mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
-
-        var ano = data.getFullYear();
-
-        let dataFormatada = dia + "/" + mes + "/" + ano;
+        let dataFormatada =  mes + "/" + dia + "/" + ano;
 
         if (this.idVenda! > 0) {
           this.vendaPost! = {
